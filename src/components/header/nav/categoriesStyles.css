@@ -1,0 +1,37 @@
+
+
+.categories{
+    visibility: hidden;
+    top: 38px;
+    box-shadow: 2px 43px 101px -51px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 2px 43px 101px -51px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 43px 101px -51px rgba(0,0,0,0.75);;
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+
+.allCategories:hover .categories{
+    visibility: visible;
+    top: 44.13px;
+    transition: top 0.5s;
+}
+
+.background-decoration{
+   width: 30px;
+   height: 90%;
+}
+
+.allCategories:hover > div> a{
+    font-weight: bold;
+    color: white;
+}
+
+
+.allCategories:hover .background-decoration{
+
+   width: 85%;
+   background-color: #363636;
+   transition: width 0.3s;
+}
+

@@ -1,0 +1,1 @@
+export const TOPOLOGY = 'https://preview.redd.it/1920x1080-topography-wallpapers-made-by-me-request-for-v0-j8m6ykh6ar1a1.jpg?width=1080&crop=smart&auto=webp&s=7eb82c2a583124b0681924c28b9b78acde098bbd'

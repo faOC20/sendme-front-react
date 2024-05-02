@@ -1,0 +1,94 @@
+---
+import Layout from "../layouts/Layout.astro";
+import {HEADER_COLOR, MAIN_COLOR, FOOTER_COLOR} from '../assets/constants/colors.ts'
+import ghostSign from '../assets/images/ghostSign.png'
+import letterLogo from '../assets/images/logo.png'
+import clickhere from '../assets/images/clickhere.png'
+---
+
+<Layout title="Sendme Iniciar sesión">
+    
+    <main class="main-container rounded-3xl flex overflow-hidden justify-center items-center flex-col">
+
+        <div class="absolute top-9 left-1/2">
+            <picture>
+                <img class="w-24" src={clickhere.src} alt="click para ir al inicio">
+            </picture>
+        </div>
+
+        <a href="/">
+            <picture>
+                <img class="w-16" src={letterLogo.src} alt="logo sendme">
+            </picture>
+        </a>
+
+        <div class=" session-card w-full flex flex-col items-center">
+
+            <h1 class="flex justify-center  h-1/5 items-center text-2xl pt-6">
+                <b>Iniciar sesión</b>
+            </h1>
+
+            <div class=" flex h-5/6 w-9/12 justify-center"  >
+                <form class="flex flex-col w-11/12 justify-evenly" action="submit">
+                    <input type="text" placeholder="Correo electrónico">
+                    <input type="text" placeholder="Contraseña">
+                    
+                    <div class="flex items-center">
+                        <label class="text-xs flex-grow">
+                            <input type="checkbox">
+                            Recúerdame
+                        </label>
+
+                        <label>
+                            <a class="text-xs flex-grow" href="">Olvidé mi contraseña</a>
+                        </label>
+                    </div>
+                    
+                    <button class="bg-navigation w-full p-1 text-white rounded-full" >Ingresar</button>
+
+                    <a class="text-xs self-center" href="/register">¿Aún no tiene cuenta? <b>Regístrate</b>.</a>
+                </form>
+            </div>
+        </div>
+    </main>
+</Layout>
+
+<style define:vars={{HEADER_COLOR,MAIN_COLOR, FOOTER_COLOR}}>
+
+    body{
+        display: grid;
+        grid-template:
+		'main ' auto
+		'footer' 160px/
+		auto ; 
+    }
+
+    .session-card{
+        width: 380px;
+        height: 400px;
+        box-shadow: 0px 1px 52px -21px rgba(0,0,0,0.43);
+        -webkit-box-shadow: 0px 1px 52px -21px rgba(0,0,0,0.43);
+        -moz-box-shadow: 0px 1px 52px -21px rgba(0,0,0,0.43);
+    }
+
+    input{
+        border-bottom: solid 1px #3E665F;
+        font-size: small;
+    }
+
+    input:focus{
+        outline: none
+    }
+
+    .footer-container{
+        grid-area: footer;
+    }
+
+    .main-container{
+        grid-area: main;
+        width: 100%;
+        min-height: 500px
+    }
+    
+
+</style>
