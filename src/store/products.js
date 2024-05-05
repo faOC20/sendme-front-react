@@ -11,7 +11,7 @@ export const useProductsStore = create((set)=>{
 		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
 	}
 };
-
+    
     return{
         allProducts: [],
         gamingProducts:[],
