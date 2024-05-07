@@ -7,7 +7,7 @@ export const useProductsStore = create((set)=>{
     const options = {
 	method: 'GET',
 	headers: {
-        // 'X-RapidAPI-Key': 'b774369b69mshdd866bc809ffed2p1d1fb0jsn3aa699f86cf3',
+        // 'X-RapidAPI-Key': 'd143944b40msh9722310421c423fp1e8e88jsnc6d711832658',
 		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
 	}
 };
@@ -119,7 +119,7 @@ export const useProductsStore = create((set)=>{
 
         getClickedProduct: async (id)=>{
             try{
-                const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/product-details?asin=${id}&country=US`)
+                const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/product-details?asin=${id}&country=US`, options)
                 const data = await response.json()
                 return data.data
 
