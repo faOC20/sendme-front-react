@@ -7,7 +7,7 @@ export const ElectronicCategory = ({name})=>{
 
     useEffect(()=>{
         fetchElectronicProducts()
-    },[fetchElectronicProducts])
+    },[])
     
     if (loadingElectronic) {
         return (
