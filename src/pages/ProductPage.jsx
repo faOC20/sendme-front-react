@@ -1,33 +1,70 @@
 import React, {useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useProductsStore } from '../store/products';
+import { useClickedProductStore} from '../store/products';
 import { Header } from '../components/header/Header';
 import { Footer } from '../components/footer/Footer';
 import './ProductPage.css'
+import { Charging } from '../components/miscellaneos/Charging';
+import { Error } from '../components/miscellaneos/Error';
 
 export const ProductPage = () => {
-	const { getClickedProduct } = useProductsStore();
+	const { getClickedProduct, error, clickedProduct} = useClickedProductStore();
 	const[active, setActive]=useState(false)
 	const [loading, setLoading] = useState(true);
 	const [product, setProduct] = useState({});
-	const [productPhoto, setProductPhoto] = useState('')
+	const [productPhoto, setProductPhoto] = useState(null)
 	const [amount, setAmount] = useState(0)
 
 	const { id } = useParams();
 
 	const fetchProduct = async id => {
-		const data = await getClickedProduct(id);
-		setProduct(data);
+		await getClickedProduct(id);
 		setLoading(false);
-		setProductPhoto(data.product_photo)
+		setProductPhoto(clickedProduct.product_photo)
 	};
 
 	useEffect(() => {
-		fetchProduct(id);
+		if(!clickedProduct){
+			
+			fetchProduct(id);
+		}
+
+		else{
+			setLoading(false)
+			setProductPhoto(clickedProduct.product_photo)	
+		}
+		
 	}, []);
 
+	useEffect(() => {
+		if (clickedProduct) {
+		  setProductPhoto(clickedProduct.product_photo);
+		}
+	  }, [clickedProduct]);
+
+	
+
+	if (loading) {
+        return (
+          <>
+			<Charging/>
+          </>
+        )
+    }
+
+	if (error && !clickedProduct) {
+		console.log('entre aqui')
+        return (
+			<>
+				<Error/>
+			</>
+		)
+      }
+
+
     return(
-        <>
+        
+			
             
                 <>
 					<Header/>
@@ -35,25 +72,22 @@ export const ProductPage = () => {
 					
 		
 					<main className="main-container flex justify-center items-center">
-					{loading?(
-						
-						<div className='flex justify-center items-center w-24 h-28 border border-navigation rounded-3xl'>Cargando...</div>
 						
                 
-           			 ):(
+           			
 						<section className="w-full h-full flex flex-col content-center z-10">
 						
 						<section className="product-info-container">
 							
 							<div className='product-images rounded-3xl shadow-detail flex flex-col overflow-hidden items-center justify-center'>
 								{
-									product.product_photos.map(photo=>(
+									clickedProduct.product_photos.map(photo=>(
 										<button className='w-fit m-2' onClick={()=>{
 											setProductPhoto(photo)
 											setActive(true)
 										}}>
 											<picture>
-												<img  className='flex-grow w-24' src={photo} alt={`imagen de ${product.product_title}`}/>
+												<img  className='flex-grow w-24' src={photo} alt={`imagen de ${clickedProduct.product_title}`}/>
 											</picture>
 										</button>
 									)).slice(0,3)
@@ -62,19 +96,19 @@ export const ProductPage = () => {
 							
 							<div className='product-image-viewer rounded-3xl shadow-detail flex overflow-hidden  items-center justify-center'>
 								<picture>
-									<img className='w-80' src={productPhoto} alt={`imagen de ${product.product_title}`} />
+									<img className='w-80' src={productPhoto} alt={`imagen de ${clickedProduct.product_title}`} />
 								</picture>
 							</div>
 							
 							<div className='product-selection rounded-3xl shadow-detail flex overflow-hidden p-3'>
 								
 								<div className='w-7/12 h-full p-3 flex flex-col'>
-									<h1>{product.product_title}</h1>
+									<h1>{clickedProduct.product_title}</h1>
 									<div className='flex justify-evenly mt-4'>
 										{
-											product.product_variations.color?.map((variation_color)=>(
+											clickedProduct.product_variations.color?.map((variation_color)=>(
 												<button>
-													<img className='w-12' src={variation_color.photo} alt={`variacion de ${product.product_title}`}/>
+													<img className='w-12' src={variation_color.photo} alt={`variacion de ${clickedProduct.product_title}`}/>
 												</button>
 											))
 										} 
@@ -84,7 +118,7 @@ export const ProductPage = () => {
 										<b>Capacidad</b>
 										<div className='flex justify-between'>
 										{
-											product.product_variations.size?.map((variation_size)=>(
+											clickedProduct.product_variations.size?.map((variation_size)=>(
 												<button className='w-fit'>
 													<button>{variation_size.value}</button>
 												</button>
@@ -101,7 +135,7 @@ export const ProductPage = () => {
 
 								<div className='w-5/12 h-full p-3 border-2 rounded-3xl flex flex-col justify-between'>
 									<div className='flex-flex-col w-full'>
-										<b className='text-lg'>{product.product_price} USD</b>
+										<b className='text-lg'>{clickedProduct.product_price} USD</b>
 
 										<div className='flex'>
 											cantidad: {amount}
@@ -127,20 +161,21 @@ export const ProductPage = () => {
 							<div className="product-info rounded-3xl shadow-detail  overflow-auto overflow-x-hidden">
 								<div className='p-3'>
 									<b>Acerca de este articulo</b>
-									<h1>{product.product_description}</h1>
+									<h1>{clickedProduct.product_description}</h1>
 									{/* <p>{product.product_information}</p> */}
 								</div>
 							</div>
 						</section>
 						
 						</section>
-						)}
+						
 					</main>
 					
 
 					<Footer/>
 				</>
             
-        </>
+    
     )
 }
+

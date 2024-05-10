@@ -6,8 +6,10 @@ export const GamingCategory = ({name})=>{
     const {gamingProducts, fetchGamingProducts, loadingGaming, error} = useProductsStore()
 
     useEffect(()=>{
-        fetchGamingProducts()
-    },[fetchGamingProducts])
+        if(!gamingProducts){
+          fetchGamingProducts()
+        }
+    },[])
     
     if (loadingGaming) {
         return (
@@ -17,7 +19,7 @@ export const GamingCategory = ({name})=>{
         )
       }
     
-      if (error) {
+      if (error&&!gamingProducts) {
         return <div>{error}</div>
       }
 

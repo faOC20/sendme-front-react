@@ -6,8 +6,10 @@ export const ClothesCategory = ({name})=>{
     const {clothesProducts, fetchClothesProducts, loadingClothes, error} = useProductsStore()
 
     useEffect(()=>{
-        fetchClothesProducts()
-    },[fetchClothesProducts])
+        if(!clothesProducts){
+          fetchClothesProducts()
+        }
+    },[])
     
     if (loadingClothes) {
         return (
@@ -17,7 +19,7 @@ export const ClothesCategory = ({name})=>{
         )
       }
     
-      if (error) {
+      if (error&&!clothesProducts) {
         return <div>{error}</div>
       }
 

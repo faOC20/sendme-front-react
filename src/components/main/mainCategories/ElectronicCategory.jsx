@@ -1,4 +1,4 @@
-import { useProductsStore } from "../../../store/products"
+import { useProductsStore} from "../../../store/products"
 import { useEffect } from "react"
 import { ProductSlot } from "../ProductSlot"
 
@@ -6,7 +6,9 @@ export const ElectronicCategory = ({name})=>{
     const {electronicProducts, fetchElectronicProducts, loadingElectronic, error} = useProductsStore()
 
     useEffect(()=>{
+      if(!electronicProducts){
         fetchElectronicProducts()
+      }
     },[])
     
     if (loadingElectronic) {
@@ -17,7 +19,7 @@ export const ElectronicCategory = ({name})=>{
         )
       }
     
-      if (error) {
+      if (error&&!electronicProducts) {
         return <div>{error}</div>
       }
 

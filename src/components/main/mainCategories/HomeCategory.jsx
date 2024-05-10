@@ -7,8 +7,10 @@ export const HomeCategory = ({name})=>{
     const {homeProducts, fetchHomeProducts, loadingHome, error} = useProductsStore()
 
     useEffect(()=>{
-        fetchHomeProducts()
-    },[fetchHomeProducts])
+        if (!homeProducts){
+          fetchHomeProducts()
+        }
+    },[])
     
     if (loadingHome) {
         return (
@@ -18,7 +20,7 @@ export const HomeCategory = ({name})=>{
         )
       }
     
-      if (error) {
+      if (error&&!homeProducts) {
         return <div>{error}</div>
       }
 

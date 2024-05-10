@@ -18,12 +18,12 @@ export const Main = ()=>{
         <>
               <MainHeader/>
               <div className="products-grid">
-              {/* <GamingCategory name='Gaming'/> */}
-              {/* <HealthCategory name='Salud y belleza'/>          */}
+              <GamingCategory name='Gaming'/> 
+              <HealthCategory name='Salud y belleza'/>          
               <ElectronicCategory name='Electrónica'/>
-              {/* <AutomotorCategory name='Automotriz'/> 
+              <AutomotorCategory name='Automotriz'/> 
               <HomeCategory name='Hogar y cocina'/>
-              <ClothesCategory name='Ropa y accesorios'/> */}
+              <ClothesCategory name='Ropa y accesorios'/>
             </div>
 
            

@@ -6,8 +6,10 @@ export const AutomotorCategory = ({name})=>{
     const {automotorsProducts, fetchAutomotorsProducts, loadingAutomotors, error} = useProductsStore()
 
     useEffect(()=>{
-        fetchAutomotorsProducts()
-    },[fetchAutomotorsProducts])
+        if(!automotorsProducts){
+          fetchAutomotorsProducts()
+        }
+    },[])
     
     if (loadingAutomotors) {
         return (
@@ -17,7 +19,7 @@ export const AutomotorCategory = ({name})=>{
         )
       }
     
-      if (error) {
+      if (error&&!automotorsProducts) {
         return <div>{error}</div>
       }
 

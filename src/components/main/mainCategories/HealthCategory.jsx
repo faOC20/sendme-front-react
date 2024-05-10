@@ -6,8 +6,10 @@ export const HealthCategory = ({name})=>{
     const {healthProducts, fetchHealthProducts, loadingHealth, error} = useProductsStore()
 
     useEffect(()=>{
-        fetchHealthProducts()
-    },[fetchHealthProducts])
+        if(!healthProducts){
+          fetchHealthProducts()
+        }
+    },[])
     
     if (loadingHealth) {
         return (
@@ -17,7 +19,7 @@ export const HealthCategory = ({name})=>{
         )
       }
     
-      if (error) {
+      if (error&&!healthProducts) {
         return <div>{error}</div>
       }
 
