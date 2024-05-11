@@ -6,14 +6,19 @@ import { Footer } from '../components/footer/Footer';
 import './ProductPage.css'
 import { Charging } from '../components/miscellaneos/Charging';
 import { Error } from '../components/miscellaneos/Error';
+import { ImageCard } from '../components/productPage/ImageCard';
+import { VariationCard } from '../components/productPage/VariationCard';
+import { SizeVariationCard } from '../components/productPage/SizeVariationCard';
 
 export const ProductPage = () => {
 	const { getClickedProduct, error, clickedProduct} = useClickedProductStore();
-	const[active, setActive]=useState(false)
+	const[activePhoto, setActivePhoto]=useState(false)
 	const [loading, setLoading] = useState(true);
-	const [product, setProduct] = useState({});
 	const [productPhoto, setProductPhoto] = useState(null)
 	const [amount, setAmount] = useState(0)
+	const [price, setPrice]= useState(0)
+	const[activeVariation, setActiveVariation] = useState(false)
+	const[activeSize, setActiveSize] = useState(false)
 
 	const { id } = useParams();
 
@@ -39,6 +44,7 @@ export const ProductPage = () => {
 	useEffect(() => {
 		if (clickedProduct) {
 		  setProductPhoto(clickedProduct.product_photo);
+		  setPrice(clickedProduct.product_price)
 		}
 	  }, [clickedProduct]);
 
@@ -82,60 +88,56 @@ export const ProductPage = () => {
 							<div className='product-images rounded-3xl shadow-detail flex flex-col overflow-hidden items-center justify-center'>
 								{
 									clickedProduct.product_photos.map(photo=>(
-										<button className='w-fit m-2' onClick={()=>{
-											setProductPhoto(photo)
-											setActive(true)
-										}}>
-											<picture>
-												<img  className='flex-grow w-24' src={photo} alt={`imagen de ${clickedProduct.product_title}`}/>
-											</picture>
-										</button>
+										<ImageCard photo={photo} setProductPhoto={setProductPhoto} activePhoto={activePhoto} setActivePhoto={setActivePhoto}/>
 									)).slice(0,3)
 								}
 							</div>
 							
 							<div className='product-image-viewer rounded-3xl shadow-detail flex overflow-hidden  items-center justify-center'>
 								<picture>
-									<img className='w-80' src={productPhoto} alt={`imagen de ${clickedProduct.product_title}`} />
+									<img className='max-w-72 rounded-lg' src={productPhoto} alt={`imagen de ${clickedProduct.product_title}`} />
 								</picture>
 							</div>
 							
 							<div className='product-selection rounded-3xl shadow-detail flex overflow-hidden p-3'>
 								
 								<div className='w-7/12 h-full p-3 flex flex-col'>
-									<h1>{clickedProduct.product_title}</h1>
-									<div className='flex justify-evenly mt-4'>
+									<b className='text-lg'>{clickedProduct.product_title}</b>
+									<div className='flex flex-wrap mt-4 max-h-80 justify-center overflow-y-auto'>
 										{
 											clickedProduct.product_variations.color?.map((variation_color)=>(
-												<button>
-													<img className='w-12' src={variation_color.photo} alt={`variacion de ${clickedProduct.product_title}`}/>
-												</button>
+												<VariationCard variation_color={variation_color} setActiveVariation = {setActiveVariation} activeVariation={activeVariation}/>
 											))
 										} 
 									</div>
 
-									<div className='flex flex-col w-6/12 mt-4'>
-										<b>Capacidad</b>
-										<div className='flex justify-between'>
+									<div className='flex flex-col w-10/12 mt-4'>
+										
+										{
+											clickedProduct.product_variations.size?(
+												<div>
+													<b>Tamaño:</b> 
+												</div>
+											):(
+												<></>
+											)
+										}
+
+										<div className='flex flex-wrap'>
 										{
 											clickedProduct.product_variations.size?.map((variation_size)=>(
-												<button className='w-fit'>
-													<button>{variation_size.value}</button>
-												</button>
+												<SizeVariationCard variation_size={variation_size} setActiveSize={setActiveSize} activeSize={activeSize}/>
 											))
 										}
 										</div>
 									</div>
 
-									<div className='mt-4'>
-										<b>Estado</b>
-
-									</div>
+	
 								</div>
 
 								<div className='w-5/12 h-full p-3 border-2 rounded-3xl flex flex-col justify-between'>
 									<div className='flex-flex-col w-full'>
-										<b className='text-lg'>{clickedProduct.product_price} USD</b>
+										<b className='text-lg'>{price} USD</b>
 
 										<div className='flex'>
 											cantidad: {amount}
@@ -161,11 +163,24 @@ export const ProductPage = () => {
 							<div className="product-info rounded-3xl shadow-detail  overflow-auto overflow-x-hidden">
 								<div className='p-3'>
 									<b>Acerca de este articulo</b>
-									<h1>{clickedProduct.product_description}</h1>
-									{/* <p>{product.product_information}</p> */}
+									<p className='mb-2'>{clickedProduct.product_description}</p>
+									
+									<section className='flex flex-col'>
+										
+										{
+											Object.entries(clickedProduct.product_information).map(([key, value]) => (
+												<div>
+													<b>{`${key}: `}</b>
+													{value}
+												</div>
+
+											))
+										}
+										
+									</section>
 								</div>
 							</div>
-						</section>
+						</section>	
 						
 						</section>
 						
