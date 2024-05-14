@@ -17,7 +17,7 @@ export const SizeVariationCard = ({variation_size, setActiveSize, activeSize})=>
         <>
             <a href={`/product/${variation_size.asin}`} onClick={()=>{
                 setActiveSize(variation_size)
-                if (variation_size.asin===clickedProduct.asin){
+                if (variation_size.asin!==clickedProduct.asin){
                     localStorage.removeItem('productpage-storage');
                 }
                 

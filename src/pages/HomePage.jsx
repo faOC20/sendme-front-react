@@ -8,6 +8,7 @@ export const HomePage = ()=>{
 	useEffect(()=>{
 		
 		localStorage.removeItem('productpage-storage');
+		localStorage.removeItem('searching-storage')
 		  
 	},[])
 

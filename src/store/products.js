@@ -147,10 +147,21 @@ const url = 'https://real-time-amazon-data.p.rapidapi.com/search?page=1&country=
     const options = {
 	method: 'GET',
 	headers: {
-        'X-RapidAPI-Key': '5c04ab628amsh7147187e5ac4bd7p180716jsn29a018d207e3',
+        'X-RapidAPI-Key': '674d6f4c44msh7c6f8a6712f227fp12a65ajsn4e9f60866025',
 		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
 	}
 };
+
+
+try {
+	const response = await fetch(url, options);
+	const result = await response.text();
+	console.log(result);
+} catch (error) {
+	console.error(error);
+}
+
+
 
 export const useProductsStore = create(
     
@@ -311,19 +322,43 @@ export const useProductsStore = create(
                     set({error:"Error fetching products"})
                 }
             }
-    
-    
-    
-            
-            
-    
-    
-    
         }
         
       ),
       {
         name: 'productpage-storage', // Nombre único para el almacenamiento
+        storage: createJSONStorage(() => localStorage), // Puedes cambiar esto a otro almacenamiento
+      }
+    )
+
+
+  );
+
+  export const useSearchProductsStore = create(
+    
+    persist(
+      (set) => ({
+    
+            error:null,
+            searchedProducts:null,
+            
+            getSearchProducts: async (query, page)=>{
+                try{
+                    const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/search?query=${query}&page=${page}&country=US`, options)
+                    const data = await response.json()
+                    console.log(data)
+                    set({searchedProducts:data.data.products})
+    
+                } catch(error){
+                    console.error(error)
+                    set({error:"Error fetching products"})
+                }
+            }
+        }
+        
+      ),
+      {
+        name: 'searching-storage', // Nombre único para el almacenamiento
         storage: createJSONStorage(() => localStorage), // Puedes cambiar esto a otro almacenamiento
       }
     )

@@ -9,7 +9,7 @@ export const GamingCategory = ({name})=>{
         if(!gamingProducts){
           fetchGamingProducts()
         }
-    },[])
+    },[gamingProducts])
     
     if (loadingGaming) {
         return (
@@ -31,12 +31,13 @@ export const GamingCategory = ({name})=>{
 
             {
                 gamingProducts.map((data)=>(
-                    <div className="flex w-3/4 h-3/4 pb-5">
+                    <div className="flex w-3/4 h-3/4 pb-5 justify-center">
                       <ProductSlot 
                             key={data.asin}
                             id={data.asin}
                             photo={data.product_photo}
                             name={data.product_title}
+                            price = {data.product_price}
                         />
                 </div>)).slice(0,1)
             }

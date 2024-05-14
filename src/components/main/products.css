@@ -7,8 +7,8 @@
         grid-auto-rows: 240px;
         justify-items: center;
         align-items: center;
-        gap: 30px;
-        margin-bottom: 2rem;   
+        gap: 15px;
+        margin-bottom: 1rem;   
         padding-left: 30px;
         padding-right: 30px;
         z-index: 100;
@@ -37,20 +37,50 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        height: 90%;
+        height: 100%;
         box-shadow: 0px -2px 28px -16px rgba(0,0,0,0.47);
         -webkit-box-shadow: 0px -2px 28px -16px rgba(0,0,0,0.47);
         -moz-box-shadow: 0px -2px 28px -16px rgba(0,0,0,0.47);
         border-radius: 50px;
         color: #3E665F;
+        max-width: 200px;
+        max-height: 200px;
         overflow: hidden;
         
 }
 
-.product-container>ul{
-
-        display: none;
+.product-image-container{
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        padding: 5px;
         
+}
+
+.product-image-container>picture>img{
+        object-fit: cover; /* Ajusta la imagen manteniendo la proporción */
+        width: 100%;
+        height: 100%;
+}
+
+.product-name{
+        width: 100%;
+        display: flex;
+        font-size: 14.5px;
+        text-decoration: none;	
+        color: black;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        
+}
+.product-name>ul{
+        width: 100%;
+}
+
+.product-name>ul>li{
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
 }
 
 
@@ -72,31 +102,11 @@
 }
 
 
-.sprite-container{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-content: center;
-        justify-content: center;
-        padding: 5px;
-        
-}
-
-.sprite-container>picture>img{
-        object-fit: cover; /* Ajusta la imagen manteniendo la proporción */
-        width: 900%;
-        height: 100%;
-}
 
 
-.pokemon-name{
-        display: flex;
-        font-size: 10px;
-        text-decoration: none;	
-        list-style-type: none;
-        justify-content: center;
-        color: black;
-}
+
+
+
 
 .type-container-container{
         display: flex;

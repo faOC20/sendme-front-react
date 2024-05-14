@@ -9,7 +9,7 @@ export const ClothesCategory = ({name})=>{
         if(!clothesProducts){
           fetchClothesProducts()
         }
-    },[])
+    },[clothesProducts])
     
     if (loadingClothes) {
         return (
@@ -39,6 +39,7 @@ export const ClothesCategory = ({name})=>{
                     id={data.asin}
                     photo={data.product_photo}
                     name={data.product_title}
+                    price = {data.product_price}
                     
                 />
             </div>

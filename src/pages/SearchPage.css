@@ -1,0 +1,8 @@
+.searched-container{
+    padding-left: 7rem;
+    padding-right: 7rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    grid-auto-rows: 240px;
+    gap: 10px;
+}

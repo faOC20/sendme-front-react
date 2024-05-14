@@ -9,7 +9,7 @@ export const AutomotorCategory = ({name})=>{
         if(!automotorsProducts){
           fetchAutomotorsProducts()
         }
-    },[])
+    },[automotorsProducts])
     
     if (loadingAutomotors) {
         return (
@@ -31,12 +31,13 @@ export const AutomotorCategory = ({name})=>{
 
             {
                 automotorsProducts.map((data)=>(
-                  <div className="flex w-3/4 h-3/4 mb-4">
+                  <div className="flex w-3/4 h-3/4 mb-4 justify-center">
                     <ProductSlot 
                           key={data.asin}
                           id={data.asin}
                           photo={data.product_photo}
                           name={data.product_title}
+                          price = {data.product_price}
                       />
                   </div>
                   )).slice(0,1)

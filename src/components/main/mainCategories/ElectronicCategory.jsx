@@ -9,7 +9,7 @@ export const ElectronicCategory = ({name})=>{
       if(!electronicProducts){
         fetchElectronicProducts()
       }
-    },[])
+    },[electronicProducts])
     
     if (loadingElectronic) {
         return (
@@ -39,7 +39,7 @@ export const ElectronicCategory = ({name})=>{
                     id={data.asin}
                     photo={data.product_photo}
                     name={data.product_title}
-                    
+                    price = {data.product_price}
                 />
             </div>
             )).slice(0,3)

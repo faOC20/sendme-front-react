@@ -15,7 +15,7 @@ export const ProductPage = () => {
 	const[activePhoto, setActivePhoto]=useState(false)
 	const [loading, setLoading] = useState(true);
 	const [productPhoto, setProductPhoto] = useState(null)
-	const [amount, setAmount] = useState(0)
+	const [amount, setAmount] = useState(1)
 	const [price, setPrice]= useState(0)
 	const[activeVariation, setActiveVariation] = useState(false)
 	const[activeSize, setActiveSize] = useState(false)
@@ -44,7 +44,7 @@ export const ProductPage = () => {
 	useEffect(() => {
 		if (clickedProduct) {
 		  setProductPhoto(clickedProduct.product_photo);
-		  setPrice(clickedProduct.product_price)
+		  setPrice(clickedProduct.product_price.replace(/\$/g, ''))
 		}
 	  }, [clickedProduct]);
 
@@ -137,23 +137,46 @@ export const ProductPage = () => {
 
 								<div className='w-5/12 h-full p-3 border-2 rounded-3xl flex flex-col justify-between'>
 									<div className='flex-flex-col w-full'>
-										<b className='text-lg'>{price} USD</b>
+										
+										<div className='flex flex-col'>
+											<b className='text-2xl'>{price*amount} USD</b>
+											<b className='text-lg text-gray-500'>{price*amount*36} Ves</b> 
+											{/* conectar con api de dolar a bcv */}
+										</div>
+										
 
 										<div className='flex'>
-											cantidad: {amount}
-											<button onClick={()=>{
-												setAmount(amount+1)
-											}}>+</button>
+											<div className='w-full flex items-center bg-gray-200 rounded-full p-1'>
+												<button className='flex-grow text-red-500 font-bold text-lg' onClick={()=>{
+													{
+														amount<=1?(
+															setAmount(1)
+														):(setAmount(amount-1))
+													}
+												}}>-</button>
+												
+												<b className='flex-grow text-center'>cantidad: {amount}</b>
+												
+												<button className='flex-grow text-green-500 font-bold text-lg' onClick={()=>{
+													amount>=2?(
+														setAmount(2)
+													):(setAmount(amount+1))
+												}}>+</button>
+											</div>
+											
 										</div>
 									</div>
+
 
 									<div className='flex flex-col'>
 										<button className='rounded-full bg-main-decoration p-2 mt-3'>Añadir al carrito</button>
 										<button className='rounded-full bg-navigation text-white mt-3 p-2'>Comprar ahora</button>
 									</div>
 
-									<div className='bg-yellow-400'>
+									<div className='w-full h-2/5 p-2'>
+									<div className='bg-main-decoration w-full h-full rounded-lg'>
 										PNG DE METODOS DE PAGO
+									</div>
 									</div>
 
 									<button className='rounded-full border'>Añadir a la lista de deseos</button>

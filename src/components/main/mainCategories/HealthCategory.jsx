@@ -9,7 +9,7 @@ export const HealthCategory = ({name})=>{
         if(!healthProducts){
           fetchHealthProducts()
         }
-    },[])
+    },[healthProducts])
     
     if (loadingHealth) {
         return (
@@ -31,12 +31,13 @@ export const HealthCategory = ({name})=>{
 
             {
                 healthProducts.map((data)=>(
-                  <div className="flex w-2/4 h-2/4 mb-4">
+                  <div className="flex w-2/4 h-2/4">
                     <ProductSlot 
                           key={data.asin}
                           id={data.asin}
                           photo={data.product_photo}
                           name={data.product_title}
+                          price = {data.product_price}
                       />
                   </div>
                   )).slice(0,2)
