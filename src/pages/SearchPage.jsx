@@ -9,6 +9,7 @@ import { ProductSlot } from "../components/main/ProductSlot";
 import { numPages } from "../assets/constants/numPages";
 import './SearchPage.css'
 import { NumPageCard } from "../components/searchPage/NumPageCard";
+import '../pages/PageStyles.css'
 
 
 export const SearchPage = ()=>{
@@ -54,7 +55,7 @@ export const SearchPage = ()=>{
 
 
     return (
-        <>
+        <div className="all-container">
             <Header/>
             <main className="main-container flex items-center flex-col">
 
@@ -93,6 +94,6 @@ export const SearchPage = ()=>{
                 </div>
             </main>
             <Footer/>
-        </>
+        </div>
     )
 }

@@ -3,6 +3,7 @@ import { categories } from "../../../assets/constants/categories"
 import './categoriesStyles.css'
 import { MenuIcon } from "../../../assets/icons/MenuIcon"
 import { DownIcon } from "../../../assets/icons/DownIcon"
+import { HorizontalCategory } from "./HorizontalCategory"
 export const Navigation = ()=>{
     return (
         <nav className="navigation bg-navigation h-1/3 text-lg relative">
@@ -35,21 +36,13 @@ export const Navigation = ()=>{
                     
                 </li>
                 
-                <li class="h-full flex items-center z-20 grow justify-center w-full">
-                    <a href="">Más vendidos</a>
-                </li>
+               
 
-                <li class="h-full flex items-center z-20 grow justify-center w-full">
-                    <a href="">Hogar</a>
-                </li>
-
-                <li class="h-full flex items-center z-20 grow justify-center w-full">
-                    <a href="">Tecnología</a>
-                </li>
-
-                <li class="h-full flex items-center z-20 grow justify-center w-full">
-                    <a href="">Deportes</a>
-                </li>
+                {
+                    categories.map((category)=>(
+                        <HorizontalCategory category={category}/>
+                    )).slice(1,4)
+                }
                 
             </ul>
         </nav>

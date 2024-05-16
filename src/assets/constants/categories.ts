@@ -1,16 +1,13 @@
 export const categories = [
     'Belleza',
     'Hogar',
-    'Tecnlogía',
-    'Electronica',
+    'Tecnología',
+    'Electrónica',
     'ropa',
     'accesorios',
     'videojuegos',
     'autopartes',
-    'varios',
-    'sexshop',
-    'Electronica',
-    'ropa',
+    
     
     
 ]

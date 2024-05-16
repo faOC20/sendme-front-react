@@ -9,6 +9,7 @@ import { Error } from '../components/miscellaneos/Error';
 import { ImageCard } from '../components/productPage/ImageCard';
 import { VariationCard } from '../components/productPage/VariationCard';
 import { SizeVariationCard } from '../components/productPage/SizeVariationCard';
+import '../pages/PageStyles.css'
 
 export const ProductPage = () => {
 	const { getClickedProduct, error, clickedProduct} = useClickedProductStore();
@@ -72,7 +73,7 @@ export const ProductPage = () => {
         
 			
             
-                <>
+                <div className='all-container'>
 					<Header/>
 
 					
@@ -102,7 +103,7 @@ export const ProductPage = () => {
 							<div className='product-selection rounded-3xl shadow-detail flex overflow-hidden p-3'>
 								
 								<div className='w-7/12 h-full p-3 flex flex-col'>
-									<b className='text-lg'>{clickedProduct.product_title}</b>
+									<b className='text-lg text-start'>{clickedProduct.product_title}</b>
 									<div className='flex flex-wrap mt-4 max-h-80 justify-center overflow-y-auto'>
 										{
 											clickedProduct.product_variations.color?.map((variation_color)=>(
@@ -115,8 +116,8 @@ export const ProductPage = () => {
 										
 										{
 											clickedProduct.product_variations.size?(
-												<div>
-													<b>Tamaño:</b> 
+												<div className='flex'>
+													<b className='text-start'>Tamaño:</b> 
 												</div>
 											):(
 												<></>
@@ -146,7 +147,7 @@ export const ProductPage = () => {
 										
 
 										<div className='flex'>
-											<div className='w-full flex items-center bg-gray-200 rounded-full p-1'>
+											<div className='w-full flex items-center bg-gray-200 rounded-full p-1 mt-2'>
 												<button className='flex-grow text-red-500 font-bold text-lg' onClick={()=>{
 													{
 														amount<=1?(
@@ -184,7 +185,7 @@ export const ProductPage = () => {
 							</div>
 							
 							<div className="product-info rounded-3xl shadow-detail  overflow-auto overflow-x-hidden">
-								<div className='p-3'>
+								<div className='p-3 text-start'>
 									<b>Acerca de este articulo</b>
 									<p className='mb-2'>{clickedProduct.product_description}</p>
 									
@@ -211,7 +212,7 @@ export const ProductPage = () => {
 					
 
 					<Footer/>
-				</>
+				</div>
             
     
     )
