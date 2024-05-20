@@ -1,6 +1,6 @@
 import React, {useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useClickedProductStore} from '../store/products';
+import { useClickedProductStore, useShoppingCartStore} from '../store/products';
 import { Header } from '../components/header/Header';
 import { Footer } from '../components/footer/Footer';
 import './ProductPage.css'
@@ -10,9 +10,11 @@ import { ImageCard } from '../components/productPage/ImageCard';
 import { VariationCard } from '../components/productPage/VariationCard';
 import { SizeVariationCard } from '../components/productPage/SizeVariationCard';
 import '../pages/PageStyles.css'
+import { BuyButton } from '../components/productPage/BuyButton';
 
 export const ProductPage = () => {
 	const { getClickedProduct, error, clickedProduct} = useClickedProductStore();
+	const {cart, addToCart } = useShoppingCartStore();
 	const[activePhoto, setActivePhoto]=useState(false)
 	const [loading, setLoading] = useState(true);
 	const [productPhoto, setProductPhoto] = useState(null)
@@ -170,8 +172,10 @@ export const ProductPage = () => {
 
 
 									<div className='flex flex-col'>
-										<button className='rounded-full bg-main-decoration p-2 mt-3'>Añadir al carrito</button>
-										<button className='rounded-full bg-navigation text-white mt-3 p-2'>Comprar ahora</button>
+										<button onClick={()=>{
+											addToCart({...clickedProduct, amount})
+										}} className='rounded-full bg-main-decoration p-2 mt-3'>Añadir al carrito</button>
+										<BuyButton/>
 									</div>
 
 									<div className='w-full h-2/5 p-2'>

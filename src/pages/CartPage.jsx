@@ -1,0 +1,75 @@
+import "./PageStyles.css"
+import './CartPage.css'
+import { Header } from "../components/header/Header"
+import { Footer } from "../components/footer/Footer"
+import { useShoppingCartStore } from "../store/products"
+import { ProductDetail } from "../components/cartPage/ProductDetail"
+import { BuyButton } from "../components/productPage/BuyButton"
+import { useEffect, useState } from "react"
+
+export const CartPage = ()=>{
+
+    const {cart} = useShoppingCartStore()
+    const [subtotal, setSubTotal] = useState(0)
+    const [totalAmount, setAmount] = useState(0)
+
+    useEffect(()=>{
+        setSubTotal(cart.reduce((acc, product) => acc + parseFloat(product.product_price.replace(/\$/g, ''))*product.amount, 0));
+        setAmount(cart.reduce((acc, product)=> acc+product.amount,0))
+    },[cart])
+
+
+
+    return (
+        <>
+            <div className="all-container">
+                <Header/>
+                <main className="main-container">
+                    <h1 className="flex justify-center items-center h-20 text-2xl font-bold">Carrito</h1>
+                    
+                    <div className="flex ml-20 mr-20 mb-20">
+                       {
+                            cart.length > 0?(
+                                <section className="w-3/5 mr-2">
+                                {
+                                    cart.map((product)=>(
+                                        <ProductDetail product={product}/>
+                                    ))
+                                }
+                                </section>
+                            ):(
+                                <div className="w-3/5 mr-2">
+                                    Carrito vacío
+                                </div>
+                            )
+
+                       }
+
+                        <section className=" h-52 flex-grow ml-2 rounded-3xl shadow-detail">
+                            <div className="w-full h-2/3 p-5 text-start flex flex-col justify-evenly">
+                                <b>Subtotal</b>
+                                <div className="flex">
+                                    <p>USD </p>
+                                    <b className="ml-1">{subtotal}</b>  
+                                </div>
+                                <div className="flex">
+                                    <p>Ves </p>
+                                    <b className="ml-1">{subtotal*36}</b>  
+                                </div>
+                                <div className="flex">
+                                    <p>Cantidad de productos: </p>
+                                    <b className="ml-1">{totalAmount}</b>
+                                </div>
+                            </div>
+                            <div className="flex-grow flex items-center justify-center">
+                                <BuyButton/>
+                            </div>
+                        </section>
+                    </div>
+                   
+                </main>
+                <Footer/>
+            </div>
+        </>
+    )
+}

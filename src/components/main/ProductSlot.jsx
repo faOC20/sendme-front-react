@@ -8,7 +8,9 @@ import { BrowserRouter } from "react-router-dom";
 export const ProductSlot = ({id, name, photo, price})=>{
     return(
             
-                <a href={`/product/${id}`} className="product-container">
+                <a href={`/product/${id}`} onClick={()=>{
+                    localStorage.removeItem('productpage-storage')
+                }} className="product-container">
 
                     <div className="product-image-container h-2/3">
                         <picture>

@@ -60,7 +60,7 @@ export const SearchPage = ()=>{
             <main className="main-container flex items-center flex-col">
 
                 <div className="flex justify-center items-center w-full h-20">
-                    <h1 className="text-3xl font-bold">
+                    <h1 className="text-2xl font-bold">
                         {query}
                     </h1>
                 </div>

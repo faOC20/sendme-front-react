@@ -11,6 +11,7 @@ export const SearchBar = ()=>{
       event.preventDefault()
       window.location.href = `/search/${query}`;
       localStorage.removeItem('searching-storage')
+      
     }
     
     

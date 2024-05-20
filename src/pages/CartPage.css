@@ -1,0 +1,23 @@
+/* .grid-container{
+    display: grid;
+    grid-template: 
+    'product product cart-detail' 200px/
+    auto auto 45%;
+}
+
+.product{
+    grid-area: product;
+    background-color: red;
+}
+
+.cart-detail{
+    grid-area: cart-detail;
+    background-color: blue;
+} */
+
+.shadow-detail{
+    box-shadow: 0px -2px 28px -16px rgba(0,0,0,0.47);
+    -webkit-box-shadow: 0px -2px 28px -16px rgba(0,0,0,0.47);
+    -moz-box-shadow: 0px -2px 28px -16px rgba(0,0,0,0.47);
+    background-color: #fff;
+}
