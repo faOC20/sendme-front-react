@@ -11,10 +11,13 @@ export const CartPage = ()=>{
 
     const {cart} = useShoppingCartStore()
     const [subtotal, setSubTotal] = useState(0)
+    const [bsSubtotal, setBsSubtotal] = useState(0)
     const [totalAmount, setAmount] = useState(0)
 
     useEffect(()=>{
-        setSubTotal(cart.reduce((acc, product) => acc + parseFloat(product.product_price.replace(/\$/g, ''))*product.amount, 0));
+        const subTotal = cart.reduce((acc, product) => acc + parseFloat(product.product_price.replace(/\$/g, ''))*product.amount, 0)
+        setSubTotal(subTotal);
+        setBsSubtotal(subTotal*36)
         setAmount(cart.reduce((acc, product)=> acc+product.amount,0))
     },[cart])
 
@@ -50,11 +53,11 @@ export const CartPage = ()=>{
                                 <b>Subtotal</b>
                                 <div className="flex">
                                     <p>USD </p>
-                                    <b className="ml-1">{subtotal}</b>  
+                                    <b className="ml-1">{subtotal}$</b>  
                                 </div>
                                 <div className="flex">
-                                    <p>Ves </p>
-                                    <b className="ml-1">{subtotal*36}</b>  
+                                    <p>VES </p>
+                                    <b className="ml-1">{new Intl.NumberFormat("de-DE").format(bsSubtotal)} Bs</b>  
                                 </div>
                                 <div className="flex">
                                     <p>Cantidad de productos: </p>
@@ -62,7 +65,18 @@ export const CartPage = ()=>{
                                 </div>
                             </div>
                             <div className="flex-grow flex items-center justify-center">
-                                <BuyButton/>
+                                {
+                                    cart.length > 0? (
+                                        <BuyButton/>
+                                    ):(
+                                        <button className="rounded-full bg-main-decoration text-black mt-1 p-2" onClick={()=>{
+                                            window.location.href = '/'
+                                        }}>
+                                            Explorar productos 
+                                        </button>
+                                    )
+                                }
+                                
                             </div>
                         </section>
                     </div>

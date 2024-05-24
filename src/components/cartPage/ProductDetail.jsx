@@ -3,6 +3,8 @@ import '../../pages/CartPage.css'
 import { useShoppingCartStore } from '../../store/products'
 export const ProductDetail = ({product})=>{
 
+    const id = product.asin
+
     const {deleteToCart} = useShoppingCartStore()
 
     const handleTrash = ()=>{
@@ -13,11 +15,15 @@ export const ProductDetail = ({product})=>{
         <section className=" h-40 w-full rounded-3xl shadow-detail mb-4 flex overflow-hidden">
             
             <div className='h-full flex items-center justify-center p-2 '>
+                <a onClick={()=>{
+                    localStorage.removeItem('productpage-storage')
+                }} href={`product/${id}`}>
                 <div className='w-32'>
                     <picture>
                         <img className='w-fit' src={product.product_photo} alt="" />
                     </picture>
-                    </div>
+                </div>
+                </a>
             </div>
 
             <div className='flex w-3/4 flex-col h-full justify-center items-center p-2 '>

@@ -13,15 +13,19 @@ import '../pages/PageStyles.css'
 import { BuyButton } from '../components/productPage/BuyButton';
 
 export const ProductPage = () => {
+
 	const { getClickedProduct, error, clickedProduct} = useClickedProductStore();
-	const {cart, addToCart } = useShoppingCartStore();
+	const {cart, addToCart, deleteToCart } = useShoppingCartStore();
+
 	const[activePhoto, setActivePhoto]=useState(false)
 	const [loading, setLoading] = useState(true);
 	const [productPhoto, setProductPhoto] = useState(null)
 	const [amount, setAmount] = useState(1)
 	const [price, setPrice]= useState(0)
+	const [bsPrice, setBsPrice] = useState(0)
 	const[activeVariation, setActiveVariation] = useState(false)
 	const[activeSize, setActiveSize] = useState(false)
+	const [inCart, setInCart] = useState(false)
 
 	const { id } = useParams();
 
@@ -29,6 +33,7 @@ export const ProductPage = () => {
 		await getClickedProduct(id);
 		setLoading(false);
 		setProductPhoto(clickedProduct.product_photo)
+		setInCart(cart.some(product=>product.asin === clickedProduct.asin))
 	};
 
 	useEffect(() => {
@@ -48,10 +53,30 @@ export const ProductPage = () => {
 		if (clickedProduct) {
 		  setProductPhoto(clickedProduct.product_photo);
 		  setPrice(clickedProduct.product_price.replace(/\$/g, ''))
+		  setBsPrice(clickedProduct.product_price.replace(/\$/g, '')*36*amount)
+		  setInCart(cart.some(product=>product.asin === clickedProduct.asin))
 		}
-	  }, [clickedProduct]);
+	  }, [clickedProduct, amount]);
 
-	
+	useEffect(()=>{
+		if(clickedProduct){
+			setInCart(cart.some(product=>product.asin === clickedProduct.asin))
+		}
+		 /**devuelve true o false */
+	},[cart])
+
+	const handleTrash = ()=>{
+		deleteToCart(clickedProduct)
+	}
+
+	const handleAdd = ()=>{
+		addToCart({...clickedProduct, amount})
+	}
+
+	const handleBuyNow = ()=>{
+		addToCart({...clickedProduct, amount})
+		window.location.href = '/cart'
+	}
 
 	if (loading) {
         return (
@@ -143,13 +168,17 @@ export const ProductPage = () => {
 										
 										<div className='flex flex-col'>
 											<b className='text-2xl'>{price*amount} USD</b>
-											<b className='text-lg text-gray-500'>{price*amount*36} Ves</b> 
+											<b className='text-lg text-gray-500'>{new Intl.NumberFormat("de-DE").format(bsPrice)} Ves</b> 
 											{/* conectar con api de dolar a bcv */}
 										</div>
 										
 
-										<div className='flex'>
-											<div className='w-full flex items-center bg-gray-200 rounded-full p-1 mt-2'>
+										<div className='flex justify-center'>
+											{
+												inCart?(
+													<b className='mt-1 text-xs'>{amount} producto(s) agregado(s) al carrito</b>
+												):(
+													<div className='w-full flex items-center bg-gray-200 rounded-full p-1'>
 												<button className='flex-grow text-red-500 font-bold text-lg' onClick={()=>{
 													{
 														amount<=1?(
@@ -166,16 +195,53 @@ export const ProductPage = () => {
 													):(setAmount(amount+1))
 												}}>+</button>
 											</div>
-											
+												)
+											}
+												
 										</div>
 									</div>
 
 
 									<div className='flex flex-col'>
-										<button onClick={()=>{
-											addToCart({...clickedProduct, amount})
-										}} className='rounded-full bg-main-decoration p-2 mt-3'>Añadir al carrito</button>
-										<BuyButton/>
+										{
+											inCart?(
+												<>
+													<button className='rounded-full bg-red-500 p-2 mt-3 text-white' onClick={handleTrash}>Eliminar del carrito</button>
+													
+													<button className='rounded-full bg-navigation p-2 mt-3 text-white' onClick={()=>{
+														window.location.href = '/cart'
+													}}>Comprar ahora</button>
+													
+												</>
+											):
+
+											
+											(
+												<>
+													{
+														clickedProduct.product_availability !== null? (<>
+															<button onClick={handleAdd} className='rounded-full bg-main-decoration p-2 mt-3'>Añadir al carrito</button>
+
+															<button onClick={handleBuyNow}className='rounded-full text-white bg-navigation p-2 mt-3' >
+																Comprar ahora
+															</button>
+														</>):(
+															<>
+																<b>
+																	Articulo no disponible
+																</b>
+															</>
+														)
+													}
+													
+												</>
+											)
+												
+											
+										}
+										<button>
+
+										</button>
 									</div>
 
 									<div className='w-full h-2/5 p-2'>

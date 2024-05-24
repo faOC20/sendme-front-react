@@ -147,19 +147,13 @@ const url = 'https://real-time-amazon-data.p.rapidapi.com/search?page=1&country=
     const options = {
 	method: 'GET',
 	headers: {
-        // 'X-RapidAPI-Key': 'ea770df738msha3d3fed99640959p1cc880jsn28d183c839e8',
+        'X-RapidAPI-Key': '5b74366e95msha6584f940c053d0p1ab46bjsn02dc06c2d0a4',
 		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
 	}
 };
 
 
-try {
-	const response = await fetch(url, options);
-	const result = await response.text();
-	console.log(result);
-} catch (error) {
-	console.error(error);
-}
+
 
 
 
@@ -379,13 +373,18 @@ export const useProductsStore = create(
             },
 
             deleteToCart: (product) => {
-                console.log('entré aquí');
+                
                 set((state) => ({
-                    cart: state.cart.filter((item) => item !== product),
+                    cart: state.cart.filter((item) => item.asin !== product.asin),
                 }));
             },
 
-            
+            refreshCart: () => {
+               
+                set((state) => ({
+                    cart: state.cart.filter((item) => item.product_availability !== null),
+                }));
+            },
         }),
         {
             name:'cart-storage',

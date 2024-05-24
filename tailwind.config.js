@@ -12,7 +12,8 @@ export default {
 				'footer':'#D8D8D5',
 				'nav-animation':'#363636',
 				'main-decoration':'#DDD6BB',
-				'ghost-form':'#fad7c1'
+				'ghost-form':'#fad7c1',
+				'button-hover': '#A5A5A5'
 			},
 
 			spacing:{
