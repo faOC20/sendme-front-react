@@ -65,19 +65,83 @@ export const SearchPage = ()=>{
                     </h1>
                 </div>
 
-                <div className="searched-container w-full">
-                    {
-                        searchedProducts.map((searchedProduct)=>(
-                            <ProductSlot 
-                                key={searchedProduct.asin}
-                                id={searchedProduct.asin}
-                                photo={searchedProduct.product_photo}
-                                name={searchedProduct.product_title}
-                                price={searchedProduct.product_price}
-                            />
-                        ))
-                    }
+                <div className="flex w-full gap-5 pl-6 pr-6">
+
+                    <div className="w-1/4 h-max flex flex-col  bg-white shadow rounded-3xl p-5 gap-5">
+                         <div>
+                            <b>Filtros de búsqueda</b>
+                            <hr/>
+                         </div>
+                        <div>
+                        
+                        <form className="flex justify-center gap-2" action="#">
+                            <label className="font-bold" for="orderBy">Ordenar por</label>
+                            <select className="bg-transparent border text-center border-black rounded-full" name="" id="orderBy">
+                                <option value="lowest-price">
+                                    Precio más bajo
+                                </option>
+
+                                <option value="highest-price">
+                                    Precio más alto
+                                </option>
+                        </select>
+                        </form>
+                        </div>
+
+                       
+
+                        <div>
+                            
+                            <form className="flex justify-center gap-2" action="#">
+                            <label className="font-bold" for="condition">Cóndicion</label>
+                            <select className="bg-transparent border text-center border-black rounded-full" name="" id="condition">
+                                <option value="new">
+                                    Nuevo
+                                </option>
+
+                                <option value="used">
+                                    Usado
+                                </option>
+
+                                <option value="refurbished">
+                                    Reconstruido
+                                </option>
+                            </select>
+                            </form>
+                        </div>
+
+
+                        <div className="flex flex-col w-full">
+                            <b>Rango de precio ($)</b>
+                            <div className="flex justify-center gap-2">
+                                
+                                    <input className="bg-transparent border-b border-black w-1/4 text-center" type="text" name="" id="" placeholder="min" /> 
+                                    <input className="bg-transparent border-b w-1/4 border-black text-center" type="text" placeholder="max" />
+                               
+                            </div>
+
+                        </div>
+
+                        <div>
+                        <button className="bg-navigation p-1 rounded-lg text-white">Buscar</button>
+                        </div>
+                    </div>
+                    <div className="searched-container flex-grow">
+                        {
+                            searchedProducts.map((searchedProduct)=>(
+                                <ProductSlot 
+                                    key={searchedProduct.asin}
+                                    id={searchedProduct.asin}
+                                    photo={searchedProduct.product_photo}
+                                    name={searchedProduct.product_title}
+                                    price={searchedProduct.product_price}
+                                />
+                            ))
+                        }
+                    </div>
                 </div>
+
+              
 
                 <div className=" flex w-full justify-center items-center mb-3">
                     <ol className="flex w-1/4 justify-around">

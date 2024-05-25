@@ -87,7 +87,7 @@ export const ProductPage = () => {
     }
 
 	if (error && !clickedProduct) {
-		console.log('entre aqui')
+		
         return (
 			<>
 				<Error/>
