@@ -5,11 +5,59 @@ import clickhere from '../assets/images/clickhere.png'
 import { Footer } from '../components/footer/Footer'
 import { Header } from '../components/header/Header'
 import './Register.css'
+import { useState } from 'react'
+import { API_URL } from './api/constants'
+import { useUserStore } from '../store/user'
+import { Navigate } from 'react-router-dom'
 
 export const Register = ()=>{
 
+    const [name, setName] = useState("")
+    const [lastname, setLastname] = useState("")
+    const [phone, setPhone] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
+    const [authError, setAuthError] = useState()
+    const {isAuth, authUser} = useUserStore()
+
     const handleClick = ()=>{
         window.location.href = '/session'
+    }
+
+    const handleSubmit = async(e)=>{
+
+        e.preventDefault()
+
+        try{
+        const response = await fetch (`${API_URL}register`,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                name,lastname,phone,email, password
+            }),
+        });
+
+        if (response.ok){
+            console.log('Usuario creado satisfactoriamente')
+            setAuthError("")
+            authUser()
+        }else{
+            console.log("Algo ha salido mal")
+            const error = await response.json()
+            setAuthError(error.body.error)
+        }
+      } catch (error){
+        console.error(error)
+      }
+    }
+
+    if(isAuth){
+        
+        return <Navigate to="/session"/>
+        console.log(isAuth[0])
     }
 
     return (
@@ -35,11 +83,36 @@ export const Register = ()=>{
             <b>Registrarse</b>
         </h1>
 
+        <div className='p-2 rounded-3xl'>
+            {authError}
+        </div>
+
         <div class=" flex h-5/6 w-9/12 justify-center"  >
-            <form class="flex flex-col w-11/12 justify-evenly" action="submit">
-                <input className='session-form-input' type="email" placeholder="Correo electrónico"/>
-                <input className='session-form-input' type="password" placeholder="Contraseña"/>
-                <input className='session-form-input' type="password" placeholder="Contraseña nuevamente"/>
+            <form class="flex flex-col w-11/12 justify-evenly" action="submit" onSubmit={handleSubmit}>
+                <input onChange={(e)=>{
+                    setName(e.target.value)
+                }} className='session-form-input' type="text" placeholder="Nombre"/>
+               
+               
+               <input onChange={(e)=>{
+                    setLastname(e.target.value)
+                }}  className='session-form-input' type="text" placeholder="Apellido"/>
+
+                <input onChange={(e)=>{
+                    setPhone(e.target.value)
+                }}  className='session-form-input' type="text" placeholder="Teléfono"/>
+
+                <input onChange={(e)=>{
+                    setEmail(e.target.value)
+                }}  className='session-form-input' type="email" placeholder="Correo electrónico"/>
+
+                <input onChange={(e)=>{
+                    setPassword(e.target.value)
+                }}  className='session-form-input' type="password" placeholder="Contraseña"/>
+
+                <input onChange={(e)=>{
+                    setConfirmPassword(e.target.value)
+                }}  className='session-form-input' type="password" placeholder="Contraseña nuevamente"/>
             
         
 
@@ -54,7 +127,7 @@ export const Register = ()=>{
                     </label>
                 </div>
                 
-                <button class="bg-navigation w-full p-1 text-white rounded-full" >Registrarse</button>
+                <button class="bg-navigation w-full p-1 text-white rounded-full">Registrarse</button>
 
                 <a class="text-xs self-center" href="javascript:void(0)" onClick={handleClick}>¿Ya posees una cuenta? <b>Inicia sesión</b>.</a>
             </form>

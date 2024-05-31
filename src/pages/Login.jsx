@@ -2,11 +2,53 @@ import './Register.css'
 import letterLogo from '../assets/images/logo.png'
 import clickhere from '../assets/images/clickhere.png'
 import { Footer } from '../components/footer/Footer'
+import { useState } from 'react'
+import { API_URL } from './api/constants'
+import { Navigate } from 'react-router-dom'
+import { useUserStore } from '../store/user'
 
 export const Login = ()=>{
 
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [authError, setAuthError] = useState("")
+    const {isLogged, logUser} = useUserStore()
+
     const handleClick = ()=>{
         window.location.href = '/register'
+    }
+
+    const handleSubmit = async(e)=>{
+
+        e.preventDefault()
+
+        try{
+        const response = await fetch (`${API_URL}login`,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                email, password
+            }),
+        });
+
+        if (response.ok){
+            console.log('Usuario creado satisfactoriamente')
+            setAuthError("")
+            logUser()
+        }else{
+            console.log("Algo ha salido mal")
+            const error = await response.json()
+            setAuthError(error.body.error)
+        }
+      } catch (error){
+        console.error(error)
+      }
+    }
+
+    if (isLogged){
+        return <Navigate to="/"/>
     }
 
     return(
@@ -32,28 +74,36 @@ export const Login = ()=>{
         <b>Iniciar sesión</b>
     </h1>
 
-    <div class=" flex h-5/6 w-9/12 justify-center"  >
-        <form class="flex flex-col w-11/12 justify-evenly" action="submit">
-            <input type="text" className='session-form-input' placeholder="Correo electrónico"/>
-            <input type="text" className='session-form-input' placeholder="Contraseña"/>
-            
-            <div class="flex items-center">
-                <label class="text-xs flex-grow flex">
-                    <input type="checkbox"/>
-                    Recúerdame
-                </label>
-
-                <label>
-                    <a class="text-xs flex-grow" href="">Olvidé mi contraseña</a>
-                </label>
-            </div>
-            
-            <button class="bg-navigation w-full p-1 text-white rounded-full" >Ingresar</button>
-
-            <a class="text-xs self-center" href="javascript:void(0)" onClick={handleClick}>¿Aún no tiene cuenta? <b>Regístrate</b>.</a>
-        </form>
+    <div>
+        {authError}
     </div>
-</div>
+
+    <div class=" flex h-5/6 w-9/12 justify-center"  >
+            <form class="flex flex-col w-11/12 justify-evenly" action="submit" onSubmit={handleSubmit}>
+                <input onChange={(e)=>{
+                    setEmail(e.target.value)
+                }} type="text" className='session-form-input' placeholder="Correo electrónico"/>
+                <input onChange={(e)=>{
+                    setPassword(e.target.value)
+                }} type="text" className='session-form-input' placeholder="Contraseña"/>
+                
+                <div class="flex items-center">
+                    <label class="text-xs flex-grow flex">
+                        <input type="checkbox"/>
+                        Recúerdame
+                    </label>
+
+                    <label>
+                        <a class="text-xs flex-grow" href="">Olvidé mi contraseña</a>
+                    </label>
+                </div>
+                
+                <button class="bg-navigation w-full p-1 text-white rounded-full">Ingresar</button>
+
+                <a class="text-xs self-center" href="javascript:void(0)" onClick={handleClick}>¿Aún no tiene cuenta? <b>Regístrate</b>.</a>
+            </form>
+        </div>
+    </div>
 </main>
         <Footer/>
         </div>
