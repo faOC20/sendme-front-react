@@ -6,6 +6,8 @@ import { useShoppingCartStore } from "../store/products"
 import { useState, useEffect } from "react"
 import { amazonTax, fixedTariff } from "../assets/constants/fixedTariff"
 import { PaymentContainer } from "../components/purchasePage/PaymentContainer"
+import { useUserStore } from "../store/user"
+import { Navigate } from "react-router-dom"
 
 export const PurchasePage = ()=>{
     const {cart} = useShoppingCartStore()
@@ -18,6 +20,7 @@ export const PurchasePage = ()=>{
     const [productsTax, setProductTax] = useState(0)
     const [consolidation, setConsolidation] = useState(0)
     const [safe, setSafe ] = useState(0)
+    const {isLogged}= useUserStore()
 
 
     // const roundedTohalf = (number)=>{
@@ -34,6 +37,8 @@ export const PurchasePage = ()=>{
           return ( Math.floor(number) + 0.5);
         }
     }
+
+    
 
 
     useEffect(()=>{
@@ -79,6 +84,10 @@ export const PurchasePage = ()=>{
         setBsTotal((subtotal+fixedTariff+airPrice+productsTax+consolidation+safe)*36)
     },[totalWeight, subtotal, airPrice , productsTax, consolidation, safe])
 
+
+    if(!isLogged){
+        return <Navigate to='/session'/>
+    }
     
 
     return (

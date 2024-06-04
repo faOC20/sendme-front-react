@@ -6,6 +6,8 @@ import { useShoppingCartStore } from "../store/products"
 import { ProductDetail } from "../components/cartPage/ProductDetail"
 import { BuyButton } from "../components/productPage/BuyButton"
 import { useEffect, useState } from "react"
+import { useUserStore } from "../store/user"
+import { Navigate } from "react-router-dom"
 
 export const CartPage = ()=>{
 
@@ -13,6 +15,7 @@ export const CartPage = ()=>{
     const [subtotal, setSubTotal] = useState(0)
     const [bsSubtotal, setBsSubtotal] = useState(0)
     const [totalAmount, setAmount] = useState(0)
+    const {isLogged} = useUserStore()
 
     useEffect(()=>{
         const subTotal = cart.reduce((acc, product) => acc + parseFloat(product.product_price.replace(/\$/g, ''))*product.amount, 0)
@@ -20,7 +23,6 @@ export const CartPage = ()=>{
         setBsSubtotal(subTotal*36)
         setAmount(cart.reduce((acc, product)=> acc+product.amount,0))
     },[cart])
-
 
 
     return (

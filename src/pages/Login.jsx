@@ -6,6 +6,8 @@ import { useState } from 'react'
 import { API_URL } from './api/constants'
 import { Navigate } from 'react-router-dom'
 import { useUserStore } from '../store/user'
+import Cookies from 'js-cookie'
+import { useEffect } from 'react'
 
 export const Login = ()=>{
 
@@ -13,6 +15,7 @@ export const Login = ()=>{
     const [password, setPassword] = useState("")
     const [authError, setAuthError] = useState("")
     const {isLogged, logUser} = useUserStore()
+
 
     const handleClick = ()=>{
         window.location.href = '/register'
@@ -33,8 +36,11 @@ export const Login = ()=>{
             }),
         });
 
+          
+
         if (response.ok){
-            console.log('Usuario creado satisfactoriamente')
+            const data = await response.json()
+            console.log(data.body)
             setAuthError("")
             logUser()
         }else{

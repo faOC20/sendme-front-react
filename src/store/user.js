@@ -4,7 +4,7 @@ import { createJSONStorage, persist } from "zustand/middleware"
 
 export const useUserStore = create(
 
-   //persist(
+   persist(
         (set)=>({
             isAuth: false,
             isLogged:false,
@@ -15,15 +15,19 @@ export const useUserStore = create(
 
             logUser:()=>{
                 set({isLogged:true})
+            },
+
+            closeUser:()=>{
+                set({isLogged:false})
             }
         }),
 
-        // {
-        //     name: 'user-auth',
-        //     storage: createJSONStorage(()=>localStorage)
-        // }
+        {
+            name: 'user-auth',
+            storage: createJSONStorage(()=>sessionStorage)
+        }
 
-   // )
+   )
 
     
         
