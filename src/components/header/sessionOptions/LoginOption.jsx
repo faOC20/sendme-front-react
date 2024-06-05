@@ -12,7 +12,7 @@ export const LoginOption = ()=>{
         <UserIcon/>
     
         <div>
-            <p>Bienvenido!</p>
+            <p>Bienvenido/a!</p>
             <b>Inicia sesión / Regístrate</b>    
         </div>
         

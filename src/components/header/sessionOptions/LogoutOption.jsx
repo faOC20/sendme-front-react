@@ -1,27 +1,37 @@
 import { Navigate } from "react-router-dom"
 import { UserIcon } from "../../../assets/icons/UserIcon"
 import { useUserStore } from "../../../store/user"
+import { useAuthStore } from "../../../store/user"
 
 export const LogoutOption = ()=>{
 
-    const {closeUser} = useUserStore()
+    const {name, closeSession} = useAuthStore()
 
-    const handleClick = ()=>{
-        closeUser()
+    const handleCloseSession = ()=>{
+        closeSession()
     }
+    
+    const handleProfile = ()=>{
+        window.location.href = '/profile'
+    }
+
 
     return(
         <div class="flex-grow flex justify-center items-end">  
-    <button class="flex items-end"  onClick={handleClick}>
+    <div class="flex items-end">
     
-        <UserIcon/>
+        <button onClick={handleProfile}>
+            <UserIcon/>
+        </button>
     
-        <div>
-            <p>Bienvenido!</p>
-            <b>Cerrar sesión</b>    
+        <div className="text-start">
+            <p>Bienvenido/a, {name}!</p>
+            <button onClick={handleCloseSession}>
+                <b>Cerrar sesión</b>    
+            </button>
         </div>
         
-    </button>
+    </div>
     </div>
     )
 }

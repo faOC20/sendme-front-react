@@ -11,10 +11,11 @@ import { ThreeIcon } from "../../assets/icons/ThreeIcon"
 import { GhostIcon } from "../../assets/icons/GhostIcon"
 import { FourIcon } from "../../assets/icons/FourIcon"
 import { GalleryUpIcon } from "../../assets/icons/GalleryUpIcon"
+import { useAuthStore } from "../../store/user"
 
 export const PaymentContainer = ({total, bsTotal})=>{
 
-  
+    const {name} = useAuthStore()
 
     const [active, setActive] = useState(null)
     const [usdActive, setUsdActive] = useState(null)
@@ -42,7 +43,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
                             <GhostIcon/>
                         </div>
 
-                        <h1 className="text-start text-xl font-bold ml-2">Ya casi, Fabián!</h1>
+                        <h1 className="text-start text-xl font-bold ml-2">Ya casi, {name}!</h1>
                     </div>
                     <hr className="m-2"/>
                 </div>  {/**Aqui el nombre segun el inicio de sesion*/}

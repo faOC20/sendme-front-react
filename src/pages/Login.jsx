@@ -5,7 +5,7 @@ import { Footer } from '../components/footer/Footer'
 import { useState } from 'react'
 import { API_URL } from './api/constants'
 import { Navigate } from 'react-router-dom'
-import { useUserStore } from '../store/user'
+import { useAuthStore, useUserStore } from '../store/user'
 import Cookies from 'js-cookie'
 import { useEffect } from 'react'
 
@@ -14,7 +14,7 @@ export const Login = ()=>{
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [authError, setAuthError] = useState("")
-    const {isLogged, logUser} = useUserStore()
+    const {setName, setToken, setId, isAuth} = useAuthStore()
 
 
     const handleClick = ()=>{
@@ -40,9 +40,10 @@ export const Login = ()=>{
 
         if (response.ok){
             const data = await response.json()
-            console.log(data.body)
+            setToken(data.token)
+            setName(data.nombre_usuario)
+            setId (data.id)
             setAuthError("")
-            logUser()
         }else{
             console.log("Algo ha salido mal")
             const error = await response.json()
@@ -53,7 +54,7 @@ export const Login = ()=>{
       }
     }
 
-    if (isLogged){
+    if (isAuth){
         return <Navigate to="/"/>
     }
 

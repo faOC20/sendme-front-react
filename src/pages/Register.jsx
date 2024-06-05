@@ -7,7 +7,7 @@ import { Header } from '../components/header/Header'
 import './Register.css'
 import { useState } from 'react'
 import { API_URL } from './api/constants'
-import { useUserStore } from '../store/user'
+import { useAuthStore, useUserStore } from '../store/user'
 import { Navigate } from 'react-router-dom'
 
 export const Register = ()=>{
@@ -19,7 +19,7 @@ export const Register = ()=>{
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [authError, setAuthError] = useState()
-    const {isAuth, authUser} = useUserStore()
+    const {isAuth} = useAuthStore()
 
     const handleClick = ()=>{
         window.location.href = '/session'
@@ -43,7 +43,7 @@ export const Register = ()=>{
         if (response.ok){
             console.log('Usuario creado satisfactoriamente')
             setAuthError("")
-            authUser()
+            window.location.href = '/session'
         }else{
             console.log("Algo ha salido mal")
             const error = await response.json()
@@ -57,7 +57,7 @@ export const Register = ()=>{
     if(isAuth){
         
         return <Navigate to="/session"/>
-        console.log(isAuth[0])
+        
     }
 
     return (
@@ -77,18 +77,23 @@ export const Register = ()=>{
                 </picture>
             </a>
 
-    <div class=" session-card rounded-3xl flex flex-col items-center">
+    <div class=" session-card rounded-3xl flex flex-col items-center h-max pb-5">
 
         <h1 class="flex justify-center  h-1/5 items-center text-2xl pt-6">
             <b>Registrarse</b>
         </h1>
 
-        <div className='p-2 rounded-3xl'>
+        <div className='p-2 text-red-600'>
             {authError}
         </div>
 
-        <div class=" flex h-5/6 w-9/12 justify-center"  >
+        <div class=" flex w-9/12 justify-center"  >
             <form class="flex flex-col w-11/12 justify-evenly" action="submit" onSubmit={handleSubmit}>
+
+                <hr />
+
+                <b>Datos personales</b>
+
                 <input onChange={(e)=>{
                     setName(e.target.value)
                 }} className='session-form-input' type="text" placeholder="Nombre"/>
@@ -113,6 +118,28 @@ export const Register = ()=>{
                 <input onChange={(e)=>{
                     setConfirmPassword(e.target.value)
                 }}  className='session-form-input' type="password" placeholder="Contraseña nuevamente"/>
+
+                <hr className='m-5 border '/>
+                {/* <div className='flex items-center'>
+                    <label className="font-bold flex justify-center items-center m-2" for="lang"> 
+                            País
+                    </label>
+                        
+                    <select className="bg-white border-2 rounded-lg h-3/4" name="" id="lang">
+                        <option value="javascript">Venezuela</option>
+                    </select>
+                </div>
+
+                <div className='flex items-center'>
+                    <label className="font-bold flex justify-center items-center m-2" for="lang"> 
+                        Ciudad
+                    </label>
+                        
+                    <select className="bg-white border-2 rounded-lg h-3/4" name="" id="lang">
+                        <option value="javascript">Cumana</option>
+                        
+                    </select>
+                </div> */}
             
         
 
@@ -127,9 +154,9 @@ export const Register = ()=>{
                     </label>
                 </div>
                 
-                <button class="bg-navigation w-full p-1 text-white rounded-full">Registrarse</button>
+                <button className="bg-navigation w-full p-1 text-white rounded-full">Registrarse</button>
 
-                <a class="text-xs self-center" href="javascript:void(0)" onClick={handleClick}>¿Ya posees una cuenta? <b>Inicia sesión</b>.</a>
+                <a className="text-xs self-center mt-3" href="javascript:void(0)" onClick={handleClick}>¿Ya posees una cuenta? <b>Inicia sesión</b>.</a>
             </form>
         </div>
     </div>
