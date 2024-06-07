@@ -14,7 +14,7 @@ export const Login = ()=>{
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [authError, setAuthError] = useState("")
-    const {setName, setToken, setId, isAuth} = useAuthStore()
+    const {setName, setToken, setId, isAuth, setEmailUsuario} = useAuthStore()
 
 
     const handleClick = ()=>{
@@ -40,6 +40,7 @@ export const Login = ()=>{
 
         if (response.ok){
             const data = await response.json()
+            setEmailUsuario(data.email_usuario)
             setToken(data.token)
             setName(data.nombre_usuario)
             setId (data.id)

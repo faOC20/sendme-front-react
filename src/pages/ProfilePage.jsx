@@ -1,23 +1,38 @@
-import { Navigate } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { ProfileImage } from "../assets/icons/ProfileImage"
 import { Footer } from "../components/footer/Footer"
 import { Header } from "../components/header/Header"
 import { useAuthStore } from "../store/user"
 import Select from "react-select"
-import { CellSelection } from "../components/miscellaneos/CellSelection"
+import { DirectionSelection } from "../components/miscellaneos/DirectionSelection"
+import { FetchCell } from "../components/profilePage/FetchCell"
+import "./ProfilePage.css"
+import { useState } from "react"
+import { CancelIcon } from "../assets/icons/CancelIcon"
+import { NewDirectionForm } from "../components/profilePage/NewDirectionForm"
 
 export const ProfilePage = ()=>{
 
-    const {isAuth, name} = useAuthStore()
+    const handleNewDirection = ()=>{
+        setShowDiv(true)
+    }
+    const {isAuth, name, email_usuario} = useAuthStore()
+    const [showDiv, setShowDiv] = useState(false)
 
     if (!isAuth){
         return <Navigate to="/session"/>
     }
 
     return (
+
+
+
         <div className="all-container">
             <Header/>
             <main className="main-container flex items-center justify-center">
+
+                <NewDirectionForm setShowDiv={setShowDiv} showDiv={showDiv}/>
+                
                 <div className="w-full h-full p-10 flex gap-5">
                     
                     <section className="flex h-full w-6/12 rounded-lg overflow-hidden shadow-lg">
@@ -32,20 +47,31 @@ export const ProfilePage = ()=>{
                         </div>
 
                         <section className=" flex flex-col w-full h-full bg-white justify-evenly items-center">
+
+                        <div className="w-full flex flex-col gap-2 items-center">
+                                <b className="text-2xl">Ubicación</b>
+                                <div className="w-10/12">
+                                <DirectionSelection/>
+                                </div>
+                                <div className="flex w-3/4 justify-center">
+                                    <button onClick={handleNewDirection} className="direction-button text-gray-500 text-sm  rounded-full">
+                                        Agregar nueva dirección
+                                    </button>
+                                </div>
+                            </div>
+                            
+
+                            <div className="w-2/3 flex flex-col">
+                                <b className="text-2xl">Teléfono/s</b>
+                                <FetchCell/>
+                            </div>
+
                             <div className="">
                                 <b className="text-2xl">Correo</b>
-                                <p>luisa@gmail.com</p>
+                                <p>{email_usuario}</p>
                             </div>
 
-                            <div className="w-2/3">
-                                <b className="text-2xl">Teléfono</b>
-                                <CellSelection/>
-                            </div>
-
-                            <div className="">
-                                <b className="text-2xl">Ubicación</b>
-                                <p>luisa@gmail.com</p>
-                            </div>
+                            
                         </section>
                     </section>
 

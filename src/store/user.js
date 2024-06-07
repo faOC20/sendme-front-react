@@ -7,6 +7,7 @@ export const useAuthStore = create(
 
     persist(
          (set)=>({
+            email_usuario:"",
              token:"",
              name:"",
              id:"",
@@ -23,7 +24,10 @@ export const useAuthStore = create(
                 set({name: name.toUpperCase()})
              }
             ,
-
+            setEmailUsuario: (email)=>{
+                set({email_usuario:email})
+            }
+             ,
             setId: (id)=>{
                 set({id:id})
             },
@@ -31,6 +35,7 @@ export const useAuthStore = create(
                 set({
                     token: "",
                     name:"",
+                    email:"",
                     isAuth:false,
                     id:""
                 })

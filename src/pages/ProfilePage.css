@@ -1,0 +1,5 @@
+.new-direction-form{
+    background: #fafafa10; /* Fondo semitransparente */
+    backdrop-filter: blur(1rem); /* Aplica un desenfoque de 10px */
+}
+
