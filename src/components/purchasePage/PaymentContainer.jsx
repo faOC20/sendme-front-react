@@ -15,6 +15,8 @@ import { useAuthStore } from "../../store/user"
 import { DirectionSelection } from "../miscellaneos/DirectionSelection"
 import { Link } from "react-router-dom"
 import { FetchCell } from "../profilePage/FetchCell"
+import { API_URL } from "../../pages/api/constants"
+import { useShoppingCartStore } from "../../store/products"
 
 export const PaymentContainer = ({total, bsTotal})=>{
 
@@ -27,14 +29,49 @@ export const PaymentContainer = ({total, bsTotal})=>{
     const [accountHolder, setAccountHolder] = useState()
     const {id} = useAuthStore()
 
-    const sendInfo = (e)=>{
+
+    //el id que va para tabla producto
+    const [idPedido, setIdPedido] = useState()
+    const {cart} = useShoppingCartStore()
+
+    const sendInfo = async(e)=>{
         e.preventDefault()
-        console.log(idDirection)
-        console.log(idCell)
-        console.log(referencia)
-        console.log(date)
-        console.log(payMethod)
-        console.log(accountHolder)
+
+        //aparte de crear un registro en la tabla pedido, devuelve la id_pedido que se acaba de crear
+        const response = await fetch (`${API_URL}generate-pedido`,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                idDirection, idCell, referencia, date, payMethod, accountHolder, id
+            }),
+        });
+
+        if(response.ok){
+            console.log('entre aqui')
+
+            const idPedido = await response.json()
+            
+            try{
+                const response = await fetch(`${API_URL}generate-product`,{
+                    method: "POST",
+                    headers:{
+                        "Content-Type":"application/json",
+                    },
+                    body: JSON.stringify({
+                        cart, idPedido
+                    }),
+                })
+            }
+            catch{
+            }
+        }
+
+        // const idPedido = await response.json()
+
+        // setIdPedido(idPedido)
+
     }
 
 
