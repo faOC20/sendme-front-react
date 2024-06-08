@@ -5,9 +5,32 @@ import { cities } from "../../assets/constants/cities"
 import { useAuthStore} from "../../store/user"
 import { API_URL } from "../../pages/api/constants"
 import { useState } from "react"
+import Swal from 'sweetalert2'
 
 
 export const NewDirectionForm = ({setShowDiv, showDiv})=>{
+
+    const [inputValue, setInputValue] = useState('')
+
+    const showWrong = ()=>{
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Algo falló, intentelo nuevamente!",
+        });
+    }
+
+    const showSucces = () => {
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Tu dirección ha sido agregada exitosamente!",
+            showConfirmButton: true,
+        
+          }).then(()=>{
+            window.location.href = '/profile'
+          });
+      }
 
     const {id} = useAuthStore()
     const [munOptions, setMunOptions] = useState([])
@@ -37,11 +60,14 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
             });
 
             if (response.ok){
+                
                 setShowDiv(false)
+                showSucces()
             }
     
             else{
-                const error = await response.json()
+    
+                showWrong()
             }
         }
 
@@ -101,9 +127,10 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
                         </button>
                     </div>
 
+                    <div className="flex justify-center w-full items-center h-full">
                     <form className="flex flex-col gap-12"  onSubmit={handleSendData}>
-                    <div className="flex justify-evenly">
-                        <div className="w-2/5">
+                    <div className="flex justify-evenly gap-5">
+                        <div className="w-3/5">
                         <b>Ciudad</b>
                             <Select
                                 placeholder = 'Seleccione su ciudad'
@@ -113,10 +140,11 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
 
                                 }}
                                 required
+                                
                             />
                         </div>
 
-                        <div className="w-2/5">
+                        <div className="w-3/5">
                         <b>Municipio</b>
                             <AsyncSelect 
                                 defaultOptions
@@ -132,19 +160,19 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
 
                     <div className="flex justify-center items-center gap-5">
                         
-                        <div className="w-2/5 h-full flex flex-col">
+                        <div className="w-3/5 h-full flex flex-col">
                             <b>Calle</b>
                             <input required onChange={(e)=>{
                                 setCalle(e.target.value)
-                            }} className="bg-white border-2 text-start w-full p-1" type="text" placeholder="calle, avenida" /> 
+                            }} className="bg-white border-navigation border-2 text-start w-full p-1" type="text" placeholder="calle, avenida" /> 
          
                         </div>
                         
-                        <div className="w-2/5 h-full flex flex-col">
+                        <div className="w-3/5 h-full flex flex-col">
                             <b>Zona</b>
                             <input required onChange={(e)=>{
                                 setZona(e.target.value)
-                            }} className="bg-white border-2 text-start w-full p-1" type="text" placeholder="parcelamiento, conjunto residencial, urb." />  
+                            }} className="bg-white border-navigation border-2 text-start w-full p-1" type="text" placeholder="parcelamiento, conjunto residencial, urb." />  
                         </div>
                     </div>
                     <b>Campos opcionales  <b className="text-red-700">*</b></b>
@@ -154,7 +182,7 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
                             <b>Número casa <b className="text-red-700">*</b></b>
                             <input onChange={(e)=>{
                                 setNumeroCasa(e.target.value)
-                            }} className="bg-white border-2 text-start w-full p-1" type="text" /> 
+                            }} className="bg-white border-navigation border-2 text-start w-full p-1" type="text" /> 
          
                         </div>
                         
@@ -162,14 +190,14 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
                             <b>Edificio <b className="text-red-700">*</b></b>
                             <input onChange={(e)=>{
                                 setEdificio(e.target.value)
-                            }} className="bg-white border-2 text-start w-full p-1" type="text"  />  
+                            }} className="bg-white border-2 border-navigation text-start w-full p-1" type="text"  />  
                         </div>
 
                         <div className="w-1/5 h-full flex flex-col">
                             <b>Apartamento <b className="text-red-700">*</b></b>
                             <input onChange={(e)=>{
                                 setApartamento(e.target.value)
-                            }} className="bg-white border-2 text-start w-full p-1" type="text"  />  
+                            }} className="bg-white border-navigation border-2 text-start w-full p-1" type="text"  />  
                         </div>
                     </div>
 
@@ -177,6 +205,7 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
                     <button className="border pl-2 pr-2 bg-navigation text-white text-lg rounded-xl ">enviar</button>
                     </div>
                     </form>
+                    </div>
         </div>
         </>
     )

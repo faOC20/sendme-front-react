@@ -147,7 +147,7 @@ const url = 'https://real-time-amazon-data.p.rapidapi.com/search?page=1&country=
     const options = {
 	method: 'GET',
 	headers: {
-        'X-RapidAPI-Key': 'd8f26ab848msh7fbf30f0017215cp1e141bjsn3f3a65c0afc0',
+        'X-RapidAPI-Key': '99858570a1msh50bcaed822bbb6cp1a1826jsn598f43990361',
 		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
 	}
 };

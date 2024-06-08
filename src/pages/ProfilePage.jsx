@@ -10,14 +10,21 @@ import "./ProfilePage.css"
 import { useState } from "react"
 import { CancelIcon } from "../assets/icons/CancelIcon"
 import { NewDirectionForm } from "../components/profilePage/NewDirectionForm"
+import { NewCellForm } from "../components/profilePage/NewCellForm"
 
 export const ProfilePage = ()=>{
 
     const handleNewDirection = ()=>{
         setShowDiv(true)
     }
+
+    const handleNewCell = ()=>{
+        setShowNewCell(true)
+    }
+
     const {isAuth, name, email_usuario} = useAuthStore()
-    const [showDiv, setShowDiv] = useState(false)
+    const [showDiv, setShowDiv] = useState(false) //para el registro de nueva direccion
+    const[showNewCell, setShowNewCell] = useState(false)
 
     if (!isAuth){
         return <Navigate to="/session"/>
@@ -35,7 +42,7 @@ export const ProfilePage = ()=>{
                 
                 <div className="w-full h-full p-10 flex gap-5">
                     
-                    <section className="flex h-full w-6/12 rounded-lg overflow-hidden shadow-lg">
+                    <section className="flex h-full w-6/12 rounded-lg  shadow-lg">
                         <div className="flex  bg-footer flex-col items-center w-2/4 full p-20">
                             <h1 className="font-bold text-4xl text-start">
                                 Hola, {name}
@@ -61,9 +68,18 @@ export const ProfilePage = ()=>{
                             </div>
                             
 
-                            <div className="w-2/3 flex flex-col">
+                            <div className="w-2/3 flex flex-col items-center gap-2">
                                 <b className="text-2xl">Teléfono/s</b>
-                                <FetchCell/>
+                                <div className="w-full relative">
+                                <NewCellForm setShowNewCell={setShowNewCell} showNewCell={showNewCell}/>
+                                    <FetchCell/> 
+                                </div>
+                                <div className="flex justify-center w-full">
+                                    <button onClick={handleNewCell} className="direction-button text-gray-500 text-sm  rounded-full">
+                                        Agregar nuevo teléfono
+                                    </button>
+                                    
+                                </div>
                             </div>
 
                             <div className="">

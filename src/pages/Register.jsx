@@ -14,7 +14,6 @@ export const Register = ()=>{
 
     const [name, setName] = useState("")
     const [lastname, setLastname] = useState("")
-    const [phone, setPhone] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -36,7 +35,7 @@ export const Register = ()=>{
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                name,lastname,phone,email, password
+                name,lastname,email, password
             }),
         });
 
@@ -96,28 +95,25 @@ export const Register = ()=>{
 
                 <input onChange={(e)=>{
                     setName(e.target.value)
-                }} className='session-form-input' type="text" placeholder="Nombre"/>
+                }} className='session-form-input' type="text" placeholder="Nombre" required/>
                
                
                <input onChange={(e)=>{
                     setLastname(e.target.value)
-                }}  className='session-form-input' type="text" placeholder="Apellido"/>
+                }}  className='session-form-input' type="text" placeholder="Apellido" required/>
 
-                <input onChange={(e)=>{
-                    setPhone(e.target.value)
-                }}  className='session-form-input' type="text" placeholder="Teléfono"/>
 
                 <input onChange={(e)=>{
                     setEmail(e.target.value)
-                }}  className='session-form-input' type="email" placeholder="Correo electrónico"/>
+                }}  className='session-form-input' type="email" placeholder="Correo electrónico" required/>
 
                 <input onChange={(e)=>{
                     setPassword(e.target.value)
-                }}  className='session-form-input' type="password" placeholder="Contraseña"/>
+                }}  className='session-form-input' type="password" placeholder="Contraseña" required/>
 
                 <input onChange={(e)=>{
                     setConfirmPassword(e.target.value)
-                }}  className='session-form-input' type="password" placeholder="Contraseña nuevamente"/>
+                }}  className='session-form-input' type="password" placeholder="Contraseña nuevamente" required/>
 
                 <hr className='m-5 border '/>
                 {/* <div className='flex items-center'>

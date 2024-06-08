@@ -5,7 +5,7 @@ import { useAuthStore } from '../../store/user';
 import { API_URL } from '../../pages/api/constants';
 
 
-export const DirectionSelection = () => {
+export const DirectionSelection = ({setIdDirection}) => {
   const { id } = useAuthStore();
   const [initialOptions, setInitialOptions] = useState(null); // Estado para las opciones iniciales
 
@@ -24,8 +24,9 @@ export const DirectionSelection = () => {
         });
 
         const { data } = await response.json();
+        console.log(data)
         const options = data.map((ubicacion) => ({
-          value: `calle ${ubicacion.calle}, ${ubicacion.zona} / ${ubicacion.nombre_ciudad}, municipio: ${ubicacion.nombre_municipio}`,
+          value: `${ubicacion.id_direccion}`,
           label: `calle ${ubicacion.calle}, ${ubicacion.zona} / ${ubicacion.nombre_ciudad}, municipio: ${ubicacion.nombre_municipio}`,
         }));
 
@@ -47,11 +48,12 @@ export const DirectionSelection = () => {
     <AsyncSelect
       defaultOptions
       onChange={(selectedOption) => {
-        console.log(selectedOption);
+        setIdDirection(selectedOption.value);
       }}
       placeholder='sus direcciones'
       loadOptions={fetchInitialOptions} // Pasar las opciones iniciales al componente
       components={makeAnimated()} // Agregar animaciones si lo deseas
+      required
     />
   );
 };

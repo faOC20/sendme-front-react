@@ -6,14 +6,30 @@ import { useState } from 'react'
 import { API_URL } from './api/constants'
 import { Navigate } from 'react-router-dom'
 import { useAuthStore, useUserStore } from '../store/user'
-import Cookies from 'js-cookie'
-import { useEffect } from 'react'
+import Swal from 'sweetalert2'
 
 export const Login = ()=>{
 
+    const showWrong = ()=>{
+        Swal.fire({
+            icon: "error",
+            title: "Intente nuevamente",
+            text: "Email y/o contraseña inválidos!",
+            showConfirmButton:true
+        });
+    }
+
+    const showSucces = () => {
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Inicio de sesión completado!",
+            timer: 1500
+        })
+      }
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [authError, setAuthError] = useState("")
     const {setName, setToken, setId, isAuth, setEmailUsuario} = useAuthStore()
 
 
@@ -44,11 +60,12 @@ export const Login = ()=>{
             setToken(data.token)
             setName(data.nombre_usuario)
             setId (data.id)
-            setAuthError("")
+            showSucces()
+           
         }else{
             console.log("Algo ha salido mal")
-            const error = await response.json()
-            setAuthError(error.body.error)
+            showWrong()
+            
         }
       } catch (error){
         console.error(error)
@@ -82,18 +99,15 @@ export const Login = ()=>{
         <b>Iniciar sesión</b>
     </h1>
 
-    <div>
-        {authError}
-    </div>
 
     <div class=" flex h-5/6 w-9/12 justify-center"  >
             <form class="flex flex-col w-11/12 justify-evenly" action="submit" onSubmit={handleSubmit}>
                 <input onChange={(e)=>{
                     setEmail(e.target.value)
-                }} type="text" className='session-form-input' placeholder="Correo electrónico"/>
+                }} type="email" className='session-form-input' placeholder="Correo electrónico" required/>
                 <input onChange={(e)=>{
                     setPassword(e.target.value)
-                }} type="text" className='session-form-input' placeholder="Contraseña"/>
+                }} type="password" className='session-form-input' placeholder="Contraseña" required/>
                 
                 <div class="flex items-center">
                     <label class="text-xs flex-grow flex">

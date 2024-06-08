@@ -12,8 +12,31 @@ import { GhostIcon } from "../../assets/icons/GhostIcon"
 import { FourIcon } from "../../assets/icons/FourIcon"
 import { GalleryUpIcon } from "../../assets/icons/GalleryUpIcon"
 import { useAuthStore } from "../../store/user"
+import { DirectionSelection } from "../miscellaneos/DirectionSelection"
+import { Link } from "react-router-dom"
+import { FetchCell } from "../profilePage/FetchCell"
 
 export const PaymentContainer = ({total, bsTotal})=>{
+
+    //Lo que va para el backend
+    const [idDirection, setIdDirection] = useState()
+    const [idCell, setIdCell] = useState()
+    const [referencia, setReferencia] = useState()
+    const [date, setDate] = useState()
+    const [payMethod, setPayMethod] = useState()
+    const [accountHolder, setAccountHolder] = useState()
+    const {id} = useAuthStore()
+
+    const sendInfo = (e)=>{
+        e.preventDefault()
+        console.log(idDirection)
+        console.log(idCell)
+        console.log(referencia)
+        console.log(date)
+        console.log(payMethod)
+        console.log(accountHolder)
+    }
+
 
     const {name} = useAuthStore()
 
@@ -33,9 +56,9 @@ export const PaymentContainer = ({total, bsTotal})=>{
 
 
     return(
-        <section className="w-3/5 rounded-3xl flex gap-2 bg-white shadow-detail overflow-hidden">
+        <section className="w-3/5 rounded-3xl flex gap-2 bg-white shadow-detail ">
             
-            <div className="flex flex-col w-2/4 h-full bg-white p-6 rounded-3xl">
+            <form onSubmit={sendInfo} className="flex flex-col w-2/4 h-full bg-white p-6 rounded-3xl">
                 <div className="h-14">
                     <div className="flex items-center">
                         
@@ -46,12 +69,12 @@ export const PaymentContainer = ({total, bsTotal})=>{
                         <h1 className="text-start text-xl font-bold ml-2">Ya casi, {name}!</h1>
                     </div>
                     <hr className="m-2"/>
-                </div>  {/**Aqui el nombre segun el inicio de sesion*/}
+                </div>  
                 
                 
                 
-                <div className="flex w-full flex-col h-44 ">
-                <form className="flex flex-col flex-grow" action="#">
+                <div className="flex w-full flex-col h-44 mb-10">
+                <div className="flex flex-col flex-grow" action="#">
                     <label className="font-bold flex justify-center items-center m-2" for="lang">
                         <div className="mr-1">
                             <OneIcon/> 
@@ -59,15 +82,17 @@ export const PaymentContainer = ({total, bsTotal})=>{
                         
                         Selecciona su dirección de envío
                     </label>
-                        <select className="bg-white border-2 rounded-lg p-1" name="" id="lang">
-                            <option value="javascript">Cumaná, parcelamiento Miranda, Edificio Manicuare</option>
-                            <option value="newDirection">Agregar nueva dirección</option>
-                        </select>
-                </form>
+                    <DirectionSelection setIdDirection={setIdDirection}/>
+                    <ul className="mt-4 text-sm text-gray-500">
+                        <li>
+                            <Link to = '/profile'>Agregar dirección</Link>
+                        </li>
+                    </ul>
+                </div>
 
                 <hr className="m-2 flex-grow mt-5"/>
                 
-                <form className="flex flex-col flex-grow" action="#">
+                <div className="flex flex-col flex-grow" action="#">
                         <label className="font-bold flex justify-center items-center m-2" for="lang">
                             <div className="mr-1">
                                 <TwoIcon/> 
@@ -75,12 +100,13 @@ export const PaymentContainer = ({total, bsTotal})=>{
                             Seleccione su número de teléfono
                         
                         </label>
-                        
-                        <select className="bg-white border-2 rounded-lg p-1" name="" id="lang">
-                            <option value="javascript">04248066999</option>
-                            <option value="newDirection">Agregar nuevo teléfono</option>
-                        </select>
-                </form>
+                        <FetchCell  setIdCell={setIdCell}/>
+                        <ul className="mt-4 text-sm text-gray-500">
+                        <li>
+                            <Link to = '/profile'>Agregar teléfono</Link>
+                        </li>
+                    </ul>
+                </div>
                 </div>
 
                 
@@ -88,27 +114,41 @@ export const PaymentContainer = ({total, bsTotal})=>{
                 {
                     active !== null || usdActive !==null?(
                         <div className="h-full flex flex-col">
-                            <hr className="m-2 mt-8 mb-5"/>
+                            <hr className="m-2 mt-20 mb-5"/>
                             
-                            <div className="flex flex-col items-center h-full">
+                            <div className="flex flex-col items-center h-full gap-5">
                                 <div className="flex justify-center items-center">
                                     <div>
                                         <FourIcon/>
                                     </div>
-                                    <p className="ml-1 font-bold">Adjunte su comprobante de pago</p>
+                                    <p className="ml-1 font-bold">Adjunte su comprobante de pago y fecha</p>
                                 </div>
 
                                 <div className="flex mt-3 justify-center w-2/3 h-2/4">
-                                    <button>
-                                        <GalleryUpIcon/>
-                                    </button>
+                                    {/* <input type="file"/>
+                                        {/* <GalleryUpIcon/> */}
+                                     
 
                                     <div className="ml-2 flex justify-evenly flex-col">
-                                    < input className=" bg-transparent border-b border-b-black  text-center" type="text" placeholder="Número de referencia" />
+                                    < input onChange={(e)=>{
+                                        setReferencia(e.target.value)
+                                    }} className=" bg-transparent border-b border-b-black  text-center" type="text" placeholder="Número de referencia" required />
 
-                                    < input className=" bg-transparent border-b border-b-black  text-center" type="text" placeholder="Número de referencia" />
+                                    < input onChange={(e)=>{
+                                        setDate(e.target.value)
+                                    }} className=" bg-transparent border-b border-b-black  text-center" type="date"  required/>
+
+                                    < input onChange={(e)=>{
+                                        setPayMethod(e.target.value)
+                                    }} className=" bg-transparent border-b border-b-black  text-center" type="text" placeholder="método de pago" required/>
+
+                                    < input onChange={(e)=>{
+                                        setAccountHolder(e.target.value)
+                                    }} className=" bg-transparent border-b border-b-black  text-center" type="text" placeholder="titular del pago" required/>
 
                                     </div>
+
+                                    
 
                                     
                                 </div>
@@ -122,7 +162,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
                     ):('') 
                 }
 
-            </div> 
+            </form> 
 
 
             <div className="flex w-2/4 flex-col items-center border-l-2 bg-white p-6">
