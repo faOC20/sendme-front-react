@@ -13,10 +13,11 @@ import { FourIcon } from "../../assets/icons/FourIcon"
 import { GalleryUpIcon } from "../../assets/icons/GalleryUpIcon"
 import { useAuthStore } from "../../store/user"
 import { DirectionSelection } from "../miscellaneos/DirectionSelection"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { FetchCell } from "../profilePage/FetchCell"
 import { API_URL } from "../../pages/api/constants"
 import { useShoppingCartStore } from "../../store/products"
+import Swal from 'sweetalert2'
 
 export const PaymentContainer = ({total, bsTotal})=>{
 
@@ -44,12 +45,13 @@ export const PaymentContainer = ({total, bsTotal})=>{
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                idDirection, idCell, referencia, date, payMethod, accountHolder, id
+                idDirection, idCell, referencia, date, payMethod, accountHolder, id, total
             }),
         });
 
         if(response.ok){
             console.log('entre aqui')
+            
 
             const idPedido = await response.json()
             
@@ -63,14 +65,28 @@ export const PaymentContainer = ({total, bsTotal})=>{
                         cart, idPedido
                     }),
                 })
+
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Pedido realizado, será redirigido al perfil, donde podrá visualizar el estado del mismo!",
+                    showConfirmButton: true,
+                
+                //   }).then(()=>{
+                //     window.location.href = '/profile'
+                  }).then(()=>{
+                    window.location.href = '/profile'
+                  });
+
+                  
+
             }
-            catch{
+            catch(e){
+                console.error(e)
             }
+
+            
         }
-
-        // const idPedido = await response.json()
-
-        // setIdPedido(idPedido)
 
     }
 
@@ -93,7 +109,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
 
 
     return(
-        <section className="w-3/5 rounded-3xl flex gap-2 bg-white shadow-detail ">
+        <section className="w-3/5 rounded-3xl min-h-96 h-max flex gap-2 bg-white shadow-detail ">
             
             <form onSubmit={sendInfo} className="flex flex-col w-2/4 h-full bg-white p-6 rounded-3xl">
                 <div className="h-14">

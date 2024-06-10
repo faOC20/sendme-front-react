@@ -11,6 +11,7 @@ import { useState } from "react"
 import { CancelIcon } from "../assets/icons/CancelIcon"
 import { NewDirectionForm } from "../components/profilePage/NewDirectionForm"
 import { NewCellForm } from "../components/profilePage/NewCellForm"
+import { PedidosTable } from "../components/profilePage/PedidosTable"
 
 export const ProfilePage = ()=>{
 
@@ -91,15 +92,9 @@ export const ProfilePage = ()=>{
                         </section>
                     </section>
 
-                    <section className="w-6/12 h-full rounded-lg bg-white shadow-lg flex flex-col items-center">
-                        <div className="w-full h-1/5 flex items-center justify-center">
-                            <b className="text-xl">
-                                Pedidos
-                            </b>
-                        </div>
-
-                        <div className="w-10/12 h-full">
-                            <img className="w-fit" src="https://foros.consultoria-sap.com/uploads/db7262/original/3X/5/d/5dc28b4fc3ec959e3b9c4dc87ad6d7e49a4ea144.pngE" alt="" />
+                    <section className="w-[47rem] h-max rounded-lg bg-white shadow-lg flex flex-col items-center">
+                        <div className="w-full pl-10 pr-10">
+                            <PedidosTable/>
                         </div>
                     </section>
                    
