@@ -18,6 +18,7 @@ import { FetchCell } from "../profilePage/FetchCell"
 import { API_URL } from "../../pages/api/constants"
 import { useShoppingCartStore } from "../../store/products"
 import Swal from 'sweetalert2'
+import { FileUpload } from "./FileUpload"
 
 export const PaymentContainer = ({total, bsTotal})=>{
 
@@ -167,7 +168,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
                 {
                     active !== null || usdActive !==null?(
                         <div className="h-full flex flex-col">
-                            <hr className="m-2 mt-20 mb-5"/>
+                            <hr className="m-2 mt-28 mb-5"/>
                             
                             <div className="flex flex-col items-center h-full gap-5">
                                 <div className="flex justify-center items-center">
@@ -178,11 +179,15 @@ export const PaymentContainer = ({total, bsTotal})=>{
                                 </div>
 
                                 <div className="flex mt-3 justify-center w-2/3 h-2/4">
-                                    {/* <input type="file"/>
-                                        {/* <GalleryUpIcon/> */}
+                                   
+                                   
+                                   
                                      
 
-                                    <div className="ml-2 flex justify-evenly flex-col">
+                                    <div className="ml-2 flex justify-evenly flex-col w-full">
+
+                                    <FileUpload/>
+
                                     < input onChange={(e)=>{
                                         setReferencia(e.target.value)
                                     }} className=" bg-transparent border-b border-b-black  text-center" type="text" placeholder="Número de referencia" required />

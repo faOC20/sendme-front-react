@@ -54,7 +54,27 @@ export const PedidosTable = ()=>{
             selector: row=>row.estado,
             width:'7rem',
             compact: true,
-            center:true
+            center:true,
+            cell: row => {
+                let color;
+                switch (row.estado) {
+                    case 'en revisión':
+                        color = 'red';
+                        break;
+                    case 'procesando':
+                        color = 'yellow';
+                        break;
+                    case 'en camino':
+                        color = 'orange';
+                        break;
+                    case 'completado':
+                        color = 'green';
+                        break;
+                    default:
+                        color = '';
+                }
+                return <div style={{color: color}}>{row.estado}</div>;
+            }
         },
         {
             name: 'Producto/s',
@@ -72,6 +92,7 @@ export const PedidosTable = ()=>{
             center:true
         }
     ]
+
 
     const [data, setData] = useState([])
 
@@ -98,7 +119,7 @@ export const PedidosTable = ()=>{
                         date:pedido.fecha,
                         precioTotal:`${pedido.precio_total}$`,
                         direction: pedido.nombre_ciudad,
-                        estado:  pedido.estado,
+                        estado:  pedido.nombre_estado,
                         productos: pedido.nombre_productos,
                         factura:""
                     }
@@ -128,6 +149,7 @@ export const PedidosTable = ()=>{
                 data={data}
                 pagination
                 paginationPerPage={5}
+               
             />
 
             
