@@ -1,22 +1,21 @@
+import { Link } from "react-router-dom"
 import { UserIcon } from "../../../assets/icons/UserIcon"
 
 export const LoginOption = ()=>{
-    const handleClick = ()=>{
-        window.location.href='/session'
-    }
+    
 
     return(
         <li class="flex-grow flex justify-center items-end">  
-    <a class="flex items-end" href="javascript:void(0)" onClick={handleClick}>
+    <Link class="flex items-end" to='/session'>
     
         <UserIcon/>
     
-        <div>
+        <div className="flex flex-col text-start">
             <p>Bienvenido/a!</p>
             <b>Inicia sesión / Regístrate</b>    
         </div>
         
-    </a>
+    </Link>
 </li>
     )
 }

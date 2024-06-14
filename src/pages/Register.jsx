@@ -8,7 +8,7 @@ import './Register.css'
 import { useState } from 'react'
 import { API_URL } from './api/constants'
 import { useAuthStore, useUserStore } from '../store/user'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 export const Register = ()=>{
 
@@ -19,10 +19,6 @@ export const Register = ()=>{
     const [confirmPassword, setConfirmPassword] = useState("")
     const [authError, setAuthError] = useState()
     const {isAuth} = useAuthStore()
-
-    const handleClick = ()=>{
-        window.location.href = '/session'
-    }
 
     const handleSubmit = async(e)=>{
 
@@ -62,7 +58,7 @@ export const Register = ()=>{
     return (
         <div className='register-page-container'>   
             
-            <main class="main-container rounded-3xl flex overflow-hidden justify-center items-center flex-col">
+            <main class="main-container flex overflow-hidden justify-center items-center flex-col">
 
             <div class="absolute top-9 left-1/2">
                 <picture>
@@ -70,13 +66,13 @@ export const Register = ()=>{
                 </picture>
             </div>
 
-            <a href="/">
+            <Link to="/">
                 <picture>
                     <img class="w-16" src={letterLogo} alt="logo sendme"/>
                 </picture>
-            </a>
+            </Link>
 
-    <div class=" session-card rounded-3xl flex flex-col items-center h-max pb-5">
+    <div class=" session-card flex flex-col items-center h-max pb-5">
 
         <h1 class="flex justify-center  h-1/5 items-center text-2xl pt-6">
             <b>Registrarse</b>
@@ -87,7 +83,7 @@ export const Register = ()=>{
         </div>
 
         <div class=" flex w-9/12 justify-center"  >
-            <form class="flex flex-col w-11/12 justify-evenly" action="submit" onSubmit={handleSubmit}>
+            <form class="flex flex-col gap-2 w-11/12 justify-evenly" action="submit" onSubmit={handleSubmit}>
 
                 <hr />
 
@@ -139,20 +135,11 @@ export const Register = ()=>{
             
         
 
-                <div class="flex items-center">
-                    <label class="text-xs flex-grow flex">
-                        <input type="checkbox"/>
-                        Recúerdame
-                    </label>
-
-                    <label>
-                        <a class="text-xs flex-grow" href="">Olvidé mi contraseña</a>
-                    </label>
-                </div>
+                
                 
                 <button className="bg-navigation w-full p-1 text-white rounded-full">Registrarse</button>
 
-                <a className="text-xs self-center mt-3" href="javascript:void(0)" onClick={handleClick}>¿Ya posees una cuenta? <b>Inicia sesión</b>.</a>
+                <Link className="text-xs self-center mt-3" to='/session' >¿Ya posees una cuenta? <b>Inicia sesión</b>.</Link>
             </form>
         </div>
     </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import DataTable from "react-data-table-component"
 import { API_URL } from "../../pages/api/constants"
 import { useAuthStore } from "../../store/user"
+import { InvoiceIcon } from "../../assets/icons/InvoiceIcon"
 
 export const PedidosTable = ()=>{
 
@@ -18,7 +19,7 @@ export const PedidosTable = ()=>{
         {
             name: 'Nombre',
             selector: row=>row.name,
-            width:'7rem',
+            width:'5rem',
             compact: true,
             center:true
         }
@@ -26,7 +27,7 @@ export const PedidosTable = ()=>{
         {
             name: 'Fecha',
             selector: row=>row.date,
-            width:'7rem',
+            width:'6rem',
             compact: true,
             center:true
         }
@@ -35,7 +36,7 @@ export const PedidosTable = ()=>{
         {
             name: 'Dirección de envío',
             selector: row=>row.direction,
-            width:'7rem',
+            width:'6rem',
             compact: true,
             center:true
 
@@ -62,7 +63,7 @@ export const PedidosTable = ()=>{
                         color = 'red';
                         break;
                     case 'procesando':
-                        color = 'yellow';
+                        color = '#ddc300';
                         break;
                     case 'en camino':
                         color = 'orange';
@@ -76,20 +77,22 @@ export const PedidosTable = ()=>{
                 return <div style={{color: color}}>{row.estado}</div>;
             }
         },
-        {
-            name: 'Producto/s',
-            selector: row=>row.productos,
-            width:'10rem',
-            compact: true,
-            center:true
-        }
-        ,
+        
+        
         {
             name: 'Factura',
             selector: row=>row.factura,
             width:'7rem',
             compact: true,
-            center:true
+            center:true,
+            cell: row => (
+                row.factura !== '' ? (
+                  <a href={row.factura} target="_blank" rel="noopener noreferrer">
+                    <InvoiceIcon />
+                  </a>
+                ) : null
+              ),
+          
         }
     ]
 
@@ -121,7 +124,7 @@ export const PedidosTable = ()=>{
                         direction: pedido.nombre_ciudad,
                         estado:  pedido.nombre_estado,
                         productos: pedido.nombre_productos,
-                        factura:""
+                        factura:pedido.url_factura
                     }
                 )))
             }

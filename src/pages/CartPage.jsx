@@ -7,7 +7,7 @@ import { ProductDetail } from "../components/cartPage/ProductDetail"
 import { BuyButton } from "../components/productPage/BuyButton"
 import { useEffect, useState } from "react"
 import { useUserStore } from "../store/user"
-import { Navigate } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 
 export const CartPage = ()=>{
 
@@ -71,11 +71,11 @@ export const CartPage = ()=>{
                                     cart.length > 0? (
                                         <BuyButton/>
                                     ):(
-                                        <button className="rounded-full bg-main-decoration text-black mt-1 p-2" onClick={()=>{
-                                            window.location.href = '/'
-                                        }}>
+                                        <Link to='/'>
+                                            <button className="rounded-full bg-main-decoration text-black mt-1 p-2">
                                             Explorar productos 
                                         </button>
+                                        </Link>
                                     )
                                 }
                                 

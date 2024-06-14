@@ -29,6 +29,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
     const [date, setDate] = useState()
     const [payMethod, setPayMethod] = useState()
     const [accountHolder, setAccountHolder] = useState()
+    const [urlReference, setUrlReference] = useState()
     const {id} = useAuthStore()
 
 
@@ -46,7 +47,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                idDirection, idCell, referencia, date, payMethod, accountHolder, id, total
+                idDirection, idCell, referencia, date, payMethod, accountHolder, id, total, urlReference
             }),
         });
 
@@ -186,7 +187,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
 
                                     <div className="ml-2 flex justify-evenly flex-col w-full">
 
-                                    <FileUpload/>
+                                    <FileUpload setUrlReference={setUrlReference}/>
 
                                     < input onChange={(e)=>{
                                         setReferencia(e.target.value)

@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { UserIcon } from "../../../assets/icons/UserIcon"
 import { useUserStore } from "../../../store/user"
 import { useAuthStore } from "../../../store/user"
@@ -11,18 +11,16 @@ export const LogoutOption = ()=>{
         closeSession()
     }
     
-    const handleProfile = ()=>{
-        window.location.href = '/profile'
-    }
-
 
     return(
         <div class="flex-grow flex justify-center items-end">  
     <div class="flex items-end">
     
-        <button onClick={handleProfile}>
+        <Link to='/profile'>
+        <button>
             <UserIcon/>
         </button>
+        </Link>
     
         <div className="text-start">
             <p>Bienvenido/a, {name}!</p>

@@ -117,7 +117,7 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
 
     return (
         <>
-            <div className={`new-direction-form w-7/12 h-5/6 rounded-3xl absolute z-30 border overflow-hidden flex flex-col gap-4 border-black ${showDiv?"block":"hidden"}`}>
+            <div className={`new-direction-form w-7/12 h-max p-2 rounded-3xl absolute z-30 border overflow-hidden flex flex-col gap-4 border-black ${showDiv?"block":"hidden"}`}>
                     <div className="w-full flex h-10 justify-end p-2">
                         
                         <button onClick={()=>{

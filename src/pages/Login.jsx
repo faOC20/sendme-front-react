@@ -4,7 +4,7 @@ import clickhere from '../assets/images/clickhere.png'
 import { Footer } from '../components/footer/Footer'
 import { useState } from 'react'
 import { API_URL } from './api/constants'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useAuthStore, useUserStore } from '../store/user'
 import Swal from 'sweetalert2'
 
@@ -32,10 +32,6 @@ export const Login = ()=>{
     const [password, setPassword] = useState("")
     const {setName, setToken, setId, isAuth, setEmailUsuario} = useAuthStore()
 
-
-    const handleClick = ()=>{
-        window.location.href = '/register'
-    }
 
     const handleSubmit = async(e)=>{
 
@@ -87,11 +83,11 @@ export const Login = ()=>{
     </picture>
 </div>
 
-<a href="/">
+<Link to="/">
     <picture>
         <img class="w-16" src={letterLogo} alt="logo sendme"/>
     </picture>
-</a>
+</Link>
 
 <div class=" session-card  flex flex-col items-center">
 
@@ -109,11 +105,8 @@ export const Login = ()=>{
                     setPassword(e.target.value)
                 }} type="password" className='session-form-input' placeholder="Contraseña" required/>
                 
-                <div class="flex items-center">
-                    <label class="text-xs flex-grow flex">
-                        <input type="checkbox"/>
-                        Recúerdame
-                    </label>
+                <div class="flex items-center justify-end">
+                    
 
                     <label>
                         <a class="text-xs flex-grow" href="">Olvidé mi contraseña</a>
@@ -122,7 +115,7 @@ export const Login = ()=>{
                 
                 <button class="bg-navigation w-full p-1 text-white rounded-full">Ingresar</button>
 
-                <a class="text-xs self-center" href="javascript:void(0)" onClick={handleClick}>¿Aún no tiene cuenta? <b>Regístrate</b>.</a>
+                <Link class="text-xs self-center" to='/register'>¿Aún no tiene cuenta? <b>Regístrate</b>.</Link>
             </form>
         </div>
     </div>

@@ -51,13 +51,24 @@ export const PurchasePage = ()=>{
         setConsolidation((totalProductsAmount-1)*2)
         const calculatedTotalWeight = cart.reduce((acc, product) => {
 
-            if (!product.product_information['Item Weight']){
+            if (product.product_information['Package Dimension'] && !product.product_information['Item Weight']){
             const dimensions = product.product_information['Package Dimensions'];
-            const weightString = dimensions.split(';')[1]; // Obtenemos "3.52 ounces"
-            const weight = parseFloat(weightString); // Convertimos a número
-            const finalWeight = weight/35.274;
+            console.log(dimensions)
+                const weightString = dimensions.split(';')[1]; // Obtenemos "3.52 ounces"
+                const weight = parseFloat(weightString); // Convertimos a número
+                const finalWeight = weight/35.274;
             
             return acc + finalWeight*product.amount
+            }
+
+            if (product.product_information['Product Dimensions'] && !product.product_information['Item Weight']){
+                const dimensions = product.product_information['Product Dimensions'];
+                console.log(dimensions)
+                    const weightString = dimensions.split(';')[1]; // Obtenemos "3.52 ounces"
+                    const weight = parseFloat(weightString); // Convertimos a número
+                    const finalWeight = weight/2.20462262;
+                
+                return acc + finalWeight*product.amount
             }
             else{
                 const dimensions = product.product_information['Item Weight'];

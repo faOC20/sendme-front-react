@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { ShoppingCartIcon } from "../../assets/icons/ShoppingCartIcon"
 import { useShoppingCartStore } from "../../store/products"
 
@@ -7,12 +8,12 @@ export const ShoppingCartButton = ()=>{
 
     return (
         <li class="flex-grow flex justify-center">
-            <a className="flex items-end" onClick={()=>{
+            <Link className="flex items-end" onClick={()=>{
                 refreshCart()
-            }} href="/cart">
+            }} to="/cart">
                 <ShoppingCartIcon/>
                 <b>Carrito</b>
-            </a>
+            </Link>
         </li>
     )
 }

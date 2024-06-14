@@ -1,12 +1,12 @@
-export const BuyButton = ()=>{
+import { Link } from "react-router-dom"
 
-    const handleClick = ()=>{
-        window.location.href = '/purchase'
-    }
+export const BuyButton = ()=>{
 
     return (
         <>
-            <button onClick={handleClick} className='rounded-full bg-navigation text-white mt-1 p-2'>Comprar ahora</button>
+            <Link to='/purchase'>
+            <button className='rounded-full bg-navigation text-white mt-1 p-2'>Comprar ahora</button>
+            </Link>
         </>
     )
 } 

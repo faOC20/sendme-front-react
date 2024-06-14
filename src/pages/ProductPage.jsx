@@ -163,10 +163,10 @@ export const ProductPage = () => {
 	
 								</div>
 
-								<div className='w-5/12 h-full p-3 border-2 rounded-3xl flex flex-col justify-between'>
+								<div className='w-5/12 h-full p-3 border-2 rounded-3xl flex flex-col gap-10'>
 									<div className='flex-flex-col w-full'>
 										
-										<div className='flex flex-col'>
+										<div className='flex flex-col justify-start'>
 											<b className='text-2xl'>{price*amount} USD</b>
 											<b className='text-lg text-gray-500'>{new Intl.NumberFormat("de-DE").format(bsPrice)} Ves</b> 
 											{/* conectar con api de dolar a bcv */}
@@ -244,13 +244,11 @@ export const ProductPage = () => {
 										</button>
 									</div>
 
-									<div className='w-full h-2/5 p-2'>
-									<div className='bg-main-decoration w-full h-full rounded-lg'>
-										PNG DE METODOS DE PAGO
-									</div>
-									</div>
+									
 
+									<div className='flex flex-grow justify-center items-end'>
 									<button className='rounded-full border'>Añadir a la lista de deseos</button>
+									</div>
 								</div>
 							</div>
 							
