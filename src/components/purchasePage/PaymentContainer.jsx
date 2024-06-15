@@ -179,31 +179,31 @@ export const PaymentContainer = ({total, bsTotal})=>{
                                     <p className="ml-1 font-bold">Adjunte su comprobante de pago y fecha</p>
                                 </div>
 
-                                <div className="flex mt-3 justify-center w-2/3 h-2/4">
+                                <div className="flex mt-3 justify-center w-2/3 gap-5 h-2/4">
                                    
                                    
                                    
                                      
 
-                                    <div className="ml-2 flex justify-evenly flex-col w-full">
+                                    <div className="ml-2 flex flex-col  gap-5 w-full">
 
                                     <FileUpload setUrlReference={setUrlReference}/>
 
                                     < input onChange={(e)=>{
                                         setReferencia(e.target.value)
-                                    }} className=" bg-transparent border-b border-b-black  text-center" type="text" placeholder="Número de referencia" required />
+                                    }} className=" bg-transparent border-b text-gray-500 border-gray-400" type="text" placeholder="Número de referencia" required />
 
                                     < input onChange={(e)=>{
                                         setDate(e.target.value)
-                                    }} className=" bg-transparent border-b border-b-black  text-center" type="date"  required/>
+                                    }} className=" bg-transparent border-b text-gray-400 border-gray-400" type="date"  required/>
 
                                     < input onChange={(e)=>{
                                         setPayMethod(e.target.value)
-                                    }} className=" bg-transparent border-b border-b-black  text-center" type="text" placeholder="método de pago" required/>
+                                    }} className=" bg-transparent border-b  border-gray-400" type="text" placeholder="método de pago" required/>
 
                                     < input onChange={(e)=>{
                                         setAccountHolder(e.target.value)
-                                    }} className=" bg-transparent border-b border-b-black  text-center" type="text" placeholder="titular del pago" required/>
+                                    }} className=" bg-transparent border-b border-gray-400" type="text" placeholder="titular del pago" required/>
 
                                     </div>
 

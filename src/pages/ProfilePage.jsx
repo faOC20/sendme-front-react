@@ -56,9 +56,9 @@ export const ProfilePage = ()=>{
 
                         <section className=" flex flex-col w-full h-full bg-white justify-evenly items-center">
 
-                        <div className="w-full flex flex-col gap-2 items-center">
+                        <div className="w-2/3 flex flex-col gap-2 items-center">
                                 <b className="text-2xl">Ubicación</b>
-                                <div className="w-10/12">
+                                <div className="w-full">
                                 <DirectionSelection/>
                                 </div>
                                 <div className="flex w-3/4 justify-center">
