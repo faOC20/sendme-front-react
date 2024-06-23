@@ -1,19 +1,39 @@
 import { footerInfo } from "../../assets/constants/footerInfo"
 import { FooterInfoCreator } from "../footer/FooterInfoCreator"
 import { HEADER_COLOR } from "../../assets/constants/colors"
+import { WhatsappIcon } from "../../assets/icons/WhatsappIcon"
+import { FacebookIcon } from "../../assets/icons/FacebookIcon"
+import {InstagramIcon} from '../../assets/icons/InstagramIcon'
 
 export const Footer = ()=>{
     return (
         <>
             <footer className="footer-container">
-                <section class='flex h-3/4 bg-footer'>
+                <section class='flex h-3/4 w-full justify-center bg-footer'>
                     <ul class='flex w-full'>
                         {
                             footerInfo.map((info)=>(
                                 <FooterInfoCreator title={info.title} links={info.links}/>
                             ))
                         }
+
+                        <li className="flex-grow  flex flex-col items-center pt-2">
+                            <b>Síguenos</b>
+                            <div className="flex gap-3">
+                            <a href="">
+                                <WhatsappIcon/>
+                            </a>
+                            <a href="">
+                                <FacebookIcon/>
+                            </a>
+                            <a href="">
+                                <InstagramIcon/>
+                            </a>
+                            </div>
+                        </li>
                     </ul>
+
+                    
                 </section>
 
                 <footer class='bg-header h-1/4'>
