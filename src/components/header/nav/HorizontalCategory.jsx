@@ -7,7 +7,7 @@ export const HorizontalCategory = ({category})=>{
 
     return (
         <>
-             <li class="h-full flex items-center z-20 grow justify-center w-full">
+             <li class="individualCategory h-full flex items-center z-20 grow justify-center w-full">
                     <a href="javascript:void(0)" onClick={handleClick}>{category}</a>
             </li>
         </>

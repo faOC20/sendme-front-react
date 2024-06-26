@@ -5,7 +5,7 @@ export const LoginOption = ()=>{
     
 
     return(
-        <li class="flex-grow flex justify-center items-end">  
+        <li class="logo flex-grow flex justify-center items-end">  
     <Link class="flex items-end" to='/session'>
     
         <UserIcon/>

@@ -32,28 +32,30 @@ export const ProductPage = () => {
 	const fetchProduct = async id => {
 		await getClickedProduct(id);
 		setLoading(false);
-		setProductPhoto(clickedProduct.product_photo)
+		// setProductPhoto(clickedProduct.product_photo)
 		setInCart(cart.some(product=>product.asin === clickedProduct.asin))
 	};
 
 	useEffect(() => {
-		if(!clickedProduct){
+		// if(!clickedProduct){
 			
-			fetchProduct(id);
-		}
+		// 	fetchProduct(id);
+		// }
 
-		else{
-			setLoading(false)
-			setProductPhoto(clickedProduct.product_photo)	
-		}
-		
+		// else{
+		// 	setLoading(false)
+		// 	setProductPhoto(clickedProduct.product_photo)	
+		// }
+		localStorage.removeItem('productpage-storage')
+		fetchProduct(id);
+
 	}, []);
 
 	useEffect(() => {
 		if (clickedProduct) {
 		  setProductPhoto(clickedProduct.product_photo);
-		  setPrice(clickedProduct.product_price.replace(/\$/g, ''))
-		  setBsPrice(clickedProduct.product_price.replace(/\$/g, '')*36*amount)
+		  setPrice(clickedProduct.product_price.replace(/[\$,]/g, ''))
+		  setBsPrice(clickedProduct.product_price.replace(/[\$,]/g, '')*36*amount)
 		  setInCart(cart.some(product=>product.asin === clickedProduct.asin))
 		}
 	  }, [clickedProduct, amount]);

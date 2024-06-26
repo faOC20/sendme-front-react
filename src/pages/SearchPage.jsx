@@ -18,14 +18,29 @@ export const SearchPage = ()=>{
     const [loading, setLoading] = useState(true)
     const {query} = useParams();
     const [page, setPage] = useState(null)
-    const [activePage, setActivePage] = useState('1')
+    const [activePage, setActivePage] = useState(1)
+    const [minPrice, setMinPrice] = useState(1)
+    const [maxPrice, setMaxPrice] = useState(1000000)
+    const [orderBy, setOrderBy] = useState('sort_by=RELEVANCE&')
+    const [condition, setCondition] = useState("product_condition=ALL&")
 
-    const fetchQuery = async (query, page='1') => {
-		await getSearchProducts(query, page);
+    const filterQuery = (e)=>{
+        console.log(orderBy)
+        e.preventDefault()
+        localStorage.removeItem('searching-storage')
+        setLoading(true)
+        fetchQuery(query,undefined, minPrice, maxPrice, orderBy, condition)
+        setActivePage(1)    
+    }
+
+
+    const fetchQuery = async (query, page=1, minPrice=1, maxPrice=1000000, orderBy, condition="product_condition=ALL&") => {
+		await getSearchProducts(query, page , minPrice, maxPrice, orderBy, condition);
 		setLoading(false);
 	};
 
     useEffect(()=>{
+        
 
         if (!searchedProducts){
             fetchQuery(query)
@@ -34,6 +49,9 @@ export const SearchPage = ()=>{
         else{
             setLoading(false)
         }
+
+        
+
     },[])
 
     if (loading) {
@@ -74,69 +92,102 @@ export const SearchPage = ()=>{
                          </div>
                         <div>
                         
-                        <form className="flex justify-center gap-2" action="#">
-                            <label className="font-bold" for="orderBy">Ordenar por</label>
-                            <select className="bg-transparent border text-center border-black rounded-full" name="" id="orderBy">
-                                <option value="lowest-price">
-                                    Precio más bajo
-                                </option>
+                        <form className="flex flex-col gap-5" onSubmit={filterQuery}>
+                            <div className="flex justify-center gap-2">
 
-                                <option value="highest-price">
-                                    Precio más alto
-                                </option>
-                        </select>
-                        </form>
-                        </div>
+                                <label className="font-bold" for="orderBy">Ordenar por</label>
+                                <select className="flex bg-transparent border text-center border-black rounded-full" required name="" id="orderBy" 
+                                    onChange={(e)=>{
+                                        console.log(e.target.value)
+                                        setOrderBy(e.target.value)
+                                        
+                                        }}>
 
-                       
+                                    <option value="" disabled selected>
+                                        
+                                    </option>
+                                        
+                                    <option value='sort_by=RELEVANCE&'>
+                                        Todos
+                                    </option>
+                                    
+                                    <option value="sort_by=LOWEST_PRICE&">
+                                        Precio más bajo
+                                    </option>
 
-                        <div>
+                                    <option value="sort_by=HIGHEST_PRICE&">
+                                        Precio más alto
+                                    </option>
+                                </select>
+                            </div>
                             
-                            <form className="flex justify-center gap-2" action="#">
-                            <label className="font-bold" for="condition">Cóndicion</label>
-                            <select className="bg-transparent border text-center border-black rounded-full" name="" id="condition">
-                                <option value="new">
+                            <div className="flex justify-center gap-2">
+                            <label className="font-bold" for="condition">Condición</label>
+                            <select className="bg-transparent border text-center border-black rounded-full" required  name="" id="condition" onChange={(e)=>{
+                                setCondition(e.target.value)
+                            }}>
+
+                                <option value="" disabled selected>
+
+                                </option>
+
+                                <option value="product_condition=ALL&">
+                                    Todos
+                                </option>
+
+
+                                <option value="product_condition=NEW&">
                                     Nuevo
                                 </option>
 
-                                <option value="used">
+                                <option value="product_condition=USED&">
                                     Usado
                                 </option>
 
-                                <option value="refurbished">
+                                <option value="product_condition=RENEWED&">
                                     Reconstruido
                                 </option>
                             </select>
-                            </form>
-                        </div>
+                            </div>
 
-
-                        <div className="flex flex-col w-full">
+                            <div className="flex flex-col w-full">
                             <b>Rango de precio ($)</b>
                             <div className="flex justify-center gap-2">
                                 
-                                    <input className="bg-transparent border-b border-black w-1/4 text-center" type="text" name="" id="" placeholder="min" /> 
-                                    <input className="bg-transparent border-b w-1/4 border-black text-center" type="text" placeholder="max" />
+                                    <input className="bg-transparent border-b border-black w-1/4 text-center" type="text" name="" id="" placeholder="min" onChange={(e)=>{
+                                        setMinPrice(e.target.value)
+                                    }}/> 
+                                    <input className="bg-transparent border-b w-1/4 border-black text-center" type="text" placeholder="max" onChange={(e)=>{
+                                        setMaxPrice(e.target.value)
+                                    }} />
                                
                             </div>
+
+                            
 
                         </div>
 
                         <div>
-                        <button className="bg-navigation p-1 rounded-lg text-white">Buscar</button>
+                            <button className="bg-navigation p-1 rounded-lg text-white">Buscar</button>
+                        </div>
+                        
+                        
+                        </form>
                         </div>
                     </div>
                     <div className="searched-container flex-grow">
                         {
-                            searchedProducts.map((searchedProduct)=>(
-                                <ProductSlot 
-                                    key={searchedProduct.asin}
-                                    id={searchedProduct.asin}
-                                    photo={searchedProduct.product_photo}
-                                    name={searchedProduct.product_title}
-                                    price={searchedProduct.product_price}
-                                />
-                            ))
+                           searchedProducts
+                           .filter(product => product.product_price && product.product_price.includes('$'))
+                           .map(searchedProduct => (
+                               <ProductSlot
+                                   key={searchedProduct.asin}
+                                   id={searchedProduct.asin}
+                                   photo={searchedProduct.product_photo}
+                                   name={searchedProduct.product_title}
+                                   price={searchedProduct.product_price}
+                               />
+                           ))
                         }
                     </div>
                 </div>
@@ -148,7 +199,7 @@ export const SearchPage = ()=>{
 
                     {
                         numPages.map((numPage)=>(
-                            <NumPageCard numPage={numPage} fetchQuery={fetchQuery} query={query} setActivePage={setActivePage} activePage={activePage} setLoading={setLoading}/>
+                            <NumPageCard numPage={numPage} fetchQuery={fetchQuery} query={query} setActivePage={setActivePage} activePage={activePage} setLoading={setLoading} minPrice={minPrice} maxPrice={maxPrice} condition={condition} orderBy={orderBy}/>
                         ))
                     }
                        

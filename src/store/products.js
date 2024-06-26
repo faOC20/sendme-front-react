@@ -147,7 +147,7 @@ const url = 'https://real-time-amazon-data.p.rapidapi.com/search?page=1&country=
     const options = {
 	method: 'GET',
 	headers: {
-        'X-RapidAPI-Key': '2218ee5759msh6d3414795fc86cdp18c091jsne5a27f5cfc5c',
+        'X-RapidAPI-Key': 'd143944b40msh9722310421c423fp1e8e88jsnc6d711832658',
 		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
 	}
 };
@@ -336,9 +336,10 @@ export const useProductsStore = create(
             error:null,
             searchedProducts:null,
             
-            getSearchProducts: async (query, page)=>{
+            getSearchProducts: async (query, page, minPrice, maxPrice, orderBy, condition)=>{
                 try{
-                    const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/search?query=${query}&page=${page}&country=US`, options)
+                    const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/search?query=${query}&min_price=${minPrice}&max_price=${maxPrice}&${condition}${orderBy}page=${page}&country=US`, options)
+
                     const data = await response.json()
                     console.log(data)
                     set({searchedProducts:data.data.products})
@@ -385,10 +386,28 @@ export const useProductsStore = create(
                     cart: state.cart.filter((item) => item.product_availability !== null),
                 }));
             },
-        }),
+        }   ),
         {
             name:'cart-storage',
             storage: createJSONStorage(()=>localStorage),
+        }
+    )
+  );
+
+  export const usePriceChanger = create (
+    persist(
+        (set)=>({
+            vesPrice:false,
+
+            setVesPrice: ()=>{
+                set((state)=>({
+                    vesPrice: !state.vesPrice
+                }))
+            }
+        }),
+        {
+            name:'price-state',
+            storage: createJSONStorage(()=>localStorage)
         }
     )
   )

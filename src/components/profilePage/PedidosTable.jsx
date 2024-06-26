@@ -3,6 +3,7 @@ import DataTable from "react-data-table-component"
 import { API_URL } from "../../pages/api/constants"
 import { useAuthStore } from "../../store/user"
 import { InvoiceIcon } from "../../assets/icons/InvoiceIcon"
+import { ChargingTable } from "../miscellaneos/ChargingTable"
 
 export const PedidosTable = ()=>{
 
@@ -98,6 +99,7 @@ export const PedidosTable = ()=>{
 
 
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(()=>{
         const getOrders = async()=>{
@@ -127,6 +129,8 @@ export const PedidosTable = ()=>{
                         factura:pedido.url_factura
                     }
                 )))
+
+                setLoading(false)
             }
     
             catch (e){
@@ -152,7 +156,9 @@ export const PedidosTable = ()=>{
                 data={data}
                 pagination
                 paginationPerPage={5}
-               
+                noDataComponent = {'No ha realizado ningún pedido'}
+                progressPending = {loading}
+                progressComponent = {<ChargingTable/>}
             />
 
             

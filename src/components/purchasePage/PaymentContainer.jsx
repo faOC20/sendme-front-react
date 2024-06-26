@@ -107,7 +107,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
         setActiveCoin(initialCoin)
     },[])
 
-   
+    const today = new Date().toISOString().split('T')[0];
 
 
     return(
@@ -195,7 +195,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
 
                                     < input onChange={(e)=>{
                                         setDate(e.target.value)
-                                    }} className=" bg-transparent border-b text-gray-400 border-gray-400" type="date"  required/>
+                                    }} className=" bg-transparent border-b text-gray-400 border-gray-400" type="date"  required max={today} min='2024-01-01'/>
 
                                     < input onChange={(e)=>{
                                         setPayMethod(e.target.value)

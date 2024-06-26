@@ -18,7 +18,7 @@ export const CartPage = ()=>{
     const {isLogged} = useUserStore()
 
     useEffect(()=>{
-        const subTotal = cart.reduce((acc, product) => acc + parseFloat(product.product_price.replace(/\$/g, ''))*product.amount, 0)
+        const subTotal = cart.reduce((acc, product) => acc + parseFloat(product.product_price.replace(/[\$,]/g, ''))*product.amount, 0)
         setSubTotal(subTotal);
         setBsSubtotal(subTotal*36)
         setAmount(cart.reduce((acc, product)=> acc+product.amount,0))

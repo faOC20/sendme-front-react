@@ -4,6 +4,7 @@ import './categoriesStyles.css'
 import { MenuIcon } from "../../../assets/icons/MenuIcon"
 import { DownIcon } from "../../../assets/icons/DownIcon"
 import { HorizontalCategory } from "./HorizontalCategory"
+import { Link } from "react-router-dom"
 export const Navigation = ()=>{
     return (
         <nav className="navigation bg-navigation h-1/3 text-lg relative">
@@ -21,7 +22,7 @@ export const Navigation = ()=>{
                    <div class="w-full flex justify-center relative">
                         <div class="absolute rounded-full w-10/12 h-full bg-white"> </div>
                         
-                        <a class=' text-header pl-4 pr-4 pt-1 pb-1 z-20 ' href="">Todas las categorías</a>
+                        <button class=' text-header pl-4 pr-4 pt-1 pb-1 z-20 ' >Todas las categorías</button>
 
                    </div>
                     

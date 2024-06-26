@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-export const NumPageCard = ({numPage, fetchQuery, query, setLoading, setActivePage, activePage})=>{
+export const NumPageCard = ({numPage, fetchQuery, query, setLoading, setActivePage, activePage, minPrice, maxPrice, condition, orderBy})=>{
     
     const toInactivePage = ()=>{
         localStorage.removeItem('searching-storage')
         setActivePage(numPage)
         setLoading(true)
-        fetchQuery(query, numPage )
+        fetchQuery(query, numPage, minPrice, maxPrice, condition, orderBy )
     }
 
     const toActivePage = ()=>{

@@ -30,7 +30,8 @@ export const HealthCategory = ({name})=>{
             </h1>
 
             {
-                healthProducts.map((data)=>(
+                healthProducts.filter((product)=>product.product_price && product.product_price.includes('$'))
+                .map((data)=>(
                   <div className="flex w-2/4 h-2/4">
                     <ProductSlot 
                           key={data.asin}
