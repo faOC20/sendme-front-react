@@ -11,6 +11,6 @@ export const FileUpload = ({setUrlReference})=>{
     }
 
     return (
-        <input type="file" onChange={handleChange} required/>
+        <input type="file" accept="image/*" onChange={handleChange} required/>
     )
 }   

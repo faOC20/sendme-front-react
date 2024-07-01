@@ -12,6 +12,8 @@ import { CancelIcon } from "../assets/icons/CancelIcon"
 import { NewDirectionForm } from "../components/profilePage/NewDirectionForm"
 import { NewCellForm } from "../components/profilePage/NewCellForm"
 import { PedidosTable } from "../components/profilePage/PedidosTable"
+import { FixedWhatsapp } from "../components/miscellaneos/FixedWhatsapp"
+import { FixedCart } from "../components/miscellaneos/FixedCart"
 
 export const ProfilePage = ()=>{
 
@@ -100,6 +102,11 @@ export const ProfilePage = ()=>{
                    
                     
                 </div>
+
+                <div className='fixed z-[200] bottom-10 right-10'>
+                        <FixedCart/>
+						<FixedWhatsapp/>
+					</div>
             </main>
             <Footer/>
         </div>

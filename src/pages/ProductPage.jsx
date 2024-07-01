@@ -11,6 +11,8 @@ import { VariationCard } from '../components/productPage/VariationCard';
 import { SizeVariationCard } from '../components/productPage/SizeVariationCard';
 import '../pages/PageStyles.css'
 import { BuyButton } from '../components/productPage/BuyButton';
+import { FixedWhatsapp } from '../components/miscellaneos/FixedWhatsapp';
+import { FixedCart } from '../components/miscellaneos/FixedCart';
 
 export const ProductPage = () => {
 
@@ -32,20 +34,20 @@ export const ProductPage = () => {
 	const fetchProduct = async id => {
 		await getClickedProduct(id);
 		setLoading(false);
-		// setProductPhoto(clickedProduct.product_photo)
+		setProductPhoto(clickedProduct.product_photo)
 		setInCart(cart.some(product=>product.asin === clickedProduct.asin))
 	};
 
 	useEffect(() => {
-		// if(!clickedProduct){
+		if(!clickedProduct){
 			
-		// 	fetchProduct(id);
-		// }
+			fetchProduct(id);
+		}
 
-		// else{
-		// 	setLoading(false)
-		// 	setProductPhoto(clickedProduct.product_photo)	
-		// }
+		else{
+			setLoading(false)
+			setProductPhoto(clickedProduct.product_photo)	
+		}
 		localStorage.removeItem('productpage-storage')
 		fetchProduct(id);
 
@@ -117,9 +119,9 @@ export const ProductPage = () => {
 							
 							<div className='product-images rounded-3xl shadow-detail flex flex-col overflow-hidden items-center justify-center'>
 								{
-									clickedProduct.product_photos.map(photo=>(
+									clickedProduct.product_photos?(clickedProduct.product_photos.map(photo=>(
 										<ImageCard photo={photo} setProductPhoto={setProductPhoto} activePhoto={activePhoto} setActivePhoto={setActivePhoto}/>
-									)).slice(0,3)
+									)).slice(0,3)):("")
 								}
 							</div>
 							
@@ -221,7 +223,7 @@ export const ProductPage = () => {
 											(
 												<>
 													{
-														clickedProduct.product_availability !== null? (<>
+														clickedProduct.product_availability !== null && Object.keys(clickedProduct.product_information).length > 0? (<>
 															<button onClick={handleAdd} className='rounded-full bg-main-decoration p-2 mt-3'>Añadir al carrito</button>
 
 															<button onClick={handleBuyNow}className='rounded-full text-white bg-navigation p-2 mt-3' >
@@ -257,18 +259,29 @@ export const ProductPage = () => {
 							<div className="product-info rounded-3xl shadow-detail  overflow-auto overflow-x-hidden">
 								<div className='p-3 text-start'>
 									<b>Acerca de este articulo</b>
-									<p className='mb-2'>{clickedProduct.product_description}</p>
+									{
+										clickedProduct.product_description?(<p className='mb-2'>{clickedProduct.product_description}</p>)
+										:
+										('')
+										
+									}
 									
 									<section className='flex flex-col'>
 										
 										{
-											Object.entries(clickedProduct.product_information).map(([key, value]) => (
-												<div>
-													<b>{`${key}: `}</b>
-													{value}
-												</div>
+											clickedProduct.product_information && Object.keys(clickedProduct.product_information).length > 0?(
+												Object.entries(clickedProduct.product_information).map(([key, value]) => (
+													<div>
+														<b>{`${key}: `}</b>
+														{value}
+													</div>
+	
+												))
+											):(
+												''
+											)
 
-											))
+											
 										}
 										
 									</section>
@@ -277,6 +290,12 @@ export const ProductPage = () => {
 						</section>	
 						
 						</section>
+
+						
+						<div className='fixed z-[200] bottom-10 right-10'>
+						{/* <FixedCart/> */}
+						<FixedWhatsapp/>
+					</div>
 						
 					</main>
 					

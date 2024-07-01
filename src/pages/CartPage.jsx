@@ -8,6 +8,8 @@ import { BuyButton } from "../components/productPage/BuyButton"
 import { useEffect, useState } from "react"
 import { useUserStore } from "../store/user"
 import { Link, Navigate } from "react-router-dom"
+import { FixedWhatsapp } from "../components/miscellaneos/FixedWhatsapp"
+import { FixedCart } from "../components/miscellaneos/FixedCart"
 
 export const CartPage = ()=>{
 
@@ -55,7 +57,7 @@ export const CartPage = ()=>{
                                 <b>Subtotal</b>
                                 <div className="flex">
                                     <p>USD </p>
-                                    <b className="ml-1">{subtotal}$</b>  
+                                    <b className="ml-1">{subtotal.toFixed(2)}$</b>  
                                 </div>
                                 <div className="flex">
                                     <p>VES </p>
@@ -82,7 +84,9 @@ export const CartPage = ()=>{
                             </div>
                         </section>
                     </div>
-                   
+                    
+						<FixedWhatsapp/>
+                        <FixedCart/>
                 </main>
                 <Footer/>
             </div>

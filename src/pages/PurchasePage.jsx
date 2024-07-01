@@ -8,6 +8,8 @@ import { amazonTax, fixedTariff } from "../assets/constants/fixedTariff"
 import { PaymentContainer } from "../components/purchasePage/PaymentContainer"
 import { useAuthStore, useUserStore } from "../store/user"
 import { Navigate } from "react-router-dom"
+import { FixedWhatsapp } from "../components/miscellaneos/FixedWhatsapp"
+import { FixedCart } from "../components/miscellaneos/FixedCart"
 
 export const PurchasePage = ()=>{
     const {cart} = useShoppingCartStore()
@@ -42,7 +44,7 @@ export const PurchasePage = ()=>{
 
 
     useEffect(()=>{
-        const totalSubTotal = cart.reduce((acc, product) => acc + parseFloat(product.product_price.replace(/\$/g, ''))*product.amount, 0);
+        const totalSubTotal = cart.reduce((acc, product) => acc + parseFloat(product.product_price.replace(/[\$,]/g, ''))*product.amount, 0);
         const totalProductsAmount = cart.reduce((acc, product)=> acc+product.amount,0)
         
         setSubTotal(totalSubTotal)
@@ -51,7 +53,7 @@ export const PurchasePage = ()=>{
         setConsolidation((totalProductsAmount-1)*2)
         const calculatedTotalWeight = cart.reduce((acc, product) => {
 
-            if (product.product_information['Package Dimension'] && !product.product_information['Item Weight']){
+            if (product.product_information['Package Dimensions'] && !product.product_information['Item Weight']){
             const dimensions = product.product_information['Package Dimensions'];
             console.log(dimensions)
                 const weightString = dimensions.split(';')[1]; // Obtenemos "3.52 ounces"
@@ -118,7 +120,7 @@ export const PurchasePage = ()=>{
                             <b>Resumen del pedido</b>
                             <hr className="m-2"/>
                             <div className="flex">
-                                <p>Productos en EEUU: USD <b>{subtotal}$</b></p>
+                                <p>Productos en EEUU: USD <b>{subtotal.toFixed(2)}$</b></p>
                                  
                             </div>
                           
@@ -197,7 +199,10 @@ export const PurchasePage = ()=>{
                     </section>
                     
                 </div>
-
+                <div className='fixed z-[200] bottom-10 right-10'>
+                    <FixedCart/>
+					<FixedWhatsapp/>
+				</div>
             </main>
             <Footer/>
         </div>

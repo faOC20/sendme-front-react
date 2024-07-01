@@ -77,11 +77,11 @@ export const Login = ()=>{
         <div className="register-page-container">
              <main class="main-container rounded-3xl flex overflow-hidden justify-center items-center flex-col">
 
-<div class="absolute top-9 left-1/2">
+{/* <div class="absolute top-9 left-1/2">
     <picture>
         <img class="w-24" src={clickhere} alt="click para ir al inicio"/>
     </picture>
-</div>
+</div> */}
 
 <Link to="/">
     <picture>
@@ -105,13 +105,13 @@ export const Login = ()=>{
                     setPassword(e.target.value)
                 }} type="password" className='session-form-input' placeholder="Contraseña" required/>
                 
-                <div class="flex items-center justify-end">
+                {/* <div class="flex items-center justify-end">
                     
 
                     <label>
                         <a class="text-xs flex-grow" href="">Olvidé mi contraseña</a>
                     </label>
-                </div>
+                </div> */}
                 
                 <button class="bg-navigation w-full p-1 text-white rounded-full">Ingresar</button>
 

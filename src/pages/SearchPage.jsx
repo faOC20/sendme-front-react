@@ -10,6 +10,8 @@ import { numPages } from "../assets/constants/numPages";
 import './SearchPage.css'
 import { NumPageCard } from "../components/searchPage/NumPageCard";
 import '../pages/PageStyles.css'
+import { FixedWhatsapp } from "../components/miscellaneos/FixedWhatsapp";
+import { FixedCart } from "../components/miscellaneos/FixedCart";
 
 
 export const SearchPage = ()=>{
@@ -178,7 +180,7 @@ export const SearchPage = ()=>{
                     <div className="searched-container flex-grow">
                         {
                            searchedProducts
-                           .filter(product => product.product_price && product.product_price.includes('$'))
+                           .filter(product => product.product_price && product.product_price.includes('$') && product.product_title && product.product_url && product.product_photo)
                            .map(searchedProduct => (
                                <ProductSlot
                                    key={searchedProduct.asin}
@@ -207,6 +209,10 @@ export const SearchPage = ()=>{
 
                     </ol>
                 </div>
+
+                        <FixedCart/>
+						<FixedWhatsapp/>
+					
             </main>
             <Footer/>
         </div>

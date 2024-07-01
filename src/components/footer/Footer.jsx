@@ -21,9 +21,6 @@ export const Footer = ()=>{
                             <b>Síguenos</b>
                             <div className="flex gap-3">
                             <a href="">
-                                <WhatsappIcon/>
-                            </a>
-                            <a href="">
                                 <FacebookIcon/>
                             </a>
                             <a href="">

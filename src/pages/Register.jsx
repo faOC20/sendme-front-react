@@ -24,29 +24,35 @@ export const Register = ()=>{
 
         e.preventDefault()
 
-        try{
-        const response = await fetch (`${API_URL}register`,{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-            },
-            body: JSON.stringify({
-                name,lastname,email, password
-            }),
-        });
-
-        if (response.ok){
-            console.log('Usuario creado satisfactoriamente')
-            setAuthError("")
-            window.location.href = '/session'
-        }else{
-            console.log("Algo ha salido mal")
-            const error = await response.json()
-            setAuthError(error.body.error)
+        if (password !== confirmPassword){
+            setAuthError('las contraseñas no coinciden')
         }
-      } catch (error){
-        console.error(error)
-      }
+
+        else{
+            try{
+                const response = await fetch (`${API_URL}register`,{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json",
+                    },
+                    body: JSON.stringify({
+                        name,lastname,email, password
+                    }),
+                });
+        
+                if (response.ok){
+                    console.log('Usuario creado satisfactoriamente')
+                    setAuthError("")
+                    window.location.href = '/session'
+                }else{
+                    console.log("Algo ha salido mal")
+                    const error = await response.json()
+                    setAuthError(error.body.error)
+                }
+              } catch (error){
+                console.error(error)
+              }
+        }
     }
 
     if(isAuth){
@@ -60,11 +66,11 @@ export const Register = ()=>{
             
             <main class="main-container flex overflow-hidden justify-center items-center flex-col">
 
-            <div class="absolute top-9 left-1/2">
+            {/* <div class="absolute top-9 left-1/2">
                 <picture>
                     <img class="w-24" src={clickhere} alt="click para ir al inicio"/>
                 </picture>
-            </div>
+            </div> */}
 
             <Link to="/">
                 <picture>

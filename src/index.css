@@ -56,3 +56,12 @@ body {
   min-height: 100vh;
 }
 
+.ws-chat{
+  background-image: url('../src/assets/images/whatsapp-wallpaper.jpg');
+  background-size: cover;
+}
+
+.fixed-cart{
+  background: #fafafa70; /* Fondo semitransparente */
+  backdrop-filter: blur(3rem); /* Aplica un desenfoque de 10px */
+}

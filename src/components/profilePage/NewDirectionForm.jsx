@@ -78,9 +78,10 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
        
     }
 
-    const setMun = async ()=>{
+    const setMun = async (input)=>{
         
-        return munOptions
+        const filteredOptions = munOptions.filter(option=>option.label.toLocaleLowerCase().includes(input))
+        return filteredOptions
     }
 
     const fetchMun = async(idSelectedCity)=>{
