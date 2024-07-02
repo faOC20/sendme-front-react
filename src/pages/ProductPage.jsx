@@ -49,20 +49,26 @@ export const ProductPage = () => {
 	const[activeSize, setActiveSize] = useState(false)
 	const [inCart, setInCart] = useState(false)
 	const [clickedProduct, setClickedProduct] = useState()
+	const [error, setError] = useState(false)
 
 	const { id } = useParams();
 
 	const fetchProduct = async id => {
-		const data = await getClickedProduct(id);
-		setLoading(false);
-		console.log(data)
-		setProductPhoto(data.data.product_photo)
-		setClickedProduct(data.data)
-		setBsPrice(data.data.product_price.replace(/[\$,]/g, '')*36)
-		setPrice(data.data.product_price.replace(/[\$,]/g, ''))
-		setInCart(cart.some(product=>product.asin === data.data.asin))
-		
-		setSavedProduct(data.data)
+		try{
+			const data = await getClickedProduct(id);
+			setLoading(false);
+			console.log(data)
+			setProductPhoto(data.data.product_photo)
+			setClickedProduct(data.data)
+			setBsPrice(data.data.product_price.replace(/[\$,]/g, '')*36)
+			setPrice(data.data.product_price.replace(/[\$,]/g, ''))
+			setInCart(cart.some(product=>product.asin === data.data.asin))
+			
+			setSavedProduct(data.data)
+		}
+		catch(e){
+			setError(true)
+		}
 	};
 
 	useEffect(() => {
@@ -140,14 +146,14 @@ export const ProductPage = () => {
         )
     }
 
-	// if (error && !clickedProduct) {
+	if (error && !savedProduct) {
 		
-    //     return (
-	// 		<>
-	// 			<Error/>
-	// 		</>
-	// 	)
-    //   }
+        return (
+			<>
+				<Error/>
+			</>
+		)
+      }
 
 
     return(
