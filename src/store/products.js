@@ -147,7 +147,7 @@ const url = 'https://real-time-amazon-data.p.rapidapi.com/search?page=1&country=
     const options = {
 	method: 'GET',
 	headers: {
-        'X-RapidAPI-Key': 'ee7025c15amsh0f0459bc6179a1ep19f284jsn024e1e37b58e',
+        'X-RapidAPI-Key': 'ae449389d3msh57b7bd8240929b5p1125c7jsnc17801c0229d',
 		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
 	}
 };
@@ -299,22 +299,16 @@ export const useProductsStore = create(
         
         
             
-            clickedProduct:null,
+            savedProduct:null,
             error:null,
             
     
     
-            getClickedProduct: async (id)=>{
-                try{
-                    const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/product-details?asin=${id}&country=US`, options)
-                    const data = await response.json()
-                    console.log(data)
-                    set({clickedProduct:data.data})
+            setSavedProduct: (data)=>{
+                
+                set({savedProduct:data})
     
-                } catch(error){
-                    console.error(error)
-                    set({error:"Error fetching products"})
-                }
+                
             }
         }
         

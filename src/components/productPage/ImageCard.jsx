@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import { useClickedProductStore} from '../../store/products';
 
 
-export const ImageCard = ({photo, setProductPhoto, activePhoto, setActivePhoto})=>{
+export const ImageCard = ({photo, setProductPhoto, activePhoto, setActivePhoto, clickedProduct})=>{
 
-    const {clickedProduct} = useClickedProductStore();
+    // const {clickedProduct} = useClickedProductStore();
 
     useEffect(()=>{
         setActivePhoto(clickedProduct.product_photo)

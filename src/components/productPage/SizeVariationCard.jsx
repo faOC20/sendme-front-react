@@ -2,10 +2,9 @@ import { useEffect } from "react"
 import { useClickedProductStore } from "../../store/products"
 
 
-export const SizeVariationCard = ({variation_size, setActiveSize, activeSize})=>{
+export const SizeVariationCard = ({variation_size, setActiveSize, activeSize, clickedProduct})=>{
 
 
-    const {clickedProduct} = useClickedProductStore()
 
     useEffect(()=>{
         if (variation_size.asin === clickedProduct.asin){

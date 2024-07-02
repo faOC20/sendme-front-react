@@ -14,9 +14,29 @@ import { BuyButton } from '../components/productPage/BuyButton';
 import { FixedWhatsapp } from '../components/miscellaneos/FixedWhatsapp';
 import { FixedCart } from '../components/miscellaneos/FixedCart';
 
+const url = 'https://real-time-amazon-data.p.rapidapi.com/search?page=1&country=US&category_id=aps&limit=3&offset=0';
+    const options = {
+	method: 'GET',
+	headers: {
+        'X-RapidAPI-Key': 'ae449389d3msh57b7bd8240929b5p1125c7jsnc17801c0229d',
+		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
+	}
+};
+
 export const ProductPage = () => {
 
-	const { getClickedProduct, error, clickedProduct} = useClickedProductStore();
+	const getClickedProduct = async (id)=>{
+		try{
+			const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/product-details?asin=${id}&country=US`, options)
+			const data = await response.json()
+			return data
+
+		} catch(error){
+			console.error(error)
+		}
+	}
+
+	const {savedProduct, setSavedProduct} = useClickedProductStore();
 	const {cart, addToCart, deleteToCart } = useShoppingCartStore();
 
 	const[activePhoto, setActivePhoto]=useState(false)
@@ -28,46 +48,76 @@ export const ProductPage = () => {
 	const[activeVariation, setActiveVariation] = useState(false)
 	const[activeSize, setActiveSize] = useState(false)
 	const [inCart, setInCart] = useState(false)
+	const [clickedProduct, setClickedProduct] = useState()
 
 	const { id } = useParams();
 
 	const fetchProduct = async id => {
-		await getClickedProduct(id);
+		const data = await getClickedProduct(id);
 		setLoading(false);
-		setProductPhoto(clickedProduct.product_photo)
-		setInCart(cart.some(product=>product.asin === clickedProduct.asin))
+		console.log(data)
+		setProductPhoto(data.data.product_photo)
+		setClickedProduct(data.data)
+		setBsPrice(data.data.product_price.replace(/[\$,]/g, '')*36)
+		setPrice(data.data.product_price.replace(/[\$,]/g, ''))
+		setInCart(cart.some(product=>product.asin === data.data.asin))
+		
+		setSavedProduct(data.data)
 	};
 
 	useEffect(() => {
-		if(!clickedProduct){
+		// if(!clickedProduct){
+
 			
+		// }
+
+		if (!savedProduct){
 			fetchProduct(id);
 		}
 
-		else{
+		else {
 			setLoading(false)
-			setProductPhoto(clickedProduct.product_photo)	
+			setClickedProduct(savedProduct)
+			setProductPhoto(savedProduct.product_photo)
+			setBsPrice(savedProduct.product_price.replace(/[\$,]/g, '')*36)
+			setPrice(savedProduct.product_price.replace(/[\$,]/g, ''))
+			setInCart(cart.some(product=>product.asin === savedProduct.asin))
+			console.log(savedProduct)
 		}
-		localStorage.removeItem('productpage-storage')
-		fetchProduct(id);
+		
+
+		// else{
+		// 	setLoading(false)
+		// 	setProductPhoto(clickedProduct.product_photo)	
+		// }
+		// localStorage.removeItem('productpage-storage')
+		// fetchProduct(id);
 
 	}, []);
 
-	useEffect(() => {
-		if (clickedProduct) {
-		  setProductPhoto(clickedProduct.product_photo);
-		  setPrice(clickedProduct.product_price.replace(/[\$,]/g, ''))
-		  setBsPrice(clickedProduct.product_price.replace(/[\$,]/g, '')*36*amount)
-		  setInCart(cart.some(product=>product.asin === clickedProduct.asin))
-		}
-	  }, [clickedProduct, amount]);
-
 	useEffect(()=>{
-		if(clickedProduct){
+		if (cart && clickedProduct){
+			setBsPrice(clickedProduct.product_price.replace(/[\$,]/g, '')*36*amount)
+			setPrice(clickedProduct.product_price.replace(/[\$,]/g, '')*amount)
 			setInCart(cart.some(product=>product.asin === clickedProduct.asin))
 		}
-		 /**devuelve true o false */
-	},[cart])
+	},[amount, cart])
+
+	// useEffect(() => {
+	// 	if (clickedProduct) {
+	// 	  setProductPhoto(clickedProduct.product_photo);
+	// 	  setPrice(clickedProduct.product_price.replace(/[\$,]/g, ''))
+	// 	  setBsPrice(clickedProduct.product_price.replace(/[\$,]/g, '')*36*amount)
+	// 	  setInCart(cart.some(product=>product.asin === clickedProduct.asin))
+	// 	}
+	//   }, [clickedProduct, amount]);
+
+	// useEffect(()=>{
+	// 	if(clickedProduct){
+	// 		setInCart(cart.some(product=>product.asin === clickedProduct.asin))
+	// 	}
+	// 	 /**devuelve true o false */
+	// },[cart])
 
 	const handleTrash = ()=>{
 		deleteToCart(clickedProduct)
@@ -90,14 +140,14 @@ export const ProductPage = () => {
         )
     }
 
-	if (error && !clickedProduct) {
+	// if (error && !clickedProduct) {
 		
-        return (
-			<>
-				<Error/>
-			</>
-		)
-      }
+    //     return (
+	// 		<>
+	// 			<Error/>
+	// 		</>
+	// 	)
+    //   }
 
 
     return(
@@ -120,7 +170,7 @@ export const ProductPage = () => {
 							<div className='product-images rounded-3xl shadow-detail flex flex-col overflow-hidden items-center justify-center'>
 								{
 									clickedProduct.product_photos?(clickedProduct.product_photos.map(photo=>(
-										<ImageCard photo={photo} setProductPhoto={setProductPhoto} activePhoto={activePhoto} setActivePhoto={setActivePhoto}/>
+										<ImageCard photo={photo} setProductPhoto={setProductPhoto} activePhoto={activePhoto} setActivePhoto={setActivePhoto} clickedProduct={clickedProduct}/>
 									)).slice(0,3)):("")
 								}
 							</div>
@@ -138,7 +188,7 @@ export const ProductPage = () => {
 									<div className='flex flex-wrap mt-4 max-h-80 justify-center overflow-y-auto'>
 										{
 											clickedProduct.product_variations.color?.map((variation_color)=>(
-												<VariationCard variation_color={variation_color} setActiveVariation = {setActiveVariation} activeVariation={activeVariation}/>
+												<VariationCard variation_color={variation_color} setActiveVariation = {setActiveVariation} activeVariation={activeVariation} clickedProduct={clickedProduct}/>
 											))
 										} 
 									</div>
@@ -158,7 +208,7 @@ export const ProductPage = () => {
 										<div className='flex flex-wrap'>
 										{
 											clickedProduct.product_variations.size?.map((variation_size)=>(
-												<SizeVariationCard variation_size={variation_size} setActiveSize={setActiveSize} activeSize={activeSize}/>
+												<SizeVariationCard variation_size={variation_size} setActiveSize={setActiveSize} activeSize={activeSize} clickedProduct={clickedProduct}/>
 											))
 										}
 										</div>
@@ -171,9 +221,9 @@ export const ProductPage = () => {
 									<div className='flex-flex-col w-full'>
 										
 										<div className='flex flex-col justify-start'>
-											<b className='text-2xl'>{price*amount} USD</b>
+											<b className='text-2xl'>{price} USD</b>
 											<b className='text-lg text-gray-500'>{new Intl.NumberFormat("de-DE").format(bsPrice)} Ves</b> 
-											{/* conectar con api de dolar a bcv */}
+											
 										</div>
 										
 
@@ -293,7 +343,7 @@ export const ProductPage = () => {
 
 						
 						<div className='fixed z-[200] bottom-10 right-10'>
-						{/* <FixedCart/> */}
+						<FixedCart/>
 						<FixedWhatsapp/>
 					</div>
 						
