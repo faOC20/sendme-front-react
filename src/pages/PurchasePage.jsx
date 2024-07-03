@@ -6,6 +6,10 @@ import { useShoppingCartStore } from "../store/products"
 import { useState, useEffect } from "react"
 import { amazonTax, fixedTariff } from "../assets/constants/fixedTariff"
 import { PaymentContainer } from "../components/purchasePage/PaymentContainer"
+import { useAuthStore, useUserStore } from "../store/user"
+import { Navigate } from "react-router-dom"
+import { FixedWhatsapp } from "../components/miscellaneos/FixedWhatsapp"
+import { FixedCart } from "../components/miscellaneos/FixedCart"
 
 export const PurchasePage = ()=>{
     const {cart} = useShoppingCartStore()
@@ -18,6 +22,7 @@ export const PurchasePage = ()=>{
     const [productsTax, setProductTax] = useState(0)
     const [consolidation, setConsolidation] = useState(0)
     const [safe, setSafe ] = useState(0)
+    const {isAuth, name}= useAuthStore()
 
 
     // const roundedTohalf = (number)=>{
@@ -35,9 +40,11 @@ export const PurchasePage = ()=>{
         }
     }
 
+    
+
 
     useEffect(()=>{
-        const totalSubTotal = cart.reduce((acc, product) => acc + parseFloat(product.product_price.replace(/\$/g, ''))*product.amount, 0);
+        const totalSubTotal = cart.reduce((acc, product) => acc + parseFloat(product.product_price.replace(/[\$,]/g, ''))*product.amount, 0);
         const totalProductsAmount = cart.reduce((acc, product)=> acc+product.amount,0)
         
         setSubTotal(totalSubTotal)
@@ -46,13 +53,24 @@ export const PurchasePage = ()=>{
         setConsolidation((totalProductsAmount-1)*2)
         const calculatedTotalWeight = cart.reduce((acc, product) => {
 
-            if (!product.product_information['Item Weight']){
+            if (product.product_information['Package Dimensions'] && !product.product_information['Item Weight']){
             const dimensions = product.product_information['Package Dimensions'];
-            const weightString = dimensions.split(';')[1]; // Obtenemos "3.52 ounces"
-            const weight = parseFloat(weightString); // Convertimos a número
-            const finalWeight = weight/35.274;
+            console.log(dimensions)
+                const weightString = dimensions.split(';')[1]; // Obtenemos "3.52 ounces"
+                const weight = parseFloat(weightString); // Convertimos a número
+                const finalWeight = weight/35.274;
             
             return acc + finalWeight*product.amount
+            }
+
+            if (product.product_information['Product Dimensions'] && !product.product_information['Item Weight']){
+                const dimensions = product.product_information['Product Dimensions'];
+                console.log(dimensions)
+                    const weightString = dimensions.split(';')[1]; // Obtenemos "3.52 ounces"
+                    const weight = parseFloat(weightString); // Convertimos a número
+                    const finalWeight = weight/2.20462262;
+                
+                return acc + finalWeight*product.amount
             }
             else{
                 const dimensions = product.product_information['Item Weight'];
@@ -79,6 +97,10 @@ export const PurchasePage = ()=>{
         setBsTotal((subtotal+fixedTariff+airPrice+productsTax+consolidation+safe)*36)
     },[totalWeight, subtotal, airPrice , productsTax, consolidation, safe])
 
+
+    if(!isAuth){
+        return <Navigate to='/session'/>
+    }
     
 
     return (
@@ -89,16 +111,16 @@ export const PurchasePage = ()=>{
 
             <h1 className="flex justify-center items-center h-20 text-2xl font-bold">Pedido</h1>
 
-                <div className="flex ml-20 mr-20 mb-20">
+                <div className="flex ml-20 mr-20 mb-20 phone:flex-col-reverse phone:ml-0 phone:mr-0 phone:gap-5 phone:pl-2">
 
                     <PaymentContainer total={total} bsTotal={bsTotal}/>
                        
-                    <section className="flex-grow h-max ml-4 rounded-3xl shadow-detail">
+                    <section className="flex-grow h-max ml-4 rounded-3xl shadow-detail phone:w-[390px] phone:ml-0">
                         <div className="w-full h-2/3 p-5 text-start flex flex-col justify-evenly">
                             <b>Resumen del pedido</b>
                             <hr className="m-2"/>
                             <div className="flex">
-                                <p>Productos en EEUU: USD <b>{subtotal}$</b></p>
+                                <p>Productos en EEUU: USD <b>{subtotal.toFixed(2)}$</b></p>
                                  
                             </div>
                           
@@ -177,7 +199,10 @@ export const PurchasePage = ()=>{
                     </section>
                     
                 </div>
-
+                <div className='fixed z-[200] bottom-10 right-10'>
+                    <FixedCart/>
+					<FixedWhatsapp/>
+				</div>
             </main>
             <Footer/>
         </div>

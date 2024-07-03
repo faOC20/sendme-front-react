@@ -24,7 +24,7 @@ export const ClothesCategory = ({name})=>{
       }
 
     return (
-      <section className="category-section-container">
+      <section className="category-section-container overflow-x-auto">
       <h1 className="text-center text-2xl font-bold p-3">
         {name}
       </h1>
@@ -32,8 +32,9 @@ export const ClothesCategory = ({name})=>{
       <div className="flex w-full h-full justify-center pb-5 pl-5 pr-5">
           
       {
-          clothesProducts.map((data)=>(
-            <div className="flex flex-col w-1/3 h-3/4 m-2">
+          clothesProducts.filter((product)=>product.product_price && product.product_price.includes('$'))
+          .map((data)=>(
+            <div className="flex flex-col w-1/3 h-3/4 m-2 phone:w-full phone:m-1">
               <ProductSlot 
                     key={data.asin}
                     id={data.asin}

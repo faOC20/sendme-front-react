@@ -1,24 +1,18 @@
 import {UserIcon} from "../../assets/icons/UserIcon"
+import { useAuthStore, useUserStore } from "../../store/user"
+import { LoginOption } from "./sessionOptions/LoginOption"
+import { LogoutOption } from "./sessionOptions/LogoutOption"
+
 
 export const SessionButton = ()=>{
 
-    const handleClick = ()=>{
-        window.location.href='/session'
-        
-    }
+    const {isAuth} = useAuthStore()
 
     return(
-        <li class="flex-grow flex justify-center items-end">  
-            <a class="flex items-end" href="javascript:void(0)" onClick={handleClick}>
-            
-                <UserIcon/>
-            
-                <div>
-                    <p>Bienvenido!</p>
-                    <b>Inicia sesión / Regístrate</b>    
-                </div>
-                
-            </a>
-        </li>
+        isAuth?(
+            <LogoutOption/>
+        ):(
+            <LoginOption/>
+        )
     )
 }

@@ -22,7 +22,7 @@
    height: 90%;
 }
 
-.allCategories:hover > div> a{
+.allCategories:hover > div> button{
     font-weight: bold;
     color: white;
 }
@@ -35,3 +35,8 @@
    transition: width 0.3s;
 }
 
+
+.individualCategory:hover{
+    
+    filter: brightness(0.8) saturate(0.5);
+}

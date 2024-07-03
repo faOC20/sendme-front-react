@@ -5,8 +5,13 @@
     'main ' auto
     'footer' 160px/
     auto ; 
-
     min-height: 100vh;
+
+    @media (max-width:640px) {
+        grid-template:
+        'main ' auto/
+        auto ;  
+    }
 }
 
 .session-card{

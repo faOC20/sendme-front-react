@@ -5,58 +5,147 @@ import clickhere from '../assets/images/clickhere.png'
 import { Footer } from '../components/footer/Footer'
 import { Header } from '../components/header/Header'
 import './Register.css'
+import { useState } from 'react'
+import { API_URL } from './api/constants'
+import { useAuthStore, useUserStore } from '../store/user'
+import { Link, Navigate } from 'react-router-dom'
 
 export const Register = ()=>{
 
-    const handleClick = ()=>{
-        window.location.href = '/session'
+    const [name, setName] = useState("")
+    const [lastname, setLastname] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
+    const [authError, setAuthError] = useState()
+    const {isAuth} = useAuthStore()
+
+    const handleSubmit = async(e)=>{
+
+        e.preventDefault()
+
+        if (password !== confirmPassword){
+            setAuthError('las contraseñas no coinciden')
+        }
+
+        else{
+            try{
+                const response = await fetch (`${API_URL}register`,{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json",
+                    },
+                    body: JSON.stringify({
+                        name,lastname,email, password
+                    }),
+                });
+        
+                if (response.ok){
+                    console.log('Usuario creado satisfactoriamente')
+                    setAuthError("")
+                    window.location.href = '/session'
+                }else{
+                    console.log("Algo ha salido mal")
+                    const error = await response.json()
+                    setAuthError(error.body.error)
+                }
+              } catch (error){
+                console.error(error)
+              }
+        }
+    }
+
+    if(isAuth){
+        
+        return <Navigate to="/session"/>
+        
     }
 
     return (
         <div className='register-page-container'>   
             
-            <main class="main-container rounded-3xl flex overflow-hidden justify-center items-center flex-col">
+            <main class="main-container flex overflow-hidden justify-center items-center flex-col">
 
-            <div class="absolute top-9 left-1/2">
+            {/* <div class="absolute top-9 left-1/2">
                 <picture>
                     <img class="w-24" src={clickhere} alt="click para ir al inicio"/>
                 </picture>
-            </div>
+            </div> */}
 
-            <a href="/">
+            <Link to="/">
                 <picture>
                     <img class="w-16" src={letterLogo} alt="logo sendme"/>
                 </picture>
-            </a>
+            </Link>
 
-    <div class=" session-card rounded-3xl flex flex-col items-center">
+    <div class=" session-card flex flex-col items-center h-max pb-5">
 
         <h1 class="flex justify-center  h-1/5 items-center text-2xl pt-6">
             <b>Registrarse</b>
         </h1>
 
-        <div class=" flex h-5/6 w-9/12 justify-center"  >
-            <form class="flex flex-col w-11/12 justify-evenly" action="submit">
-                <input className='session-form-input' type="email" placeholder="Correo electrónico"/>
-                <input className='session-form-input' type="password" placeholder="Contraseña"/>
-                <input className='session-form-input' type="password" placeholder="Contraseña nuevamente"/>
+        <div className='p-2 text-red-600'>
+            {authError}
+        </div>
+
+        <div class=" flex w-9/12 justify-center"  >
+            <form class="flex flex-col gap-2 w-11/12 justify-evenly" action="submit" onSubmit={handleSubmit}>
+
+                <hr />
+
+                <b>Datos personales</b>
+
+                <input onChange={(e)=>{
+                    setName(e.target.value)
+                }} className='session-form-input' type="text" placeholder="Nombre" required/>
+               
+               
+               <input onChange={(e)=>{
+                    setLastname(e.target.value)
+                }}  className='session-form-input' type="text" placeholder="Apellido" required/>
+
+
+                <input onChange={(e)=>{
+                    setEmail(e.target.value)
+                }}  className='session-form-input' type="email" placeholder="Correo electrónico" required/>
+
+                <input onChange={(e)=>{
+                    setPassword(e.target.value)
+                }}  className='session-form-input' type="password" placeholder="Contraseña" required/>
+
+                <input onChange={(e)=>{
+                    setConfirmPassword(e.target.value)
+                }}  className='session-form-input' type="password" placeholder="Contraseña nuevamente" required/>
+
+                <hr className='m-5 border '/>
+                {/* <div className='flex items-center'>
+                    <label className="font-bold flex justify-center items-center m-2" for="lang"> 
+                            País
+                    </label>
+                        
+                    <select className="bg-white border-2 rounded-lg h-3/4" name="" id="lang">
+                        <option value="javascript">Venezuela</option>
+                    </select>
+                </div>
+
+                <div className='flex items-center'>
+                    <label className="font-bold flex justify-center items-center m-2" for="lang"> 
+                        Ciudad
+                    </label>
+                        
+                    <select className="bg-white border-2 rounded-lg h-3/4" name="" id="lang">
+                        <option value="javascript">Cumana</option>
+                        
+                    </select>
+                </div> */}
             
         
 
-                <div class="flex items-center">
-                    <label class="text-xs flex-grow flex">
-                        <input type="checkbox"/>
-                        Recúerdame
-                    </label>
-
-                    <label>
-                        <a class="text-xs flex-grow" href="">Olvidé mi contraseña</a>
-                    </label>
-                </div>
                 
-                <button class="bg-navigation w-full p-1 text-white rounded-full" >Registrarse</button>
+                
+                <button className="bg-navigation w-full p-1 text-white rounded-full">Registrarse</button>
 
-                <a class="text-xs self-center" href="javascript:void(0)" onClick={handleClick}>¿Ya posees una cuenta? <b>Inicia sesión</b>.</a>
+                <Link className="text-xs self-center mt-3" to='/session' >¿Ya posees una cuenta? <b>Inicia sesión</b>.</Link>
             </form>
         </div>
     </div>

@@ -4,4 +4,8 @@
     grid-auto-rows: 240px;
     gap: 10px;
     justify-items: center;
+
+    @media (max-width:640px) {
+        grid-auto-rows: 230px;
+    }
 }

@@ -27,15 +27,7 @@ export const footerInfo = [
         ]
     },
 
-    {
-        title: 'Síguenos',
-        links:[
-           'W',
-           'L',
-           'F',
-           'I'
-        ]
-    }
+    
 
 
 ]

@@ -147,7 +147,7 @@ const url = 'https://real-time-amazon-data.p.rapidapi.com/search?page=1&country=
     const options = {
 	method: 'GET',
 	headers: {
-        'X-RapidAPI-Key': 'd8f26ab848msh7fbf30f0017215cp1e141bjsn3f3a65c0afc0',
+        'X-RapidAPI-Key': '694c161d7fmsh37dbfcec04c91abp1119d6jsnc14ada24ede7',
 		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
 	}
 };
@@ -299,22 +299,16 @@ export const useProductsStore = create(
         
         
             
-            clickedProduct:null,
+            savedProduct:null,
             error:null,
             
     
     
-            getClickedProduct: async (id)=>{
-                try{
-                    const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/product-details?asin=${id}&country=US`, options)
-                    const data = await response.json()
-                    console.log(data)
-                    set({clickedProduct:data.data})
+            setSavedProduct: (data)=>{
+                
+                set({savedProduct:data})
     
-                } catch(error){
-                    console.error(error)
-                    set({error:"Error fetching products"})
-                }
+                
             }
         }
         
@@ -336,9 +330,10 @@ export const useProductsStore = create(
             error:null,
             searchedProducts:null,
             
-            getSearchProducts: async (query, page)=>{
+            getSearchProducts: async (query, page, minPrice, maxPrice, orderBy, condition)=>{
                 try{
-                    const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/search?query=${query}&page=${page}&country=US`, options)
+                    const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/search?query=${query}&min_price=${minPrice}&max_price=${maxPrice}&${condition}${orderBy}page=${page}&country=US`, options)
+
                     const data = await response.json()
                     console.log(data)
                     set({searchedProducts:data.data.products})
@@ -363,6 +358,7 @@ export const useProductsStore = create(
   export const useShoppingCartStore = create(
     persist(
         (set)=>({
+            subtotal:0,
             cart:[],
             addToCart:(product)=>{
                 set((state)=>({
@@ -385,10 +381,34 @@ export const useProductsStore = create(
                     cart: state.cart.filter((item) => item.product_availability !== null),
                 }));
             },
-        }),
+
+            setSubTotal: (subtotal)=> {
+                set((state)=>({
+                    subtotal: subtotal
+                }))
+            }
+        }   ),
         {
             name:'cart-storage',
             storage: createJSONStorage(()=>localStorage),
+        }
+    )
+  );
+
+  export const usePriceChanger = create (
+    persist(
+        (set)=>({
+            vesPrice:false,
+
+            setVesPrice: ()=>{
+                set((state)=>({
+                    vesPrice: !state.vesPrice
+                }))
+            }
+        }),
+        {
+            name:'price-state',
+            storage: createJSONStorage(()=>localStorage)
         }
     )
   )

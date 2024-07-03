@@ -9,6 +9,7 @@ import { Login } from './pages/Login';
 import { CartPage } from './pages/CartPage';
 import { PurchasePage } from './pages/PurchasePage';
 import { Charging } from './components/miscellaneos/Charging';
+import { ProfilePage } from './pages/ProfilePage';
 
 export const AppRouter = () => {
 	return (
@@ -22,6 +23,7 @@ export const AppRouter = () => {
 			<Route path='cart' element={<CartPage/>}></Route>
 			<Route path='purchase' element={<PurchasePage/>}></Route>
 			<Route path='charging' element={<Charging/>}></Route>
+			<Route path='profile' element={<ProfilePage/>}></Route>
 		</Routes>
 		
 	);

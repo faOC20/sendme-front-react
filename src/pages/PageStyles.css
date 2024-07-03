@@ -8,18 +8,26 @@
     'main ' auto
     'footer' 160px/
     auto ; 
+
+    @media (max-width:640px) {
+        grid-template:
+        'header ' 110px
+        'main ' auto/
+        auto ; 
+    }
 }
 .header-container{
     grid-area: header;
     background-color:#1B1B1B;
     display: flex;
     flex-direction: column;
-    background-image: url('https://preview.redd.it/1920x1080-topography-wallpapers-made-by-me-request-for-v0-j8m6ykh6ar1a1.jpg?width=1080&crop=smart&auto=webp&s=7eb82c2a583124b0681924c28b9b78acde098bbd')
+    /* background-image: url('https://preview.redd.it/1920x1080-topography-wallpapers-made-by-me-request-for-v0-j8m6ykh6ar1a1.jpg?width=1080&crop=smart&auto=webp&s=7eb82c2a583124b0681924c28b9b78acde098bbd') */
 }
 
 .main-container{
     grid-area: main;
     background-color: #F3F3F3;
     min-height: 400px
+
 }
 

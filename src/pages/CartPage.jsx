@@ -6,6 +6,10 @@ import { useShoppingCartStore } from "../store/products"
 import { ProductDetail } from "../components/cartPage/ProductDetail"
 import { BuyButton } from "../components/productPage/BuyButton"
 import { useEffect, useState } from "react"
+import { useUserStore } from "../store/user"
+import { Link, Navigate } from "react-router-dom"
+import { FixedWhatsapp } from "../components/miscellaneos/FixedWhatsapp"
+import { FixedCart } from "../components/miscellaneos/FixedCart"
 
 export const CartPage = ()=>{
 
@@ -13,14 +17,14 @@ export const CartPage = ()=>{
     const [subtotal, setSubTotal] = useState(0)
     const [bsSubtotal, setBsSubtotal] = useState(0)
     const [totalAmount, setAmount] = useState(0)
+    const {isLogged} = useUserStore()
 
     useEffect(()=>{
-        const subTotal = cart.reduce((acc, product) => acc + parseFloat(product.product_price.replace(/\$/g, ''))*product.amount, 0)
+        const subTotal = cart.reduce((acc, product) => acc + parseFloat(product.product_price.replace(/[\$,]/g, ''))*product.amount, 0)
         setSubTotal(subTotal);
         setBsSubtotal(subTotal*36)
         setAmount(cart.reduce((acc, product)=> acc+product.amount,0))
     },[cart])
-
 
 
     return (
@@ -30,10 +34,10 @@ export const CartPage = ()=>{
                 <main className="main-container">
                     <h1 className="flex justify-center items-center h-20 text-2xl font-bold">Carrito</h1>
                     
-                    <div className="flex ml-20 mr-20 mb-20">
+                    <div className="flex ml-20 mr-20 mb-20 phone:flex-col-reverse phone:ml-0 phone:mr-0 phone:mb-0 phone:gap-10">
                        {
                             cart.length > 0?(
-                                <section className="w-3/5 mr-2">
+                                <section className="w-3/5 mr-2 phone:w-full phone:pl-2 phone:pr-2">
                                 {
                                     cart.map((product)=>(
                                         <ProductDetail product={product}/>
@@ -53,7 +57,7 @@ export const CartPage = ()=>{
                                 <b>Subtotal</b>
                                 <div className="flex">
                                     <p>USD </p>
-                                    <b className="ml-1">{subtotal}$</b>  
+                                    <b className="ml-1">{subtotal.toFixed(2)}$</b>  
                                 </div>
                                 <div className="flex">
                                     <p>VES </p>
@@ -69,18 +73,20 @@ export const CartPage = ()=>{
                                     cart.length > 0? (
                                         <BuyButton/>
                                     ):(
-                                        <button className="rounded-full bg-main-decoration text-black mt-1 p-2" onClick={()=>{
-                                            window.location.href = '/'
-                                        }}>
+                                        <Link to='/'>
+                                            <button className="rounded-full bg-main-decoration text-black mt-1 p-2">
                                             Explorar productos 
                                         </button>
+                                        </Link>
                                     )
                                 }
                                 
                             </div>
                         </section>
                     </div>
-                   
+                    
+						<FixedWhatsapp/>
+                        <FixedCart/>
                 </main>
                 <Footer/>
             </div>

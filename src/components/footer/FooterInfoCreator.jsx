@@ -16,7 +16,10 @@ export const FooterInfoCreator = ({title, links})=>{
                     ))
                 }
 
+                
+
                 </div>
+                
             </div>
         </li>
     )

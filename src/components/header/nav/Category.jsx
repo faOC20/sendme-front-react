@@ -1,3 +1,5 @@
+
+
 export const Category = ({category})=>{
 
     const handleClick = ()=>{
@@ -7,7 +9,7 @@ export const Category = ({category})=>{
 
     return (
         
-        <li class='p-3'>
+        <li className='p-3'>
             <a href="javascript:void(0)" onClick={handleClick}>
                 {category}
             </a>

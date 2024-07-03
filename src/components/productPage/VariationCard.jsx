@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import { useClickedProductStore } from "../../store/products"
 
-export const VariationCard = ({variation_color, setActiveVariation, activeVariation})=>{
+export const VariationCard = ({variation_color, setActiveVariation, activeVariation, clickedProduct})=>{
 
-    const {clickedProduct} = useClickedProductStore()
+    // const {clickedProduct} = useClickedProductStore()
 
     useEffect(()=>{
         if (variation_color.asin === clickedProduct.asin){

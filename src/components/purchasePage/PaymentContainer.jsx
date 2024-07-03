@@ -11,10 +11,89 @@ import { ThreeIcon } from "../../assets/icons/ThreeIcon"
 import { GhostIcon } from "../../assets/icons/GhostIcon"
 import { FourIcon } from "../../assets/icons/FourIcon"
 import { GalleryUpIcon } from "../../assets/icons/GalleryUpIcon"
+import { useAuthStore } from "../../store/user"
+import { DirectionSelection } from "../miscellaneos/DirectionSelection"
+import { Link, Navigate } from "react-router-dom"
+import { FetchCell } from "../profilePage/FetchCell"
+import { API_URL } from "../../pages/api/constants"
+import { useShoppingCartStore } from "../../store/products"
+import Swal from 'sweetalert2'
+import { FileUpload } from "./FileUpload"
 
 export const PaymentContainer = ({total, bsTotal})=>{
 
-  
+    //Lo que va para el backend
+    const [idDirection, setIdDirection] = useState()
+    const [idCell, setIdCell] = useState()
+    const [referencia, setReferencia] = useState()
+    const [date, setDate] = useState()
+    const [payMethod, setPayMethod] = useState()
+    const [accountHolder, setAccountHolder] = useState()
+    const [urlReference, setUrlReference] = useState()
+    const {id} = useAuthStore()
+
+
+    //el id que va para tabla producto
+    const [idPedido, setIdPedido] = useState()
+    const {cart} = useShoppingCartStore()
+
+    const sendInfo = async(e)=>{
+        e.preventDefault()
+
+        //aparte de crear un registro en la tabla pedido, devuelve la id_pedido que se acaba de crear
+        const response = await fetch (`${API_URL}generate-pedido`,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                idDirection, idCell, referencia, date, payMethod, accountHolder, id, total, urlReference
+            }),
+        });
+
+        if(response.ok){
+            console.log('entre aqui')
+            
+
+            const idPedido = await response.json()
+            
+            try{
+                const response = await fetch(`${API_URL}generate-product`,{
+                    method: "POST",
+                    headers:{
+                        "Content-Type":"application/json",
+                    },
+                    body: JSON.stringify({
+                        cart, idPedido
+                    }),
+                })
+
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Pedido realizado, será redirigido al perfil, donde podrá visualizar el estado del mismo!",
+                    showConfirmButton: true,
+                
+                //   }).then(()=>{
+                //     window.location.href = '/profile'
+                  }).then(()=>{
+                    window.location.href = '/profile'
+                  });
+
+                  
+
+            }
+            catch(e){
+                console.error(e)
+            }
+
+            
+        }
+
+    }
+
+
+    const {name} = useAuthStore()
 
     const [active, setActive] = useState(null)
     const [usdActive, setUsdActive] = useState(null)
@@ -28,58 +107,61 @@ export const PaymentContainer = ({total, bsTotal})=>{
         setActiveCoin(initialCoin)
     },[])
 
-   
+    const today = new Date().toISOString().split('T')[0];
 
 
     return(
-        <section className="w-3/5 rounded-3xl flex gap-2 bg-white shadow-detail overflow-hidden">
+        <section className="w-3/5 rounded-3xl min-h-96 h-max flex gap-2 bg-white shadow-detail phone:flex-col-reverse phone:w-full phone:p-0">
             
-            <div className="flex flex-col w-2/4 h-full bg-white p-6 rounded-3xl">
+            <form onSubmit={sendInfo} className="flex flex-col w-2/4 h-full bg-white p-6 rounded-3xl phone:w-full phone:p-0">
                 <div className="h-14">
                     <div className="flex items-center">
                         
-                        <div>
+                        <div className="phone:pl-3">
                             <GhostIcon/>
                         </div>
 
-                        <h1 className="text-start text-xl font-bold ml-2">Ya casi, Fabián!</h1>
+                        <h1 className="text-start text-xl font-bold ml-2">Ya casi, {name}!</h1>
                     </div>
                     <hr className="m-2"/>
-                </div>  {/**Aqui el nombre segun el inicio de sesion*/}
+                </div>  
                 
                 
                 
-                <div className="flex w-full flex-col h-44 ">
-                <form className="flex flex-col flex-grow" action="#">
+                <div className="flex w-full flex-col h-44 mb-10">
+                <div className="flex flex-col flex-grow" action="#">
                     <label className="font-bold flex justify-center items-center m-2" for="lang">
-                        <div className="mr-1">
+                        <div className="mr-1 phone:hidden">
                             <OneIcon/> 
                         </div>
                         
                         Selecciona su dirección de envío
                     </label>
-                        <select className="bg-white border-2 rounded-lg p-1" name="" id="lang">
-                            <option value="javascript">Cumaná, parcelamiento Miranda, Edificio Manicuare</option>
-                            <option value="newDirection">Agregar nueva dirección</option>
-                        </select>
-                </form>
+                    <DirectionSelection setIdDirection={setIdDirection}/>
+                    <ul className="mt-4 text-sm text-gray-500">
+                        <li>
+                            <Link to = '/profile'>Agregar dirección</Link>
+                        </li>
+                    </ul>
+                </div>
 
                 <hr className="m-2 flex-grow mt-5"/>
                 
-                <form className="flex flex-col flex-grow" action="#">
+                <div className="flex flex-col flex-grow" action="#">
                         <label className="font-bold flex justify-center items-center m-2" for="lang">
-                            <div className="mr-1">
+                            <div className="mr-1 phone:hidden">
                                 <TwoIcon/> 
                             </div>
                             Seleccione su número de teléfono
                         
                         </label>
-                        
-                        <select className="bg-white border-2 rounded-lg p-1" name="" id="lang">
-                            <option value="javascript">04248066999</option>
-                            <option value="newDirection">Agregar nuevo teléfono</option>
-                        </select>
-                </form>
+                        <FetchCell  setIdCell={setIdCell}/>
+                        <ul className="mt-4 text-sm text-gray-500">
+                        <li>
+                            <Link to = '/profile'>Agregar teléfono</Link>
+                        </li>
+                    </ul>
+                </div>
                 </div>
 
                 
@@ -87,27 +169,45 @@ export const PaymentContainer = ({total, bsTotal})=>{
                 {
                     active !== null || usdActive !==null?(
                         <div className="h-full flex flex-col">
-                            <hr className="m-2 mt-8 mb-5"/>
+                            <hr className="m-2 mt-28 mb-5"/>
                             
-                            <div className="flex flex-col items-center h-full">
+                            <div className="flex flex-col items-center h-full gap-5">
                                 <div className="flex justify-center items-center">
-                                    <div>
+                                    <div className="phone:hidden">
                                         <FourIcon/>
                                     </div>
-                                    <p className="ml-1 font-bold">Adjunte su comprobante de pago</p>
+                                    <p className="ml-1 font-bold">Adjunte su comprobante de pago y fecha</p>
                                 </div>
 
-                                <div className="flex mt-3 justify-center w-2/3 h-2/4">
-                                    <button>
-                                        <GalleryUpIcon/>
-                                    </button>
+                                <div className="flex mt-3 justify-center w-2/3 gap-5 h-2/4">
+                                   
+                                   
+                                   
+                                     
 
-                                    <div className="ml-2 flex justify-evenly flex-col">
-                                    < input className=" bg-transparent border-b border-b-black  text-center" type="text" placeholder="Número de referencia" />
+                                    <div className="ml-2 flex flex-col  gap-5 w-full">
 
-                                    < input className=" bg-transparent border-b border-b-black  text-center" type="text" placeholder="Número de referencia" />
+                                    <FileUpload setUrlReference={setUrlReference}/>
+
+                                    < input onChange={(e)=>{
+                                        setReferencia(e.target.value)
+                                    }} className=" bg-transparent border-b text-gray-500 border-gray-400" type="text" placeholder="Número de referencia" required />
+
+                                    < input onChange={(e)=>{
+                                        setDate(e.target.value)
+                                    }} className=" bg-transparent border-b text-gray-400 border-gray-400" type="date"  required max={today} min='2024-01-01'/>
+
+                                    < input onChange={(e)=>{
+                                        setPayMethod(e.target.value)
+                                    }} className=" bg-transparent border-b  border-gray-400" type="text" placeholder="método de pago" required/>
+
+                                    < input onChange={(e)=>{
+                                        setAccountHolder(e.target.value)
+                                    }} className=" bg-transparent border-b border-gray-400" type="text" placeholder="titular del pago" required/>
 
                                     </div>
+
+                                    
 
                                     
                                 </div>
@@ -121,12 +221,12 @@ export const PaymentContainer = ({total, bsTotal})=>{
                     ):('') 
                 }
 
-            </div> 
+            </form> 
 
 
-            <div className="flex w-2/4 flex-col items-center border-l-2 bg-white p-6">
+            <div className="flex w-2/4 flex-col items-center border-l-2 bg-white p-6 phone:w-full">
                 <div className="flex items-center justify-center">
-                    <div className="mr-1">
+                    <div className="mr-1 phone:hidden">
                     <ThreeIcon/>
                     </div>
                     <b>Elija su método de pago</b>
