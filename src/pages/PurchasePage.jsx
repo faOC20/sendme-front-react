@@ -111,11 +111,11 @@ export const PurchasePage = ()=>{
 
             <h1 className="flex justify-center items-center h-20 text-2xl font-bold">Pedido</h1>
 
-                <div className="flex ml-20 mr-20 mb-20">
+                <div className="flex ml-20 mr-20 mb-20 phone:flex-col-reverse phone:ml-0 phone:mr-0 phone:gap-5 phone:pl-2">
 
                     <PaymentContainer total={total} bsTotal={bsTotal}/>
                        
-                    <section className="flex-grow h-max ml-4 rounded-3xl shadow-detail">
+                    <section className="flex-grow h-max ml-4 rounded-3xl shadow-detail phone:w-[390px] phone:ml-0">
                         <div className="w-full h-2/3 p-5 text-start flex flex-col justify-evenly">
                             <b>Resumen del pedido</b>
                             <hr className="m-2"/>

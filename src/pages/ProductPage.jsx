@@ -18,7 +18,7 @@ const url = 'https://real-time-amazon-data.p.rapidapi.com/search?page=1&country=
     const options = {
 	method: 'GET',
 	headers: {
-        'X-RapidAPI-Key': 'ae449389d3msh57b7bd8240929b5p1125c7jsnc17801c0229d',
+        'X-RapidAPI-Key': '694c161d7fmsh37dbfcec04c91abp1119d6jsnc14ada24ede7',
 		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
 	}
 };
@@ -173,7 +173,7 @@ export const ProductPage = () => {
 						
 						<section className="product-info-container">
 							
-							<div className='product-images rounded-3xl shadow-detail flex flex-col overflow-hidden items-center justify-center'>
+							<div className='product-images rounded-3xl shadow-detail flex flex-col overflow-hidden items-center justify-center phone:hidden'>
 								{
 									clickedProduct.product_photos?(clickedProduct.product_photos.map(photo=>(
 										<ImageCard photo={photo} setProductPhoto={setProductPhoto} activePhoto={activePhoto} setActivePhoto={setActivePhoto} clickedProduct={clickedProduct}/>
@@ -223,7 +223,7 @@ export const ProductPage = () => {
 	
 								</div>
 
-								<div className='w-5/12 h-full p-3 border-2 rounded-3xl flex flex-col gap-10'>
+								<div className='w-5/12 h-full p-3 border-2 rounded-3xl flex flex-col gap-10 phone:w-6/12 phone:h-[300px]'>
 									<div className='flex-flex-col w-full'>
 										
 										<div className='flex flex-col justify-start'>

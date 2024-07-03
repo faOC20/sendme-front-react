@@ -8,7 +8,7 @@ import {InstagramIcon} from '../../assets/icons/InstagramIcon'
 export const Footer = ()=>{
     return (
         <>
-            <footer className="footer-container">
+            <footer className="footer-container phone:hidden">
                 <section class='flex h-3/4 w-full justify-center bg-footer'>
                     <ul class='flex w-full'>
                         {

@@ -111,13 +111,13 @@ export const PaymentContainer = ({total, bsTotal})=>{
 
 
     return(
-        <section className="w-3/5 rounded-3xl min-h-96 h-max flex gap-2 bg-white shadow-detail ">
+        <section className="w-3/5 rounded-3xl min-h-96 h-max flex gap-2 bg-white shadow-detail phone:flex-col-reverse phone:w-full phone:p-0">
             
-            <form onSubmit={sendInfo} className="flex flex-col w-2/4 h-full bg-white p-6 rounded-3xl">
+            <form onSubmit={sendInfo} className="flex flex-col w-2/4 h-full bg-white p-6 rounded-3xl phone:w-full phone:p-0">
                 <div className="h-14">
                     <div className="flex items-center">
                         
-                        <div>
+                        <div className="phone:pl-3">
                             <GhostIcon/>
                         </div>
 
@@ -131,7 +131,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
                 <div className="flex w-full flex-col h-44 mb-10">
                 <div className="flex flex-col flex-grow" action="#">
                     <label className="font-bold flex justify-center items-center m-2" for="lang">
-                        <div className="mr-1">
+                        <div className="mr-1 phone:hidden">
                             <OneIcon/> 
                         </div>
                         
@@ -149,7 +149,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
                 
                 <div className="flex flex-col flex-grow" action="#">
                         <label className="font-bold flex justify-center items-center m-2" for="lang">
-                            <div className="mr-1">
+                            <div className="mr-1 phone:hidden">
                                 <TwoIcon/> 
                             </div>
                             Seleccione su número de teléfono
@@ -173,7 +173,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
                             
                             <div className="flex flex-col items-center h-full gap-5">
                                 <div className="flex justify-center items-center">
-                                    <div>
+                                    <div className="phone:hidden">
                                         <FourIcon/>
                                     </div>
                                     <p className="ml-1 font-bold">Adjunte su comprobante de pago y fecha</p>
@@ -224,9 +224,9 @@ export const PaymentContainer = ({total, bsTotal})=>{
             </form> 
 
 
-            <div className="flex w-2/4 flex-col items-center border-l-2 bg-white p-6">
+            <div className="flex w-2/4 flex-col items-center border-l-2 bg-white p-6 phone:w-full">
                 <div className="flex items-center justify-center">
-                    <div className="mr-1">
+                    <div className="mr-1 phone:hidden">
                     <ThreeIcon/>
                     </div>
                     <b>Elija su método de pago</b>

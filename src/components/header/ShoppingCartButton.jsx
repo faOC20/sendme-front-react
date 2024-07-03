@@ -12,7 +12,7 @@ export const ShoppingCartButton = ()=>{
                 refreshCart()
             }} to="/cart">
                 <ShoppingCartIcon/>
-                <b>Carrito</b>
+                <b className="phone:hidden">Carrito</b>
             </Link>
         </li>
     )

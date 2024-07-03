@@ -21,7 +21,7 @@ export const SearchBar = ()=>{
 
     return (
        
-      <div class='flex items-center flex-grow items min-w-search-bar-size w-5/12'>
+      <div class='flex items-center flex-grow min-w-search-bar-size w-5/12 phone:min-w-64 phone:w-64 phone:justify-center'>
         
         <form onSubmit={handleSubmit} class="flex  items-center justify-center w-11/12 border-2 rounded-full h-10 p-2">
             

@@ -7,7 +7,7 @@ import { HorizontalCategory } from "./HorizontalCategory"
 import { Link } from "react-router-dom"
 export const Navigation = ()=>{
     return (
-        <nav className="navigation bg-navigation h-1/3 text-lg relative">
+        <nav className="navigation bg-navigation h-1/3 text-lg relative phone:hidden">
 
             
             

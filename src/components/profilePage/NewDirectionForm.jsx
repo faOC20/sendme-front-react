@@ -118,7 +118,7 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
 
     return (
         <>
-            <div className={`new-direction-form w-7/12 h-max p-2 rounded-3xl absolute z-30 border overflow-hidden flex flex-col gap-4 border-black ${showDiv?"block":"hidden"}`}>
+            <div className={`new-direction-form w-7/12 h-max p-2 rounded-3xl absolute z-30 border overflow-hidden flex flex-col gap-4 border-black phone:w-full ${showDiv?"block":"hidden"}`}>
                     <div className="w-full flex h-10 justify-end p-2">
                         
                         <button onClick={()=>{
@@ -176,11 +176,11 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
                             }} className="bg-white border-navigation border-2 text-start w-full p-1" type="text" placeholder="parcelamiento, conjunto residencial, urb." />  
                         </div>
                     </div>
-                    <b>Campos opcionales  <b className="text-red-700">*</b></b>
+                    <b>Campos opcionales  </b>
                     <div className="flex justify-center items-center gap-5">
                         
                         <div className="w-1/5 h-full flex flex-col">
-                            <b>Número casa <b className="text-red-700">*</b></b>
+                            <b>Número casa </b>
                             <input onChange={(e)=>{
                                 setNumeroCasa(e.target.value)
                             }} className="bg-white border-navigation border-2 text-start w-full p-1" type="text" /> 
@@ -188,14 +188,14 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
                         </div>
                         
                         <div className="w-1/5 h-full flex flex-col">
-                            <b>Edificio <b className="text-red-700">*</b></b>
+                            <b>Edificio </b>
                             <input onChange={(e)=>{
                                 setEdificio(e.target.value)
                             }} className="bg-white border-2 border-navigation text-start w-full p-1" type="text"  />  
                         </div>
 
                         <div className="w-1/5 h-full flex flex-col">
-                            <b>Apartamento <b className="text-red-700">*</b></b>
+                            <b>Apartamento </b>
                             <input onChange={(e)=>{
                                 setApartamento(e.target.value)
                             }} className="bg-white border-navigation border-2 text-start w-full p-1" type="text"  />  

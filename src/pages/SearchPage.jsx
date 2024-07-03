@@ -87,7 +87,7 @@ export const SearchPage = ()=>{
 
                 <div className="flex w-full gap-5 pl-6 pr-6">
 
-                    <div className="w-1/4 h-max flex flex-col  bg-white shadow rounded-3xl p-5 gap-5">
+                    <div className="w-1/4 h-max flex flex-col  bg-white shadow rounded-3xl p-5 gap-5  phone:hidden">
                          <div>
                             <b>Filtros de búsqueda</b>
                             <hr/>
@@ -197,7 +197,7 @@ export const SearchPage = ()=>{
               
 
                 <div className=" flex w-full justify-center items-center mb-3">
-                    <ol className="flex w-1/4 justify-around">
+                    <ol className="flex w-1/4 justify-around phone:w-2/3">
 
                     {
                         numPages.map((numPage)=>(

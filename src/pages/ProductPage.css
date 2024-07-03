@@ -17,6 +17,21 @@
     padding-left: 30px;
     padding-right: 30px;
     z-index: 100;
+
+    @media (max-width:640px) {
+        grid-template: 
+        "product-image-viewer" 365px
+        "product-selection" 600px
+        "product-info" 200px/
+        auto;
+        padding-left: 0px;
+        padding-right: 0px;
+        gap: 0px;
+        justify-items: center;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+    }
 }
 
 .product-images{

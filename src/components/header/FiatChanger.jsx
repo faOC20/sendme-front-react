@@ -12,7 +12,7 @@ export const FiatChanger = ()=>{
 
     return(
        
-    <button class="logo flex-grow flex items-end justify-center" onClick={handleFiatClick}>
+    <button class="logo flex-grow flex items-end justify-center phone:hidden" onClick={handleFiatClick}>
          <picture class="flex h-full items-end w-8">
            {
             vesPrice?(
@@ -23,7 +23,7 @@ export const FiatChanger = ()=>{
            }              
          </picture>
        
-        <b class="pl-2">VES / USD</b>
+        <b class="pl-2 phone:hidden">VES / USD</b>
                     
     </button>
 )} 

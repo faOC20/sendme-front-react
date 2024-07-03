@@ -34,7 +34,7 @@ export const ElectronicCategory = ({name})=>{
       {
           electronicProducts.filter((product)=>product.product_price && product.product_price.includes('$'))
           .map((data)=>(
-            <div className="flex flex-col w-1/3 h-3/4 m-2">
+            <div className="flex flex-col w-1/3 h-3/4 m-2 phone:justify-center phone:items-center">
               <ProductSlot 
                     key={data.asin}
                     id={data.asin}

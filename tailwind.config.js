@@ -16,6 +16,11 @@ export default {
 				'button-hover': '#A5A5A5'
 			},
 
+			screens:{
+				'phone': {'max': '640px'},
+				'pc':{'min':'640px'}
+			},
+
 			spacing:{
 				
 			},

@@ -2,6 +2,7 @@ import { Link, Navigate } from "react-router-dom"
 import { UserIcon } from "../../../assets/icons/UserIcon"
 import { useUserStore } from "../../../store/user"
 import { useAuthStore } from "../../../store/user"
+import { TurnOff } from "../../../assets/icons/TurnOff"
 
 export const LogoutOption = ()=>{
 
@@ -22,10 +23,18 @@ export const LogoutOption = ()=>{
         </button>
         </Link>
     
-        <div className="text-start">
+        <div className="text-start phone:hidden">
             <p>Bienvenido/a, {name}!</p>
             <button onClick={handleCloseSession}>
                 <b>Cerrar sesión</b>    
+            </button>
+        </div>
+
+        <div className="text-start pc:hidden phone:flex">
+            <button onClick={handleCloseSession}>
+                <div>
+                    <TurnOff/>
+                </div>    
             </button>
         </div>
         

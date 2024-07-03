@@ -16,13 +16,13 @@ export const FixedWhatsapp = ()=>{
     return (
         <>
             
-                <button className="rounded-full w-16 h-16 text-white bg-navigation flex items-center justify-center fixed  right-10 bottom-10 z-[200]" onClick={()=>{
+                <button className="phone:right-4 rounded-full w-16 h-16 text-white bg-navigation flex items-center justify-center fixed  right-10 bottom-10 z-[200]" onClick={()=>{
                     setOpenChat(!openChat)
                 }}>
                 <WhatsappIcon/>
                 </button>
 
-                <div className={`ws-chat flex fixed w-[20rem] right-10 bottom-10 flex-col overflow-hidden h-[24rem] z-[100] rounded-[1.99rem] ${openChat ? "" : "hidden"}`}>
+                <div className={`ws-chat phone:right-4 flex fixed w-[20rem] right-10 bottom-10 flex-col overflow-hidden h-[24rem] z-[100] rounded-[1.99rem] ${openChat ? "" : "hidden"}`}>
                     <div className="w-full grow">
                         <div className="bg-navigation h-16 flex gap-5 items-center">
                             <div className="relative w-12 h-12 rounded-full flex items-center justify-center bg-main-decoration border border-black ml-4">

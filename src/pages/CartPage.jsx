@@ -34,10 +34,10 @@ export const CartPage = ()=>{
                 <main className="main-container">
                     <h1 className="flex justify-center items-center h-20 text-2xl font-bold">Carrito</h1>
                     
-                    <div className="flex ml-20 mr-20 mb-20">
+                    <div className="flex ml-20 mr-20 mb-20 phone:flex-col-reverse phone:ml-0 phone:mr-0 phone:mb-0 phone:gap-10">
                        {
                             cart.length > 0?(
-                                <section className="w-3/5 mr-2">
+                                <section className="w-3/5 mr-2 phone:w-full phone:pl-2 phone:pr-2">
                                 {
                                     cart.map((product)=>(
                                         <ProductDetail product={product}/>

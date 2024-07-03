@@ -10,7 +10,7 @@ export const LoginOption = ()=>{
     
         <UserIcon/>
     
-        <div className="flex flex-col text-start">
+        <div className="flex flex-col text-start phone:hidden">
             <p>Bienvenido/a!</p>
             <b>Inicia sesión / Regístrate</b>    
         </div>

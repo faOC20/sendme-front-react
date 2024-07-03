@@ -43,10 +43,10 @@ export const ProfilePage = ()=>{
 
                 <NewDirectionForm setShowDiv={setShowDiv} showDiv={showDiv}/>
                 
-                <div className="w-full h-full p-10 flex gap-5">
+                <div className="w-full h-full p-10 flex gap-5 phone:flex-col phone:p-5 phone:w-[390px] ">
                     
-                    <section className="flex h-full w-6/12 rounded-lg  shadow-lg">
-                        <div className="flex  bg-footer flex-col items-center w-2/4 full p-20">
+                    <section className="flex h-full w-6/12 rounded-lg  shadow-lg phone:w-full">
+                        <div className="flex  bg-footer flex-col items-center w-2/4 full p-20 phone:hidden">
                             <h1 className="font-bold text-4xl text-start">
                                 Hola, {name}
                             </h1>
@@ -56,7 +56,7 @@ export const ProfilePage = ()=>{
                             </div>
                         </div>
 
-                        <section className=" flex flex-col w-full h-full bg-white justify-evenly items-center">
+                        <section className=" flex flex-col w-full h-full bg-white justify-evenly items-center phone:p-5">
 
                         <div className="w-2/3 flex flex-col gap-2 items-center">
                                 <b className="text-2xl">Ubicación</b>
@@ -94,7 +94,7 @@ export const ProfilePage = ()=>{
                         </section>
                     </section>
 
-                    <section className="w-[47rem] h-max rounded-lg bg-white shadow-lg flex flex-col items-center">
+                    <section className="w-[47rem] h-max rounded-lg bg-white shadow-lg flex flex-col items-center phone:w-full">
                         <div className="w-full pl-10 pr-10">
                             <PedidosTable/>
                         </div>

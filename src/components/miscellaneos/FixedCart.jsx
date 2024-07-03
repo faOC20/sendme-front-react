@@ -20,13 +20,13 @@ export const FixedCart = ()=>{
 
     return (
         <>
-                <button className={`rounded-full w-16 h-16 text-white bg-header flex items-center justify-center fixed right-10 top-36 z-[200] ${cart.length > 0?"":"hidden"}`} onClick={()=>{
+                <button className={`rounded-full w-16 h-16 text-white bg-header flex items-center justify-center fixed right-10 top-36 z-[200] phone:right-4 ${cart.length > 0?"":"hidden"}`} onClick={()=>{
                     setOpenChat(!openChat)
                 }}>
                 <ShoppingCartIcon/>
                 </button>
 
-                <div className={`fixed-cart flex fixed w-[25rem] justify-center items-center right-10 top-36 flex-col overflow-hidden h-[8.5rem] z-[100] rounded-[1.99rem] gap-2 ${openChat && cart.length > 0 ? "" : "hidden"}`}>
+                <div className={`phone:right-4 phone:w-[20rem] fixed-cart flex fixed w-[25rem] justify-center items-center right-10 top-36 flex-col overflow-hidden h-[8.5rem] z-[100] rounded-[1.99rem] gap-2 ${openChat && cart.length > 0 ? "" : "hidden"}`}>
                     <div className="flex flex-col h-5">
                         <b>Carrito</b>
                     </div>
