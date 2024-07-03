@@ -306,9 +306,9 @@ export const ProductPage = () => {
 
 									
 
-									<div className='flex flex-grow justify-center items-end'>
+									{/* <div className='flex flex-grow justify-center items-end'>
 									<button className='rounded-full border'>Añadir a la lista de deseos</button>
-									</div>
+									</div> */}
 								</div>
 							</div>
 							
