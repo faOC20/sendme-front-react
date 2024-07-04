@@ -4,6 +4,7 @@ import { API_URL } from "../../pages/api/constants"
 import { useAuthStore } from "../../store/user"
 import { InvoiceIcon } from "../../assets/icons/InvoiceIcon"
 import { ChargingTable } from "../miscellaneos/ChargingTable"
+import {ReferenceIcon} from "../../assets/icons/ReferenceIcon"
 
 export const PedidosTable = ()=>{
 
@@ -54,7 +55,7 @@ export const PedidosTable = ()=>{
         {
             name: 'Estado',
             selector: row=>row.estado,
-            width:'7rem',
+            width:'5rem',
             compact: true,
             center:true,
             cell: row => {
@@ -78,12 +79,28 @@ export const PedidosTable = ()=>{
                 return <div style={{color: color}}>{row.estado}</div>;
             }
         },
-        
+
+        {
+            name: 'Comprobante',
+            selector: row=>row.comprobante,
+            width:'4.55rem',
+            compact: true,
+            center:true,
+            cell: row => (
+                row.comprobante !== '' ? (
+                  <a href={row.comprobante} target="_blank" rel="noopener noreferrer">
+                    <ReferenceIcon/>
+                  </a>
+                ) : null
+              ),
+          
+        }
+        ,
         
         {
             name: 'Factura',
             selector: row=>row.factura,
-            width:'7rem',
+            width:'4rem',
             compact: true,
             center:true,
             cell: row => (
@@ -126,6 +143,7 @@ export const PedidosTable = ()=>{
                         direction: pedido.nombre_ciudad,
                         estado:  pedido.nombre_estado,
                         productos: pedido.nombre_productos,
+                        comprobante: pedido.url_referencia,
                         factura:pedido.url_factura
                     }
                 )))
