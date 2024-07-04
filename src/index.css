@@ -67,3 +67,8 @@ body {
   background: #fafafa70; /* Fondo semitransparente */
   backdrop-filter: blur(3rem); /* Aplica un desenfoque de 10px */
 }
+
+.alert-form{
+  background: #fafafa10; /* Fondo semitransparente */
+  backdrop-filter: blur(0.6rem); /* Aplica un desenfoque de 10px */
+}

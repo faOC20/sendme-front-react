@@ -94,8 +94,8 @@ export const ProfilePage = ()=>{
                         </section>
                     </section>
 
-                    <section className="w-[47rem] h-max rounded-lg bg-white shadow-lg flex flex-col items-center phone:w-full">
-                        <div className="w-full pl-10 pr-10">
+                    <section className="w-[47rem] h-full rounded-lg bg-white shadow-lg flex flex-col items-center phone:w-full">
+                        <div className="w-full h-full pl-10 pr-10 relative">
                             <PedidosTable/>
                         </div>
                     </section>

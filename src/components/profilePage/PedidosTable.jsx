@@ -5,8 +5,55 @@ import { useAuthStore } from "../../store/user"
 import { InvoiceIcon } from "../../assets/icons/InvoiceIcon"
 import { ChargingTable } from "../miscellaneos/ChargingTable"
 import {ReferenceIcon} from "../../assets/icons/ReferenceIcon"
+import { AlertIcon } from "../../assets/icons/AlertIcon"
+import { CancelIcon } from "../../assets/icons/CancelIcon"
+import { SuccesIcon } from "../../assets/icons/SuccesIcon"
+import Swal from 'sweetalert2'
 
 export const PedidosTable = ()=>{
+
+    const [showAlertForm, setShowAlertForm] = useState(false)
+    const [productsInAlert, setProductsInAlert] = useState()
+    const [selectedPedido, setSelectedPedido] = useState()
+    const [RowsData, setRowsData] = useState()
+
+    const showAlert = (idPedido)=>{
+        setShowAlertForm(!showAlertForm)
+        setSelectedPedido(idPedido)
+    }
+
+    const handleSetCompleted = async(completed)=>{ //si es 1, es completado
+
+        
+        try{
+            const response = await fetch(`${API_URL}refresh-completed`,{
+                method: "POST",
+                headers:{
+                    "Content-Type":"application/json",
+                },
+                body: JSON.stringify({
+                    selectedPedido, completed
+                }),
+            });
+    
+            if(response.ok){
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "¡Pedido actualizado como recibido!",
+                    showConfirmButton: true,
+                
+                }).then(()=>{
+                window.location.href = '/profile'
+                });
+            }
+        }
+
+        catch(e){
+            console.error(e)
+        }
+
+    }
 
     const {id} = useAuthStore()
 
@@ -111,6 +158,26 @@ export const PedidosTable = ()=>{
                 ) : null
               ),
           
+        },
+        
+        {
+            name: 'Alertar',
+            selector: row=>row.completado,
+            width:'4rem',
+            compact: true,
+            center:true,
+            cell: row => (
+                row.completado === null && row.estado === 'completado' ? (
+                    <button onClick={()=>{
+                        showAlert(row.idPedido)
+                    }}>
+                        <AlertIcon/>
+                    </button>
+                ) : (
+                    null
+                )
+              ),
+          
         }
     ]
 
@@ -134,6 +201,10 @@ export const PedidosTable = ()=>{
                 const data = await response.json()
                 console.log(data)
 
+                setRowsData(data)
+                
+                
+
                 setData(data.map((pedido)=>(
                     {
                         idPedido:pedido.id_pedido,
@@ -144,7 +215,8 @@ export const PedidosTable = ()=>{
                         estado:  pedido.nombre_estado,
                         productos: pedido.nombre_productos,
                         comprobante: pedido.url_referencia,
-                        factura:pedido.url_factura
+                        factura:pedido.url_factura,
+                        completado:pedido.completado
                     }
                 )))
 
@@ -161,12 +233,55 @@ export const PedidosTable = ()=>{
         
     },[])
 
+    useEffect(()=>{
+        if(selectedPedido){
+            const productsPhotos = (RowsData.filter((pedido)=>(
+                pedido.id_pedido === selectedPedido
+            )).map((pedido)=>(
+                pedido.nombre_productos
+            )))
+            
+            setProductsInAlert(productsPhotos[0].split(","))
+        }
+    },[RowsData, selectedPedido])
+
 
 
     return (
         <>
             <div className="h-12 w-full flex justify-center items-center">
                 <h1 className="font-bold">Pedidos</h1>
+            </div>
+
+            <div className={`alert-form border-2 border-navigation w-full h-full absolute justify-center items-center p-10 flex flex-col gap-6 top-0 left-0 rounded z-[200] ${showAlertForm?"":"hidden"}`}>
+                
+                <b className="text-3xl">Alerta de llegada de pedido</b>
+                <p className="text-xl">¿Está seguro de haber recibido su pedido?</p>
+                <div className="w-2/3 flex justify-center gap-2">
+                {
+
+                    productsInAlert?.map((product)=>(
+                        <div className="w-20 h-20">
+                            <img className="object-contain rounded-lg shadow-xl" src={product} alt="" />
+                        </div>
+                    ))
+                }
+                </div>
+
+                <div className="flex">
+                <button className="text-red-800" onClick={()=>{
+                    setShowAlertForm(false)
+                }}>
+                    <CancelIcon/>
+                </button>
+
+                <button className="text-navigation" onClick={()=>{
+                    handleSetCompleted(1)
+                }}>
+                    <SuccesIcon/>
+                </button>
+                </div>
+
             </div>
 
             <DataTable
