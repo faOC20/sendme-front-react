@@ -8,6 +8,7 @@ import { HomeCategory } from "./mainCategories/HomeCategory"
 import { ClothesCategory } from "./mainCategories/ClothesCategory"
 import { BrowserRouter } from "react-router-dom"
 import { Route, Routes } from "react-router-dom"
+import { AnotherCategories } from "./mainCategories/anotherCategories"
 
 
 
@@ -18,11 +19,15 @@ export const Main = ()=>{
         <>
               <MainHeader/>
               <div className="products-grid">
+              {/* <MainHeader/> */}
               <GamingCategory name='Gaming'/> 
               <HealthCategory name='Salud y belleza'/>          
               <ElectronicCategory name='Electrónica'/>
               <AutomotorCategory name='Automotriz'/> 
-              <HomeCategory name='Hogar y cocina'/>
+               
+              {/* <HomeCategory name='Hogar y cocina'/> */}
+
+              <AnotherCategories/>
               <ClothesCategory name='Ropa y accesorios'/>
             </div>
 

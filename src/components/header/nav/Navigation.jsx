@@ -7,26 +7,26 @@ import { HorizontalCategory } from "./HorizontalCategory"
 import { Link } from "react-router-dom"
 export const Navigation = ()=>{
     return (
-        <nav className="navigation bg-navigation h-1/3 text-lg relative phone:hidden">
+        <nav className="navigation bg-header h-[40px] w-full justify-center relative phone:hidden flex">
 
             
             
-            <ul class="flex h-full items-center pl-20 pr-20">
+            <ul class="flex h-full items-center w-[88%] justify-between text-md">
 
                 
                 
-                <li className="allCategories relative h-full flex items-center grow justify-center w-full">
+                <li className="allCategories relative h-full flex justify-center items-start flex-grow">
 
-                    <div className="background-decoration absolute   w-0 h-full z-10 rounded-full"></div>
+                    <div className="background-decoration absolute  w-0 z-20 h-[32px] rounded-full "></div>
                     
-                   <div class="w-full flex justify-center relative">
-                        <div class="absolute rounded-full w-10/12 h-full bg-white"> </div>
+                   <div class="w-full flex justify-center relative z-20">
                         
-                        <button class=' text-header pl-4 pr-4 pt-1 pb-1 z-20 ' >Todas las categorías</button>
+                        
+                        <button class=' text-header flex bg-white rounded-full px-4 py-1 w-[80%] z-20 justify-center ' >Todas las categorías</button>
 
                    </div>
                     
-                    <ul className="categories  absolute w-64 rounded-lg pt-2 z-10 bg-nav-animation">
+                    <ul className="categories  absolute w-full rounded-lg pt-2 z-30 bg-nav-animation">
                         {
                             categories.map((category)=>(
                                 <Category category={category}/>
@@ -42,7 +42,7 @@ export const Navigation = ()=>{
                 {
                     categories.map((category)=>(
                         <HorizontalCategory category={category}/>
-                    )).slice(1,4)
+                    )).slice(1,8)
                 }
                 
             </ul>

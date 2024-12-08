@@ -20,7 +20,7 @@ export const HomePage = ()=>{
 			<div className='all-container'>
 					<Header/>
 				
-				<main className="main-container flex flex-col content-center z-10">
+				<main className="main-container flex flex-col content-center z-10 gap-5">
 					<Main/>
 					<FixedCart/>
 					<FixedWhatsapp/>

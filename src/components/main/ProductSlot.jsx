@@ -14,32 +14,43 @@ export const ProductSlot = ({id, name, photo, price})=>{
             
                 <a href={`/product/${id}`} onClick={()=>{
                     localStorage.removeItem('productpage-storage')
-                }} className="product-container">
+                }} className="product-container hover:scale-105 transition">
 
-                    <div className="product-image-container h-2/3">
-                        <picture>
+                    <div className="product-name pl-6 pr-6">
+                        <ul>
+                            <li>
+                                {name}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div className="product-image-container">
+                        <picture className="">
                             <img src={photo} alt={name} />
                         </picture>
                     </div>
 
-                    <div className="product-name h-1/6 pl-6 pr-5 ">
+                    <div className="pl-6 pr-5">
                         <ul >
-                            <li>{name}</li>
-                            <li onClick={()=>{console.log(typeof(price))}}>
+
+                        
+                        <li onClick={()=>{console.log(typeof(price))}}>
                             {
                                 vesPrice?(
-                                    <div className="flex justify-center gap-1">
+                                    <div className="product-price flex justify-end gap-1">
                                         <b>VES</b>
                                         <b>
                                             {new Intl.NumberFormat("de-DE").format(parseFloat(price.replace(/[\$,]/g, ''))*38)}
                                     
                                         </b>
                                     </div>
-                                ):(<b>
+                                ):(<b className="product-price flex justify-end">
                                     {price}
                                 </b>)
                             }
                             </li>
+                            
+                            
                         </ul>
                     </div>
 

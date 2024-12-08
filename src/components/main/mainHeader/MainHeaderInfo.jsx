@@ -1,36 +1,30 @@
 import animatedLogo from '../../../assets/images/sendmefondo.png'
 import { bannerInfo } from '../../../assets/constants/bannerInfo'
 import { MainInfoCreator } from './MainInfoCreator'
+import sendmePet from '../../../assets/images/sendme-pet.png'
 
-export const MainHeaderInfo = ()=>{
+export const MainHeaderInfo = ({option})=>{
     return (
-        <header className="flex absolute z-30 w-full h-full">
-            <ul class="flex w-full">
-
-                <div class='flex grow justify-center'>
-                    <li class='flex pt-5 flex-col text-3xl'>
-                        <div>
-                            Productos de <b>Amazon</b> a
-                        </div> 
-                        
-                        <div>
-                            <b>Tiempo real</b>
-                        </div>
-                    </li>
+        <>
+            <div className={`${option.background} w-full h-[50rem] absolute`}> 
+                    {/* <MainDecoration/>  */}
                 </div>
 
-                <picture className='absolute w-44 left-56 top-11'>
-                    <img className='object-contain' src={animatedLogo} alt="logo sendme cargando paquetes" />
-                </picture>
-
-                {
-                    bannerInfo.map((info)=>(
-                        <MainInfoCreator key={info.id} title={info.title} description={info.description}/>
-                    ))
-                }
-            </ul>
-
-        </header>
+                <div className="z-50 w-full flex gap-10">
+                    <div className="flex-grow h-full  flex justify-end">
+                        <div className="flex justify-center items-start flex-col text-white">
+                            <h1 className="decoration-title">{option.title}</h1>
+                            <h2 className="decoration-subtitle text-start"> {option.subtitle}</h2>
+                        </div>
+                    </div>
+                    <div className="flex-grow flex items-center">
+                        <picture className="flex h-[200px] w-auto">
+                            <img src={option.img} className="object-contain hover:scale-105 transition" alt="" />
+                        </picture>
+                    </div>
+                </div>
+            
+        </>
     )
 }
 

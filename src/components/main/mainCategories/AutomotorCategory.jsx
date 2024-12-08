@@ -32,7 +32,7 @@ export const AutomotorCategory = ({name})=>{
             {
                 automotorsProducts.filter((product)=>product.product_price && product.product_price.includes('$'))
                 .map((data)=>(
-                  <div className="flex w-3/4 h-3/4 mb-4 justify-center">
+                  <div className="flex justify-center items-center">
                     <ProductSlot 
                           key={data.asin}
                           id={data.asin}

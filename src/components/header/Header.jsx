@@ -4,6 +4,8 @@ import logo from '../../assets/images/logo.png'
 import { SearchBar } from './SearchBar'
 import { SecondaryNav } from './SecondaryNav'
 import { Navigation } from './nav/Navigation'
+import { SendmeNewLogo } from '../../assets/icons/SendmeLogo'
+import { SendmeLetterLogo } from '../../assets/icons/SendmeLetterLogo'
 
 export const Header = ()=>{
 
@@ -11,7 +13,7 @@ export const Header = ()=>{
 
     return(
         
-            <header className="header-container text-white z-30 bg-header phone:items-center">
+            <header className="header-container text-white z-30  phone:items-center">
 
                     <Link to="/" className='pc:hidden phone:pt-3'>
                         <picture className='logo flex min-w-60  h-full items-center phone:min-w-10 phone:w-36'>
@@ -19,10 +21,12 @@ export const Header = ()=>{
                         </picture>
                     </Link>
 
-                <header class="h-2/3 flex pl-32 pr-32 text-xs phone:pl-1 phone:pr-1 phone:h-full"> 
+                <header class="flex-grow flex pl-32 pr-32 text-xs phone:pl-1 phone:pr-1 phone:h-full"> 
                     <Link to="/">
                         <picture className='logo flex min-w-60  h-full items-center phone:hidden'>
-                            <img src={letterLogo} className='w-44 object-contain' alt="sendme logo y nombre" /> 
+                            {/* <img src={letterLogo} className='w-44 object-contain' alt="sendme logo y nombre" />  */}
+                            {/* <SendmeNewLogo/> */}
+                            <SendmeLetterLogo/>
                         </picture>
 
                         

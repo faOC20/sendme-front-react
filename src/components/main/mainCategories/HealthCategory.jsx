@@ -29,10 +29,11 @@ export const HealthCategory = ({name})=>{
               {name}
             </h1>
 
-            {
+           <div className="w-full h-full flex flex-col justify-around items-center">
+           {
                 healthProducts.filter((product)=>product.product_price && product.product_price.includes('$'))
                 .map((data)=>(
-                  <div className="flex w-2/4 h-2/4 justify-center">
+                  <div className="flex justify-self-center">
                     <ProductSlot 
                           key={data.asin}
                           id={data.asin}
@@ -43,6 +44,7 @@ export const HealthCategory = ({name})=>{
                   </div>
                   )).slice(0,2)
               }
+           </div>
               
           </section>
     )

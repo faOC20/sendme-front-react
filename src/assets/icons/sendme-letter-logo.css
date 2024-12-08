@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'Coolvetica';
+    src: url('../fonts/CoolveticaBk-Regular.woff2') format('woff2'),
+         url('../fonts/CoolveticaBk-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  body {
+    font-family: 'Coolvetica', sans-serif;
+  }
+
+  .decoration-title{
+    font-family: 'Coolvetica', sans-serif;
+    font-size: 76px;
+    font-weight: bolder;
+  }
+  
+  .decoration-subtitle{
+    font-family: 'Coolvetica', sans-serif;
+    font-size: 37px;
+    font-weight: bolder;
+  }
+

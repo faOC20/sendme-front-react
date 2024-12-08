@@ -13,7 +13,7 @@
 
 .allCategories:hover .categories{
     visibility: visible;
-    top: 44.13px;
+    top: 40px;
     transition: top 0.5s;
 }
 
@@ -22,18 +22,19 @@
    height: 90%;
 }
 
-.allCategories:hover > div> button{
-    font-weight: bold;
+/* .allCategories:hover > div> button{
+    
     color: white;
 }
 
 
 .allCategories:hover .background-decoration{
 
-   width: 85%;
+   width: 81%;
    background-color: #363636;
    transition: width 0.3s;
-}
+   
+} */
 
 
 .individualCategory:hover{
