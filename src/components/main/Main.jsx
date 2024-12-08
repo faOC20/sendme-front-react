@@ -8,7 +8,7 @@ import { HomeCategory } from "./mainCategories/HomeCategory"
 import { ClothesCategory } from "./mainCategories/ClothesCategory"
 import { BrowserRouter } from "react-router-dom"
 import { Route, Routes } from "react-router-dom"
-import { AnotherCategories } from "./mainCategories/anotherCategories"
+import { AnotherCategories } from "./mainCategories/AnotherCategories"
 
 
 
