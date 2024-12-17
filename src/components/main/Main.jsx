@@ -17,9 +17,9 @@ export const Main = ()=>{
     
       return (
         <>
-              <MainHeader/>
-              <div className="products-grid">
               {/* <MainHeader/> */}
+              <div className="products-grid">
+              <MainHeader/>
               <GamingCategory name='Gaming'/> 
               <HealthCategory name='Salud y belleza'/>          
               <ElectronicCategory name='Electrónica'/>

@@ -9,11 +9,11 @@ export const MainHeaderOptions = ({selectedOption, setSelectedOption, option})=>
     return(
 
         <div className="relative flex items-center h-full w-[70px] justify-center">
-         <div className="main-options bg-header/85 h-[55px] w-[55px] rounded-[50%] outline outline-2 outline-white">
+         <div className="main-options bg-header/85 h-[50px] w-[50px] rounded-[50%] outline outline-2 outline-white">
                     
         </div>
         <button onClick={(setSelected)} className={`absolute transition  ${selectedOption === option.id? 'scale-150':"hover:scale-150"}`}>
-                        <img src={option.img} className=" w-[40px]" alt="" />
+                        <img src={option.img} className=" w-[30px]" alt="" />
 
         </button>
        </div>

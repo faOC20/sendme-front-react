@@ -1,6 +1,7 @@
 import { useProductsStore} from "../../../store/products"
 import { useEffect } from "react"
 import { ProductSlot } from "../ProductSlot"
+import { ElectronicSkeleton } from "../skeletons/ElectronicSkeleton"
 
 export const ElectronicCategory = ({name})=>{
     const {electronicProducts, fetchElectronicProducts, loadingElectronic, error} = useProductsStore()
@@ -11,20 +12,17 @@ export const ElectronicCategory = ({name})=>{
       }
     },[electronicProducts])
     
-    if (loadingElectronic) {
-        return (
-          <>
-            <div>Cargando...</div>
-          </>
-        )
-      }
-    
+   
       if (error&&!electronicProducts) {
         return <div>{error}</div>
       }
 
     return (
-      <section className="category-section-container">
+      loadingElectronic? (
+        <ElectronicSkeleton/>
+      ):(
+        <section className="category-section-container">
+        <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
       <h1 className="text-center text-2xl font-bold p-3">
         {name}
       </h1>
@@ -48,6 +46,7 @@ export const ElectronicCategory = ({name})=>{
 
       </div>
     </section>
+      )
     )
 }
 

@@ -12,6 +12,7 @@ import { NumPageCard } from "../components/searchPage/NumPageCard";
 import '../pages/PageStyles.css'
 import { FixedWhatsapp } from "../components/miscellaneos/FixedWhatsapp";
 import { FixedCart } from "../components/miscellaneos/FixedCart";
+import { SearchContainerSkeleton } from "../components/searchPage/SearchContainerSkeleton";
 
 
 export const SearchPage = ()=>{
@@ -56,13 +57,6 @@ export const SearchPage = ()=>{
 
     },[])
 
-    if (loading) {
-        return (
-          <>
-			<Charging/>
-          </>
-        )
-    }
 
 	if (error && !searchedProducts) {
 		console.log('entre aqui')
@@ -77,7 +71,8 @@ export const SearchPage = ()=>{
     return (
         <div className="all-container">
             <Header/>
-            <main className="main-container flex items-center flex-col">
+            <main className="main-container flex items-center flex-col h-full">
+            <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
 
                 <div className="flex justify-center items-center w-full h-20">
                     <h1 className="text-2xl font-bold">
@@ -85,7 +80,7 @@ export const SearchPage = ()=>{
                     </h1>
                 </div>
 
-                <div className="flex w-full gap-5 pl-6 pr-6">
+                <div className="flex w-full gap-5 pl-6 pr-6 h-full">
 
                     <div className="w-1/4 h-max flex flex-col  bg-white shadow rounded-3xl p-5 gap-5  phone:hidden">
                          <div>
@@ -177,19 +172,26 @@ export const SearchPage = ()=>{
                         </form>
                         </div>
                     </div>
-                    <div className="searched-container flex-grow">
+                    
+                    <div className="relative searched-container flex-grow h-full">
                         {
-                           searchedProducts
-                           .filter(product => product.product_price && product.product_price.includes('$') && product.product_title && product.product_url && product.product_photo)
-                           .map(searchedProduct => (
-                               <ProductSlot
-                                   key={searchedProduct.asin}
-                                   id={searchedProduct.asin}
-                                   photo={searchedProduct.product_photo}
-                                   name={searchedProduct.product_title}
-                                   price={searchedProduct.product_price}
-                               />
-                           ))
+                          loading? (<SearchContainerSkeleton/>):(
+
+                  
+                           
+                            searchedProducts
+                            .filter(product => product.product_price && product.product_price.includes('$') && product.product_title && product.product_url && product.product_photo)
+                            .map(searchedProduct => (
+                                <ProductSlot
+                                    key={searchedProduct.asin}
+                                    id={searchedProduct.asin}
+                                    photo={searchedProduct.product_photo}
+                                    name={searchedProduct.product_title}
+                                    price={searchedProduct.product_price}
+                                />
+                            ))
+                           
+                          )
                         }
                     </div>
                 </div>

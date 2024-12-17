@@ -56,8 +56,11 @@ export default {
 				'black-gradient': 'linear-gradient(180deg, rgba(62,62,62,1) 0%, rgba(102,102,102,1) 50%, rgba(128,128,128,1) 67%, rgba(183,183,183,1) 84%, rgba(255,255,255,0) 100%)',
 				'red-gradient': 'linear-gradient(180deg, rgba(139,0,0,1) 0%, rgba(142,55,55,1) 39%, rgba(194,147,147,1) 73%, rgba(255,255,255,0) 100%)',
 				'green-gradient': 'linear-gradient(180deg, rgba(50,205,50,1) 0%, rgba(97,209,97,1) 39%, rgba(146,209,146,1) 73%, rgba(255,255,255,0) 100%)',
-				'orange-gradient': 'linear-gradient(180deg, rgba(255,127,80,1) 0%, rgba(255,148,109,1) 39%, rgba(255,175,146,1) 73%, rgba(255,255,255,0) 100%)'
-
+				'orange-gradient': 'linear-gradient(180deg, rgba(255,80,47,1) 0%, rgba(255,112,85,1) 47%, rgba(255,166,150,1) 100%, rgba(255,255,255,0) 100%)',
+				'payment-methods': "url('./src/assets/images/payment-methods-banner.png')",
+				'principal-banner': "url('./src/assets/images/principal-banner.png')",
+				'amazon-products-banner': "url('./src/assets/images/amazon-products-banner.png')",
+				'security-banner': "url('./src/assets/images/security-banner.png')"
 			}
 		},
 	},

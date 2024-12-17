@@ -10,6 +10,10 @@ import { MainHeaderOptions } from "./MainHeaderOptions"
 import sendmeCart from "../../../assets/images/sendme-cart.webp"
 import sendmePolice from "../../../assets/images/sendme-police.webp"
 import sendmePayments from "../../../assets/images/sendme-payments.webp"
+import principalBanner from "../../../assets/images/principal-banner.png"
+import amazonBanner from "../../../assets/images/amazon-products-banner.png"
+import securityBanner from "../../../assets/images/security-banner.png"
+import paymentBanner from "../../../assets/images/payment-methods-banner.png"
 
 export const MainHeader = ()=>{
 
@@ -19,28 +23,28 @@ export const MainHeader = ()=>{
             title:'Importa ya!',
             subtitle: 'desde Venezuela',
             img: sendmePet2,
-            background: 'bg-blue-gradient'
+            background: principalBanner
         },
         {
             id:1,
             title:'Productos de Amazon',
             subtitle: 'a tiempo real',
             img: sendmeCart,
-            background: 'bg-black-gradient'
+            background: amazonBanner
         },
         {
             id:2,
             title:'Seguridad',
             subtitle: 'y confianza garantizada',
             img: sendmePolice,
-            background: 'bg-red-gradient'
+            background: securityBanner
         },
         {
             id:3,
             title:'Métodos de pago',
             subtitle: 'para tu comodidad',
             img: sendmePayments,
-            background: 'bg-orange-gradient'
+            background: paymentBanner
         }
 
     ]
@@ -63,12 +67,12 @@ export const MainHeader = ()=>{
         }, 7000); // 7000 milisegundos = 7 segundos
     
         return () => clearInterval(intervalRef.current); // Limpiar el intervalo cuando el componente se desmonte
-      }, [mainOptions.length]);
+      }, [mainOptions.length, selectedOption]);
 
     
 
     return <>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center category-section-container">
             <div className="relative min-h-[16rem] phone:hidden text-header flex flex-grow z-10 w-full  justify-center">
 
                 

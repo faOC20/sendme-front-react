@@ -13,12 +13,13 @@ import '../pages/PageStyles.css'
 import { BuyButton } from '../components/productPage/BuyButton';
 import { FixedWhatsapp } from '../components/miscellaneos/FixedWhatsapp';
 import { FixedCart } from '../components/miscellaneos/FixedCart';
+import { ProductPageSkeleton } from '../components/main/skeletons/ProductPageSkeleton';
 
 const url = 'https://real-time-amazon-data.p.rapidapi.com/search?page=1&country=US&category_id=aps&limit=3&offset=0';
     const options = {
 	method: 'GET',
 	headers: {
-        'X-RapidAPI-Key': '56b5907cdfmshe01334ae314fb60p12ff1ejsn58818593f762',
+        'X-RapidAPI-Key': '9addabb7a7msh486d26bb02f3730p13f249jsn2d2006fa318d',
 		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
 	}
 };
@@ -72,10 +73,6 @@ export const ProductPage = () => {
 	};
 
 	useEffect(() => {
-		// if(!clickedProduct){
-
-			
-		// }
 
 		if (!savedProduct){
 			fetchProduct(id);
@@ -92,12 +89,7 @@ export const ProductPage = () => {
 		}
 		
 
-		// else{
-		// 	setLoading(false)
-		// 	setProductPhoto(clickedProduct.product_photo)	
-		// }
-		// localStorage.removeItem('productpage-storage')
-		// fetchProduct(id);
+	
 
 	}, []);
 
@@ -109,21 +101,7 @@ export const ProductPage = () => {
 		}
 	},[amount, cart])
 
-	// useEffect(() => {
-	// 	if (clickedProduct) {
-	// 	  setProductPhoto(clickedProduct.product_photo);
-	// 	  setPrice(clickedProduct.product_price.replace(/[\$,]/g, ''))
-	// 	  setBsPrice(clickedProduct.product_price.replace(/[\$,]/g, '')*36*amount)
-	// 	  setInCart(cart.some(product=>product.asin === clickedProduct.asin))
-	// 	}
-	//   }, [clickedProduct, amount]);
-
-	// useEffect(()=>{
-	// 	if(clickedProduct){
-	// 		setInCart(cart.some(product=>product.asin === clickedProduct.asin))
-	// 	}
-	// 	 /**devuelve true o false */
-	// },[cart])
+	
 
 	const handleTrash = ()=>{
 		deleteToCart(clickedProduct)
@@ -138,13 +116,6 @@ export const ProductPage = () => {
 		window.location.href = '/cart'
 	}
 
-	if (loading) {
-        return (
-          <>
-			<Charging/>
-          </>
-        )
-    }
 
 	if (error && !savedProduct) {
 		
@@ -169,7 +140,14 @@ export const ProductPage = () => {
 						
                 
            			
-						<section className="w-full h-full flex flex-col content-center z-10">
+						{
+							loading?(
+								<section className="w-full h-full flex flex-col content-center z-10">
+									<ProductPageSkeleton/>
+								</section>
+							):(
+								
+								<section className="w-full h-full flex flex-col content-center z-10">
 						
 						<section className="product-info-container">
 							
@@ -183,7 +161,7 @@ export const ProductPage = () => {
 							
 							<div className='product-image-viewer rounded-3xl shadow-detail flex overflow-hidden  items-center justify-center'>
 								<picture>
-									<img className='max-w-72 rounded-lg' src={productPhoto} alt={`imagen de ${clickedProduct.product_title}`} />
+									<img className='max-h-[320px] rounded-lg' src={productPhoto} alt={`imagen de ${clickedProduct.product_title}`} />
 								</picture>
 							</div>
 							
@@ -346,6 +324,8 @@ export const ProductPage = () => {
 						</section>	
 						
 						</section>
+							)
+						}
 
 						
 						<div className='fixed z-[200] bottom-10 right-10'>
