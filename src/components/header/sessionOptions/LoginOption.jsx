@@ -5,8 +5,8 @@ export const LoginOption = ()=>{
     
 
     return(
-        <li class="logo flex-grow flex justify-center items-end">  
-    <Link class="flex items-end" to='/session'>
+        <li className="logo flex-grow flex justify-center items-end">  
+    <Link className="flex items-end" to='/session'>
     
         <UserIcon/>
     

@@ -19,6 +19,7 @@ import { API_URL } from "../../pages/api/constants"
 import { useShoppingCartStore } from "../../store/products"
 import Swal from 'sweetalert2'
 import { FileUpload } from "./FileUpload"
+import { useFunctions } from "../../context/AppProvider"
 
 export const PaymentContainer = ({total, bsTotal})=>{
 
@@ -37,6 +38,10 @@ export const PaymentContainer = ({total, bsTotal})=>{
     const [idPedido, setIdPedido] = useState()
     const {cart} = useShoppingCartStore()
 
+    const {getRefreshToken, getAccessToken} = useFunctions()
+
+    const token = getAccessToken()
+
     const sendInfo = async(e)=>{
         e.preventDefault()
 
@@ -45,6 +50,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
             method:"POST",
             headers:{
                 "Content-Type":"application/json",
+                authorization: `Bearer ${token}`
             },
             body: JSON.stringify({
                 idDirection, idCell, referencia, date, payMethod, accountHolder, id, total, urlReference
@@ -62,6 +68,7 @@ export const PaymentContainer = ({total, bsTotal})=>{
                     method: "POST",
                     headers:{
                         "Content-Type":"application/json",
+                        authorization: `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         cart, idPedido

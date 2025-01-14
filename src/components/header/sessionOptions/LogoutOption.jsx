@@ -14,8 +14,8 @@ export const LogoutOption = ()=>{
     
 
     return(
-        <div class="logo flex-grow flex justify-center items-end">  
-    <div class="flex items-end">
+        <div className="logo flex-grow flex justify-center items-end">  
+    <div className="flex items-end">
     
         <Link to='/profile'>
         <button>

@@ -5,6 +5,7 @@ import { useAuthStore } from "../../store/user"
 import { InvoiceIcon } from "../../assets/icons/InvoiceIcon"
 import { ChargingTable } from "../miscellaneos/ChargingTable"
 import {ReferenceIcon} from "../../assets/icons/ReferenceIcon"
+import { AppProvider, useFunctions } from "../../context/AppProvider"
 
 export const PedidosTable = ()=>{
 
@@ -117,14 +118,21 @@ export const PedidosTable = ()=>{
 
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
+    const {getRefreshToken, getAccessToken} = useFunctions()
+
+    const token = getAccessToken()
 
     useEffect(()=>{
         const getOrders = async()=>{
+
+            
+            
             try{
                 const response = await fetch(`${API_URL}get-order`,{
                     method: "POST",
                     headers:{
                         "Content-Type":"application/json",
+                        Authorization: `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         id

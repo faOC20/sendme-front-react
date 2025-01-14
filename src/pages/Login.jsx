@@ -30,8 +30,10 @@ export const Login = ()=>{
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const {setName, setToken, setId, isAuth, setEmailUsuario} = useAuthStore()
+    const {setName, setToken, setId, isAuth, setEmailUsuario, refreshToken, setAuth} = useAuthStore()
+    
 
+    
 
     const handleSubmit = async(e)=>{
 
@@ -52,11 +54,30 @@ export const Login = ()=>{
 
         if (response.ok){
             const data = await response.json()
-            setEmailUsuario(data.email_usuario)
-            setToken(data.token)
-            setName(data.nombre_usuario)
-            setId (data.id)
-            showSucces()
+            if (data.refreshToken && data.accessToken){
+                setEmailUsuario(data.email_usuario)
+                
+                // setToken(data.refreshToken)
+
+                const token = data.refreshToken
+                localStorage.setItem("token", JSON.stringify(token))
+
+                const token2 = data.accessToken
+                localStorage.setItem("token2", JSON.stringify(token2))
+
+                setAuth()
+                
+                setName(data.nombre_usuario)
+                
+                
+                setId (data.id)
+                
+                
+                 //Guarda el token de acceso, no persiste en el localStorage
+                
+                
+                showSucces()
+            }
            
         }else{
             console.log("Algo ha salido mal")
@@ -75,29 +96,25 @@ export const Login = ()=>{
     return(
     
         <div className="register-page-container">
-             <main class="main-container rounded-3xl flex overflow-hidden justify-center items-center flex-col">
+             <main className="main-container rounded-3xl flex overflow-hidden justify-center items-center flex-col">
 
-{/* <div class="absolute top-9 left-1/2">
-    <picture>
-        <img class="w-24" src={clickhere} alt="click para ir al inicio"/>
-    </picture>
-</div> */}
+
 
 <Link to="/">
     <picture>
-        <img class="w-16" src={letterLogo} alt="logo sendme"/>
+        <img className="w-16" src={letterLogo} alt="logo sendme"/>
     </picture>
 </Link>
 
-<div class=" session-card  flex flex-col items-center">
+<div className=" session-card  flex flex-col items-center">
 
-    <h1 class="flex justify-center  h-1/5 items-center text-2xl pt-6">
+    <h1 className="flex justify-center  h-1/5 items-center text-2xl pt-6">
         <b>Iniciar sesión</b>
     </h1>
 
 
-    <div class=" flex h-5/6 w-9/12 justify-center"  >
-            <form class="flex flex-col w-11/12 justify-evenly" action="submit" onSubmit={handleSubmit}>
+    <div className=" flex h-5/6 w-9/12 justify-center"  >
+            <form className="flex flex-col w-11/12 justify-evenly" action="submit" onSubmit={handleSubmit}>
                 <input onChange={(e)=>{
                     setEmail(e.target.value)
                 }} type="email" className='session-form-input' placeholder="Correo electrónico" required/>
@@ -105,17 +122,11 @@ export const Login = ()=>{
                     setPassword(e.target.value)
                 }} type="password" className='session-form-input' placeholder="Contraseña" required/>
                 
-                {/* <div class="flex items-center justify-end">
-                    
-
-                    <label>
-                        <a class="text-xs flex-grow" href="">Olvidé mi contraseña</a>
-                    </label>
-                </div> */}
                 
-                <button class="bg-navigation w-full p-1 text-white rounded-full">Ingresar</button>
+                
+                <button className="bg-navigation w-full p-1 text-white rounded-full">Ingresar</button>
 
-                <Link class="text-xs self-center" to='/register'>¿Aún no tiene cuenta? <b>Regístrate</b>.</Link>
+                <Link className="text-xs self-center" to='/register'>¿Aún no tiene cuenta? <b>Regístrate</b>.</Link>
             </form>
         </div>
     </div>

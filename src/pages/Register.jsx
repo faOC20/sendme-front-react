@@ -64,7 +64,7 @@ export const Register = ()=>{
     return (
         <div className='register-page-container'>   
             
-            <main class="main-container flex overflow-hidden justify-center items-center flex-col">
+            <main className="main-container flex overflow-hidden justify-center items-center flex-col">
 
             {/* <div class="absolute top-9 left-1/2">
                 <picture>
@@ -74,13 +74,13 @@ export const Register = ()=>{
 
             <Link to="/">
                 <picture>
-                    <img class="w-16" src={letterLogo} alt="logo sendme"/>
+                    <img className="w-16" src={letterLogo} alt="logo sendme"/>
                 </picture>
             </Link>
 
-    <div class=" session-card flex flex-col items-center h-max pb-5">
+    <div className=" session-card flex flex-col items-center h-max pb-5">
 
-        <h1 class="flex justify-center  h-1/5 items-center text-2xl pt-6">
+        <h1 className="flex justify-center  h-1/5 items-center text-2xl pt-6">
             <b>Registrarse</b>
         </h1>
 
@@ -88,8 +88,8 @@ export const Register = ()=>{
             {authError}
         </div>
 
-        <div class=" flex w-9/12 justify-center"  >
-            <form class="flex flex-col gap-2 w-11/12 justify-evenly" action="submit" onSubmit={handleSubmit}>
+        <div className=" flex w-9/12 justify-center"  >
+            <form className="flex flex-col gap-2 w-11/12 justify-evenly" action="submit" onSubmit={handleSubmit}>
 
                 <hr />
 

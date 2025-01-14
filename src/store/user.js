@@ -8,18 +8,19 @@ export const useAuthStore = create(
     persist(
          (set)=>({
             email_usuario:"",
-             token:"",
+            //  refreshToken:"",
              name:"",
              id:"",
              isAuth: false,
  
-             setToken: (token)=>{
-                 set({
-                    token:token,
-                    isAuth:true
-                })
-             },
-
+            //  setToken: (token)=>{
+            //      if(token){
+            //          set({refreshToken: token, isAuth:true})
+            //      }
+            //  },
+            setAuth: ()=> {
+                set({isAuth:true})}
+            ,
              setName : (name)=>{
                 set({name: name.toUpperCase()})
              }
@@ -33,23 +34,34 @@ export const useAuthStore = create(
             },
              closeSession : ()=>{
                 set({
-                    token: "",
+                   
                     name:"",
-                    email:"",
+                    email_usuario:"",
+                    id:"",
                     isAuth:false,
-                    id:""
+                    // refreshToken:null
+                    
                 })
              }
          }),
  
          {
-             name: 'user-auth-data',
+             name: 'user-authentification-data',
              storage: createJSONStorage(()=>localStorage)
          }
  
     )
  
  )
+
+//  export const useAccessToken = create(
+//     (set)=>({
+//         accessToken:null,
+//         setAccessToken: (token)=>{
+//             set({accessToken:token})
+//         }
+//     })
+//  )
 
 export const useUserStore = create(
 

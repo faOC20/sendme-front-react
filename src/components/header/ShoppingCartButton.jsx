@@ -7,7 +7,7 @@ export const ShoppingCartButton = ()=>{
     const {refreshCart} = useShoppingCartStore()
 
     return (
-        <li class="logo flex-grow flex justify-center">
+        <li className="logo flex-grow flex justify-center">
             <Link className="flex items-end" onClick={()=>{
                 refreshCart()
             }} to="/cart">

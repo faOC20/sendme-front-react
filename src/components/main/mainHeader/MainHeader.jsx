@@ -61,7 +61,7 @@ export const MainHeader = ()=>{
 
     useEffect(() => {
         intervalRef.current = setInterval(() => {
-            console.log(intervalRef)
+            
             setIndex((prevIndex) => (prevIndex + 1) % mainOptions.length);
             setSelectedOption((prevIndex) => (prevIndex + 1) % mainOptions.length);
         }, 7000); // 7000 milisegundos = 7 segundos

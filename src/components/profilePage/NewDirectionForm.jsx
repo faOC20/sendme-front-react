@@ -6,6 +6,7 @@ import { useAuthStore} from "../../store/user"
 import { API_URL } from "../../pages/api/constants"
 import { useState } from "react"
 import Swal from 'sweetalert2'
+import { useFunctions } from "../../context/AppProvider"
 
 
 export const NewDirectionForm = ({setShowDiv, showDiv})=>{
@@ -43,6 +44,9 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
     const [numeroCasa, setNumeroCasa] = useState("")
     const [edificio, setEdificio] = useState("")
     const [apartamento, setApartamento] = useState("")
+    const {getRefreshToken, getAccessToken} = useFunctions()
+
+    const token = getAccessToken()
 
     const handleSendData = async(e)=>{
         console.log('entre aqui')
@@ -53,6 +57,7 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
+                    authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({
                     municipio, calle, zona, numeroCasa, edificio, apartamento, id
@@ -90,6 +95,7 @@ export const NewDirectionForm = ({setShowDiv, showDiv})=>{
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
                 idSelectedCity

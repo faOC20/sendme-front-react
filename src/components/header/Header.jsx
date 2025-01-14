@@ -21,7 +21,7 @@ export const Header = ()=>{
                         </picture>
                     </Link>
 
-                <header class="flex-grow flex pl-32 pr-32 text-xs phone:pl-1 phone:pr-1 phone:h-full"> 
+                <header className="flex-grow flex pl-32 pr-32 text-xs phone:pl-1 phone:pr-1 phone:h-full"> 
                     <Link to="/">
                         <picture className='logo flex min-w-60  h-full items-center phone:hidden'>
                             {/* <img src={letterLogo} className='w-44 object-contain' alt="sendme logo y nombre" />  */}

@@ -3,11 +3,15 @@ import { API_URL } from "../../pages/api/constants";
 import { useAuthStore } from "../../store/user";
 import Select from "react-select"
 import AsyncSelect from "react-select/async"
+import { useFunctions } from "../../context/AppProvider";
 
 export const FetchCell = ({setIdCell})=>{
 
     const { id } = useAuthStore();
     const [initialOptions, setInitialOptions] = useState(null); // Estado para las opciones iniciales
+    const {getRefreshToken, getAccessToken} = useFunctions()
+
+    const token = getAccessToken()
   
    
       const fetchInitialOptions = async () => {
@@ -16,6 +20,7 @@ export const FetchCell = ({setIdCell})=>{
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
               id,

@@ -4,9 +4,9 @@ import { ShoppingCartButton } from "./ShoppingCartButton"
 
 export const SecondaryNav = ()=>{
     return(
-       <div class="flex-grow content-center">
-         <nav class="flex-grow content-end h-full">
-            <ul class="flex h-full items-center">
+       <div className="flex-grow content-center">
+         <nav className="flex-grow content-end h-full">
+            <ul className="flex h-full items-center">
                 
                 <FiatChanger/>
                 

@@ -3,20 +3,26 @@ import AsyncSelect from 'react-select/async';
 import makeAnimated from 'react-select/animated'; // Asegúrate de haber instalado 'react-select/animated'
 import { useAuthStore } from '../../store/user';
 import { API_URL } from '../../pages/api/constants';
+import { useFunctions } from '../../context/AppProvider';
 
 
 export const DirectionSelection = ({setIdDirection}) => {
   const { id } = useAuthStore();
   const [initialOptions, setInitialOptions] = useState(null); // Estado para las opciones iniciales
 
+  const {getRefreshToken, getAccessToken} = useFunctions()
+
  
     // Obtener las opciones iniciales (por ejemplo, desde tu API)
     const fetchInitialOptions = async () => {
+
+      const token = getAccessToken()
       try {
         const response = await fetch(`${API_URL}user-direction`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             id,

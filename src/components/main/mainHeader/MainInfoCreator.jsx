@@ -1,7 +1,7 @@
 export const MainInfoCreator = ({title, description})=>{
    
     return(
-        <li class="flex grow pt-5">
+        <li className="flex grow pt-5">
             <section className="flex flex-col items-center w-full">
                 <b>
                     {title}

@@ -11,7 +11,7 @@ export const Navigation = ()=>{
 
             
             
-            <ul class="flex h-full items-center w-[88%] justify-between text-md">
+            <ul className="flex h-full items-center w-[88%] justify-between text-md">
 
                 
                 
@@ -19,10 +19,10 @@ export const Navigation = ()=>{
 
                     <div className="background-decoration absolute  w-0 z-20 h-[32px] rounded-full "></div>
                     
-                   <div class="w-full flex justify-center relative z-20">
+                   <div className="w-full flex justify-center relative z-20">
                         
                         
-                        <button class=' text-header flex bg-white rounded-full px-4 py-1 w-[80%] z-20 justify-center ' >Todas las categorías</button>
+                        <button className=' text-header flex bg-white rounded-full px-4 py-1 w-[80%] z-20 justify-center ' >Todas las categorías</button>
 
                    </div>
                     

@@ -6,6 +6,9 @@ import { useAuthStore} from "../../store/user"
 import { API_URL } from "../../pages/api/constants"
 import { useState } from "react"
 import Swal from 'sweetalert2'
+import { useFunctions } from "../../context/AppProvider"
+
+
 
 
 export const NewCellForm = ({setShowNewCell, showNewCell})=>{
@@ -39,6 +42,8 @@ export const NewCellForm = ({setShowNewCell, showNewCell})=>{
 
     const [numeroTelefono, setNumeroTelefono] = useState("")
     const {id} = useAuthStore()
+    const {getRefreshToken, getAccessToken} = useFunctions()
+    const token = getAccessToken()
 
     const handleSendData = async(e)=>{
         console.log('entre aqui')
@@ -49,6 +54,7 @@ export const NewCellForm = ({setShowNewCell, showNewCell})=>{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
+                    authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({
                     numeroTelefono, id
