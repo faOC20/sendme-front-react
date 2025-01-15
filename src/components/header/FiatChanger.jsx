@@ -12,18 +12,18 @@ export const FiatChanger = ()=>{
 
     return(
        
-    <button class="logo flex-grow flex items-end justify-center phone:hidden" onClick={handleFiatClick}>
-         <picture class="flex h-full items-end w-8">
+    <button className="logo flex-grow flex items-end justify-center phone:hidden" onClick={handleFiatClick}>
+         <picture className="flex h-full items-end w-8">
            {
             vesPrice?(
-              <img class="object-contain pb-1 rounded-md" src={venezuelaFlag} alt="Bandera de Venezuela" />  
+              <img className="object-contain pb-1 rounded-md" src={venezuelaFlag} alt="Bandera de Venezuela" />  
             ):(
-              <img class="object-contain pb-1 rounded-md" src={usaFlag} alt="Bandera de Venezuela" />  
+              <img className="object-contain pb-1 rounded-md" src={usaFlag} alt="Bandera de Venezuela" />  
             )
            }              
          </picture>
        
-        <b class="pl-2 phone:hidden">VES / USD</b>
+        <b className="pl-2 phone:hidden">VES / USD</b>
                     
     </button>
 )} 

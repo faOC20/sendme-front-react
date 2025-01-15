@@ -1,6 +1,7 @@
 export const footerInfo = [
     {
-        title: 'Acerca de Sendme',
+        id: 1,
+        title: 'Nosotros',
         links:[
             '¿Quiénes somos?',
             '¿Por qué lo hacemos?',
@@ -10,6 +11,7 @@ export const footerInfo = [
     },
 
     {
+        id:2,
         title: 'Preguntas frecuentes',
         links:[
             '¿Cómo crear mi cuenta?',
@@ -19,6 +21,7 @@ export const footerInfo = [
     },
 
     {
+        id:3,
         title: 'Contáctanos',
         links:[
             'Atención al cliente',

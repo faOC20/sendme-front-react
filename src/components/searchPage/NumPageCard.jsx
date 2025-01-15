@@ -1,25 +1,27 @@
 import { useState } from "react";
 
-export const NumPageCard = ({numPage, fetchQuery, query, setLoading, setActivePage, activePage, minPrice, maxPrice, condition, orderBy})=>{
+export const NumPageCard = ({numpage, fetchQuery, query, setLoading, setActivePage, activePage, minPrice, maxPrice, condition, orderBy})=>{
     
     const toInactivePage = ()=>{
         localStorage.removeItem('searching-storage')
-        setActivePage(numPage)
+        setActivePage(numpage)
         setLoading(true)
-        fetchQuery(query, numPage, minPrice, maxPrice, condition, orderBy )
+        fetchQuery(query, numpage, minPrice, maxPrice, condition, orderBy )
     }
 
     const toActivePage = ()=>{
-        setActivePage(numPage)
+        setActivePage(numpage)
         setLoading(false)
     }
 
     return (
         <>
             <li>
-                <a className={`${activePage===numPage?'font-black':''}`} numPage={numPage} href="javascript:void(0)" onClick={()=>{
+                <a className={`${activePage===numpage?'font-black':''}`} numpage={numpage} href="#" onClick={(e)=>{
                     {
-                        numPage!==activePage?(
+
+                        e.preventDefault()
+                        numpage!==activePage?(
                             toInactivePage()
                     ):(
                         toActivePage()
@@ -28,7 +30,7 @@ export const NumPageCard = ({numPage, fetchQuery, query, setLoading, setActivePa
                 }
                 
             }}>
-                {numPage}
+                {numpage}
                 </a>
             </li>
         </>

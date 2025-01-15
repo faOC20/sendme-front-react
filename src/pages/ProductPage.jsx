@@ -154,7 +154,7 @@ export const ProductPage = () => {
 							<div className='product-images rounded-3xl shadow-detail flex flex-col overflow-hidden items-center justify-center phone:hidden'>
 								{
 									clickedProduct.product_photos?(clickedProduct.product_photos.map(photo=>(
-										<ImageCard photo={photo} setProductPhoto={setProductPhoto} activePhoto={activePhoto} setActivePhoto={setActivePhoto} clickedProduct={clickedProduct}/>
+										<ImageCard photo={photo} setProductPhoto={setProductPhoto} activePhoto={activePhoto} setActivePhoto={setActivePhoto} clickedProduct={clickedProduct} key={photo}/>
 									)).slice(0,3)):("")
 								}
 							</div>
@@ -172,7 +172,7 @@ export const ProductPage = () => {
 									<div className='flex flex-wrap mt-4 max-h-80 justify-center overflow-y-auto'>
 										{
 											clickedProduct.product_variations.color?.map((variation_color)=>(
-												<VariationCard variation_color={variation_color} setActiveVariation = {setActiveVariation} activeVariation={activeVariation} clickedProduct={clickedProduct}/>
+												<VariationCard variation_color={variation_color} setActiveVariation = {setActiveVariation} activeVariation={activeVariation} clickedProduct={clickedProduct} key={variation_color.asin}/>
 											))
 										} 
 									</div>
@@ -192,7 +192,7 @@ export const ProductPage = () => {
 										<div className='flex flex-wrap'>
 										{
 											clickedProduct.product_variations.size?.map((variation_size)=>(
-												<SizeVariationCard variation_size={variation_size} setActiveSize={setActiveSize} activeSize={activeSize} clickedProduct={clickedProduct}/>
+												<SizeVariationCard variation_size={variation_size} setActiveSize={setActiveSize} activeSize={activeSize} clickedProduct={clickedProduct} key={variation_size.asin}/>
 											))
 										}
 										</div>
@@ -305,7 +305,7 @@ export const ProductPage = () => {
 										{
 											clickedProduct.product_information && Object.keys(clickedProduct.product_information).length > 0?(
 												Object.entries(clickedProduct.product_information).map(([key, value]) => (
-													<div>
+													<div key={key}>
 														<b>{`${key}: `}</b>
 														{value}
 													</div>

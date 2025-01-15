@@ -29,7 +29,7 @@ export const Navigation = ()=>{
                     <ul className="categories  absolute w-full rounded-lg pt-2 z-30 bg-nav-animation">
                         {
                             categories.map((category)=>(
-                                <Category category={category}/>
+                                <Category category={category} key={category}/>
                             ))
                         }
 
@@ -41,7 +41,7 @@ export const Navigation = ()=>{
 
                 {
                     categories.map((category)=>(
-                        <HorizontalCategory category={category}/>
+                        <HorizontalCategory category={category} key={category}/>
                     )).slice(1,8)
                 }
                 

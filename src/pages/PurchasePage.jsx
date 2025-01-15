@@ -170,12 +170,12 @@ export const PurchasePage = ()=>{
                                 <p>Envío a Venezuela</p>
                                 <p>Avión: USD <b>{airPrice}$</b></p>
                                
-                                {/* <div class="radio-container">
+                                {/* <div className="radio-container">
                                     <input type="radio" name="transporte" id="avion" value="avion"/>
                                     <label className="ml-1" for="avion">Avión: USD {airPrice.toFixed(2)}$</label>
                                 </div> */}
                                
-                                {/* <div class="radio-container">
+                                {/* <div className="radio-container">
                                     <input type="radio" name="transporte" id="maritimo" value="maritimo"/>
                                     <label className="ml-1" for="maritimo">Marítimo</label>
                                 </div> */}

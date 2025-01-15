@@ -34,8 +34,8 @@ export const FixedCart = ()=>{
                    <div className="flex w-10/12 gap-2">
                         {
                             cart.map((product)=>(
-                                <div className="w-16 h-16 overflow-hidden rounded-lg">
-                                    <img src={product.product_photo} alt="" />
+                                <div className="w-16 h-16 overflow-hidden rounded-lg" key={product.asin}>
+                                    <img src={product.product_photo} alt={`imagen de ${product.product_title}`}  />
                                 </div>
                             ))
                         }

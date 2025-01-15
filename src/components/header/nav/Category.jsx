@@ -2,7 +2,8 @@
 
 export const Category = ({category})=>{
 
-    const handleClick = ()=>{
+    const handleClick = (e)=>{
+        e.preventDefault()
         window.location.href = `/search/${category}`;   
         localStorage.removeItem('searching-storage')
     }
@@ -10,7 +11,7 @@ export const Category = ({category})=>{
     return (
         
         <li className='p-3'>
-            <a href="javascript:void(0)" onClick={handleClick}>
+            <a href="#" onClick={handleClick}>
                 {category}
             </a>
         </li>
