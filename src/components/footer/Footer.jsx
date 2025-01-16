@@ -9,11 +9,11 @@ export const Footer = ()=>{
     return (
         <>
             <footer className="footer-container phone:hidden">
-                <section class='flex h-3/4 w-full justify-center bg-footer'>
-                    <ul class='flex w-full'>
+                <section className='flex h-3/4 w-full justify-center bg-footer'>
+                    <ul className='flex w-full'>
                         {
                             footerInfo.map((info)=>(
-                                <FooterInfoCreator title={info.title} links={info.links}/>
+                                <FooterInfoCreator title={info.title} links={info.links} key={info.id}/>
                             ))
                         }
 
@@ -33,8 +33,8 @@ export const Footer = ()=>{
                     
                 </section>
 
-                <footer class='bg-header h-1/4'>
-                    <ul class='text-white flex justify-evenly h-full items-center'>
+                <footer className='bg-header h-1/4'>
+                    <ul className='text-white flex justify-evenly h-full items-center'>
                         <li>
                             <a href="">
                                 <b>Términos y condiciones</b>

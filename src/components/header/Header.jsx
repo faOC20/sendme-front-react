@@ -31,7 +31,7 @@ export const Header = ()=>{
 
                         
 
-                        {/* <img src={letterLogo} class='w-44 object-contain' alt="sendme logo y nombre" />  */}
+                        {/* <img src={letterLogo} className='w-44 object-contain' alt="sendme logo y nombre" />  */}
                     </Link>
                     
                     <SearchBar/>

@@ -66,9 +66,9 @@ export const Register = ()=>{
             
             <main className="main-container flex overflow-hidden justify-center items-center flex-col">
 
-            {/* <div class="absolute top-9 left-1/2">
+            {/* <div className="absolute top-9 left-1/2">
                 <picture>
-                    <img class="w-24" src={clickhere} alt="click para ir al inicio"/>
+                    <img className="w-24" src={clickhere} alt="click para ir al inicio"/>
                 </picture>
             </div> */}
 

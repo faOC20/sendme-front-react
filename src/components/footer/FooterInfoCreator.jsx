@@ -9,8 +9,8 @@ export const FooterInfoCreator = ({title, links})=>{
                 
                 <div className='flex flex-col'>
                 {
-                    links.map((link)=>(
-                        <a href="hola" className='text-xs w-full text-start pt-1'>
+                    links.map((link, index)=>(
+                        <a href="hola" className='text-xs w-full text-start pt-1' key={index}>
                             {link}
                         </a>
                     ))

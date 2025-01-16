@@ -18,7 +18,7 @@ export const GamingCategory = ({name})=>{
 
     return (
         loadingGaming? (
-          <AutomotorSkeleton/>
+          <AutomotorSkeleton />
         ):(
           <section className="category-section-container flex-col items-center phone:hidden" >
             <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
@@ -29,9 +29,9 @@ export const GamingCategory = ({name})=>{
             {
                 gamingProducts.filter((product)=>product.product_price && product.product_price.includes('$'))
                 .map((data)=>(
-                    <div className="flex justify-center items-center">
+                    <div className="flex justify-center items-center" key={data.asin}>
                       <ProductSlot 
-                            key={data.asin}
+                            
                             id={data.asin}
                             photo={data.product_photo}
                             name={data.product_title}

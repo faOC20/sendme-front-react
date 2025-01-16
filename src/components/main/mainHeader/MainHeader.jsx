@@ -77,7 +77,7 @@ export const MainHeader = ()=>{
 
                 
 
-                <MainHeaderInfo option={mainOptions[index]}/>
+                <MainHeaderInfo option={mainOptions[index]} key={mainOptions[index].id}/>
 
             </div>
 
@@ -87,7 +87,7 @@ export const MainHeader = ()=>{
     
                     {
                         mainOptions.map((option)=>(
-                            <MainHeaderOptions selectedOption = {selectedOption} setSelectedOption={setSelectedOption} option = {option} />
+                            <MainHeaderOptions selectedOption = {selectedOption} setSelectedOption={setSelectedOption} option = {option} key={option.id} />
                         ))
                     }
                     

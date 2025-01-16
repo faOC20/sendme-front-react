@@ -32,9 +32,9 @@ export const ElectronicCategory = ({name})=>{
       {
           electronicProducts.filter((product)=>product.product_price && product.product_price.includes('$'))
           .map((data)=>(
-            <div className="flex flex-col w-full h-full m-2 phone:justify-center phone:items-center">
+            <div className="flex flex-col w-full h-full m-2 phone:justify-center phone:items-center" key={data.asin}>
               <ProductSlot 
-                    key={data.asin}
+                    
                     id={data.asin}
                     photo={data.product_photo}
                     name={data.product_title}

@@ -32,9 +32,9 @@ export const ClothesCategory = ({name})=>{
     {
         clothesProducts.filter((product)=>product.product_price && product.product_price.includes('$'))
         .map((data)=>(
-          <div className="flex flex-col m-2 phone:w-full phone:m-1">
+          <div className="flex flex-col m-2 phone:w-full phone:m-1" key={data.asin}>
             <ProductSlot 
-                  key={data.asin}
+               
                   id={data.asin}
                   photo={data.product_photo}
                   name={data.product_title}

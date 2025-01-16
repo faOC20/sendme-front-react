@@ -187,7 +187,7 @@ export const useProductsStore = create(
                 try{
                     const response = await fetch(`${url}&query=gaming`,options)
                     const data = await response.json()
-                    console.log(data)
+              
                     
                     set({gamingProducts:data.data.products, loadingGaming:false})
                     
@@ -335,7 +335,9 @@ export const useProductsStore = create(
                     const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/search?query=${query}&min_price=${minPrice}&max_price=${maxPrice}&${condition}${orderBy}page=${page}&country=US`, options)
 
                     const data = await response.json()
-                    console.log(data)
+                    
+
+                    
                     set({searchedProducts:data.data.products})
     
                 } catch(error){

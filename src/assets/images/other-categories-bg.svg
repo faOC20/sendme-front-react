@@ -12,7 +12,7 @@
    xmlns:svg="http://www.w3.org/2000/svg"><defs
      id="defs1" /><g
      id="layer1"><rect
-       style="fill:#fff0ee;fill-opacity:1;stroke-width:0.291946"
+       style="fill:#fff0ee;fill-opacity:1;strokeWidth:0.291946"
        id="rect2"
        width="526.37408"
        height="315.67361"
@@ -24,5 +24,5 @@
          clip-rule="evenodd"
          d="M 500.0147,-0.0102 V 499.98384 H 0.00887 C 47.5578,389.6505 128.50371,317.48126 213.00991,287.69956 258.06907,271.82136 313.6469,273.0223 353.04528,231.81958 407.48771,174.90792 429.12519,60.49622 480.68046,13.92554 486.94138,8.28354 493.32395,3.27022 500.0147,-0.0102 Z"
          fill-rule="evenodd"
-         style="fill:#ff502f;stroke-width:0.808496"
+         style="fill:#ff502f;strokeWidth:0.808496"
          id="path1" /></g></g></svg>

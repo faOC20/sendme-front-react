@@ -28,7 +28,7 @@ export const SearchPage = ()=>{
     const [condition, setCondition] = useState("product_condition=ALL&")
 
     const filterQuery = (e)=>{
-        console.log(orderBy)
+        
         e.preventDefault()
         localStorage.removeItem('searching-storage')
         setLoading(true)
@@ -72,7 +72,7 @@ export const SearchPage = ()=>{
         <div className="all-container">
             <Header/>
             <main className="main-container flex items-center flex-col h-full">
-            <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+            <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
 
                 <div className="flex justify-center items-center w-full h-20">
                     <h1 className="text-2xl font-bold">
@@ -95,7 +95,7 @@ export const SearchPage = ()=>{
                                 <label className="font-bold" for="orderBy">Ordenar por</label>
                                 <select className="flex bg-transparent border text-center border-black rounded-full" required name="" id="orderBy" 
                                     onChange={(e)=>{
-                                        console.log(e.target.value)
+                                        
                                         setOrderBy(e.target.value)
                                         
                                         }}>
@@ -202,8 +202,8 @@ export const SearchPage = ()=>{
                     <ol className="flex w-1/4 justify-around phone:w-2/3">
 
                     {
-                        numPages.map((numPage)=>(
-                            <NumPageCard numPage={numPage} fetchQuery={fetchQuery} query={query} setActivePage={setActivePage} activePage={activePage} setLoading={setLoading} minPrice={minPrice} maxPrice={maxPrice} condition={condition} orderBy={orderBy}/>
+                        numPages.map((numpage, index)=>(
+                            <NumPageCard numpage={numpage} fetchQuery={fetchQuery} query={query} setActivePage={setActivePage} activePage={activePage} setLoading={setLoading} minPrice={minPrice} maxPrice={maxPrice} condition={condition} orderBy={orderBy} key={index}/>
                         ))
                     }
                        

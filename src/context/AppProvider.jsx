@@ -93,12 +93,15 @@ export function AppProvider({ children }) {
         }
 
         else {
+
+           
             
             if (token){
+                
                 const newAccessToken = await requestNewAccessToken(token)
 
                 if(newAccessToken){
-                    setAccessToken(newAccessToken)
+                    localStorage.setItem("token2", JSON.stringify(newAccessToken))
                 }
             }
 
