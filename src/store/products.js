@@ -67,74 +67,117 @@ export const useProductsStore = create(
             },
     
             fetchElectronicProducts: async()=>{
-                try{
-                    const response = await fetch(`${url}&query=iphone`,options)
-                    const data = await response.json()
-                    
-                    set({electronicProducts:data.data.products, loadingElectronic:false})
-                    
-                } catch(error){
-                    console.error(error)
-                    set({loadingElectronic:false, error:"Error fetching products"})
+              try {
+                const response = await fetch(`${API_URL}get-electronic-products`, {
+                    method:'GET',
+                    headers:{
+                        "Content-Type": "application/json"
+                    }
+                })
+
+                const products = await response.json()
+
+                console.log(products)
+
+                if (products){
+                    set({electronicProducts:products, loadingElectronic:false})
                 }
+              }
+
+              catch(error){
+                console.error(error)
+                set({loadingElectronic:false, error:"Error fetching products"})}
                
             },
     
             fetchHealthProducts: async()=>{
-                try{
-                    const response = await fetch(`${url}&query=health`,options)
-                    const data = await response.json()
-                    
-                    set({healthProducts:data.data.products, loadingHealth:false})
-                    
-                } catch(error){
-                    console.error(error)
-                    set({loadingHealth:false, error:"Error fetching products"})
+               try {
+                const response = await fetch (`${API_URL}get-health-products`, {
+                    method: 'GET',
+                    headers :{
+                        "ContentType": "application/json"
+                    }
+                })
+
+                const products = await response.json()
+
+                if (products){
+                    set({healthProducts: products, loadingHealth: false})
                 }
+               }
+
+               catch (error) {
+                    set({loadingHealth: false, error: 'Error fetching products'})
+               }
                
             },
     
             fetchAutomotorsProducts: async()=>{
-                try{
-                    const response = await fetch(`${url}&query=caraccesories`,options)
-                    const data = await response.json()
-                    
-                    set({automotorsProducts:data.data.products, loadingAutomotors:false})
-                    
-                } catch(error){
-                    console.error(error)
-                    set({loadingAutomotors:false, error:"Error fetching products"})
+               try {
+                const response = await fetch (`${API_URL}get-automotor-products`, {
+                    method: "GET",
+                    headers: {
+                        "ContentType":"application/json"
+                    }
+                })
+
+                const products = await response.json()
+
+               
+
+                if(products){
+                    set({automotorsProducts:products, loadingAutomotors:false})
                 }
+
+                else{
+                    set({loadingAutomotors: false, error:"Error fetching products"})
+                }
+               }
+
+               catch {
+                set({loadingAutomotors: false, error:"Error fetching products"})
+               }
                
             },
     
     
-            fetchHomeProducts: async()=>{
-                try{
-                    const response = await fetch(`${url}&query=hogar`,options)
-                    const data = await response.json()
+            // fetchHomeProducts: async()=>{
+            //     try{
+            //         const response = await fetch(`${url}&query=hogar`,options)
+            //         const data = await response.json()
                     
-                    set({homeProducts:data.data.products, loadingHome:false})
+            //         set({homeProducts:data.data.products, loadingHome:false})
                     
-                } catch(error){
-                    console.error(error)
-                    set({loadingHome:false, error:"Error fetching products"})
-                }
+            //     } catch(error){
+            //         console.error(error)
+            //         set({loadingHome:false, error:"Error fetching products"})
+            //     }
                
-            },
+            // },
     
             fetchClothesProducts: async()=>{
-                try{
-                    const response = await fetch(`${url}&query=clothes`,options)
-                    const data = await response.json()
-                    
-                    set({clothesProducts:data.data.products, loadingClothes:false})
-                    
-                } catch(error){
-                    console.error(error)
-                    set({loadingClothes:false, error:"Error fetching products"})
+               try{
+                const response = await fetch(`${API_URL}get-clothes-products`, {
+                    method: "GET",
+                    headers: {
+                        "ContentType" : "application/json"
+                    }
+                })
+
+                const products = await response.json()
+
+                if (products){
+                    set({clothesProducts: products, loadingClothes: false})
                 }
+
+                else{
+                    set({error: "Error fetching products", loadingClothes: false})
+                }
+               }
                
+               catch{
+                set({error: "Error fetching products", loadingClothes: false})
+               }
             },
     
            
