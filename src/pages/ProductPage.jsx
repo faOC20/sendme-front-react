@@ -14,26 +14,45 @@ import { BuyButton } from '../components/productPage/BuyButton';
 import { FixedWhatsapp } from '../components/miscellaneos/FixedWhatsapp';
 import { FixedCart } from '../components/miscellaneos/FixedCart';
 import { ProductPageSkeleton } from '../components/main/skeletons/ProductPageSkeleton';
+import { API_URL } from './api/constants';
 
-const url = 'https://real-time-amazon-data.p.rapidapi.com/search?page=1&country=US&category_id=aps&limit=3&offset=0';
-    const options = {
-	method: 'GET',
-	headers: {
-        'X-RapidAPI-Key': '9addabb7a7msh486d26bb02f3730p13f249jsn2d2006fa318d',
-		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
-	}
-};
+// const url = 'https://real-time-amazon-data.p.rapidapi.com/search?page=1&country=US&category_id=aps&limit=3&offset=0';
+//     const options = {
+// 	method: 'GET',
+// 	headers: {
+//         'X-RapidAPI-Key': '9addabb7a7msh486d26bb02f3730p13f249jsn2d2006fa318d',
+// 		'X-RapidAPI-Host': 'real-time-amazon-data.p.rapidapi.com'
+// 	}
+// };
 
 export const ProductPage = () => {
 
 	const getClickedProduct = async (id)=>{
-		try{
-			const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/product-details?asin=${id}&country=US`, options)
-			const data = await response.json()
-			return data
 
-		} catch(error){
-			console.error(error)
+		
+		try{
+			const response = await fetch (`${API_URL}get-clicked-product-info`, {
+				method: "POST",
+				headers: {
+					"Content-Type":"application/json"
+				}, 
+				body: JSON.stringify(
+					{id,}
+				),
+			})
+
+			const data = await response.json()
+			console.log(data)
+
+			if(data){
+				return data
+			}
+
+			else return null
+		}
+
+		catch {
+			return null
 		}
 	}
 
@@ -59,13 +78,13 @@ export const ProductPage = () => {
 			const data = await getClickedProduct(id);
 			setLoading(false);
 			console.log(data)
-			setProductPhoto(data.data.product_photo)
-			setClickedProduct(data.data)
-			setBsPrice(data.data.product_price.replace(/[\$,]/g, '')*36)
-			setPrice(data.data.product_price.replace(/[\$,]/g, ''))
-			setInCart(cart.some(product=>product.asin === data.data.asin))
+			setProductPhoto(data.product_photo)
+			setClickedProduct(data)
+			setBsPrice(data.product_price.replace(/[\$,]/g, '')*36)
+			setPrice(data.product_price.replace(/[\$,]/g, ''))
+			setInCart(cart.some(product=>product.asin === data.asin))
 			
-			setSavedProduct(data.data)
+			setSavedProduct(data)
 		}
 		catch(e){
 			setError(true)

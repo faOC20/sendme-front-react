@@ -140,21 +140,6 @@ export const useProductsStore = create(
                
             },
     
-    
-            // fetchHomeProducts: async()=>{
-            //     try{
-            //         const response = await fetch(`${url}&query=hogar`,options)
-            //         const data = await response.json()
-                    
-            //         set({homeProducts:data.data.products, loadingHome:false})
-                    
-            //     } catch(error){
-            //         console.error(error)
-            //         set({loadingHome:false, error:"Error fetching products"})
-            //     }
-               
-            // },
-    
             fetchClothesProducts: async()=>{
                try{
                 const response = await fetch(`${API_URL}get-clothes-products`, {
@@ -179,15 +164,6 @@ export const useProductsStore = create(
                 set({error: "Error fetching products", loadingClothes: false})
                }
             },
-    
-           
-    
-    
-    
-            
-            
-    
-    
     
         }
         
@@ -242,19 +218,31 @@ export const useProductsStore = create(
             searchedProducts:null,
             
             getSearchProducts: async (query, page, minPrice, maxPrice, orderBy, condition)=>{
-                try{
-                    const response = await fetch(`https://real-time-amazon-data.p.rapidapi.com/search?query=${query}&min_price=${minPrice}&max_price=${maxPrice}&${condition}${orderBy}page=${page}&country=US`, options)
+               try{
+                    const response = await fetch(`${API_URL}get-searched-products`, {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type":"application/json"
+                        },
+                        body: JSON.stringify({
+                            query, page, minPrice, maxPrice, orderBy, condition
+                        })
+                    })
 
                     const data = await response.json()
-                    
 
-                    
-                    set({searchedProducts:data.data.products})
-    
-                } catch(error){
-                    console.error(error)
-                    set({error:"Error fetching products"})
-                }
+                    if (data){
+                        set({searchedProducts: data.products})
+                    }
+
+                    else (
+                        set({error: 'Error fetching products'})
+                    )
+               }
+
+               catch {
+                    set ({error: 'Error fetching produts'})
+               }
             }
         }
         

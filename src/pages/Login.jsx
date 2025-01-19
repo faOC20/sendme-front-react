@@ -56,7 +56,6 @@ export const Login = ()=>{
             
             const data = await response.json()
 
-            console.log(data)
             if (data.refreshToken && data.accessToken){
                 setEmailUsuario(data.email_usuario)
                 
