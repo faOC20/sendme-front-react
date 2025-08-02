@@ -1,8 +1,30 @@
-# React + Vite
+# Sendme Web System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Sendme** is a robust, scalable, and intuitive web-based information system designed to optimize the administrative operations of international product shipping businesses. Developed for *Milenium Manía C.A*, this platform transforms manual workflows into automated, secure, and efficient processes—bridging the gap between Venezuelan clients and global e-commerce.
 
-Currently, two official plugins are available:
+![Sendme mockup](src/assets/images/sendme-mockup.avif)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+
+- **Order management** – Automate product requests, payments, and shipment tracking.
+- **Real-time Amazon API integration** – Browse and select products directly from Amazon.
+- **Secure user authentication** – Register, log in, and manage personal data with confidence.
+- **Responsive UI** – Designed for accessibility across devices.
+
+## Tech Stack
+
+- **Frontend:** JavaScript / React
+- **Backend:** Node.js / Express
+- **Database:** SQLite (development) / Turso (production)
+- **Modeling & Methodology:** UML / RUP
+- **API Integration:** Real-time Amazon API via OpenWeb Ninja
+
+## Use Cases
+
+- Venezuelans facing difficulties with online purchases on the Amazon platform
+- No need for an international locker
+- Fully personalized shopping experience
+
+## Why Sendme?
+
+Sendme empowers businesses to overcome the limitations of manual systems like Excel and WhatsApp by offering a centralized, secure, and scalable platform. It enhances customer experience, reduces operational delays, and builds credibility in a market where trust is essential
